@@ -66,7 +66,7 @@ if ( ! class_exists( 'WC_CofidisPay_IfThen_Webdados' ) ) {
 			$this->secret_key = $this->get_option( 'secret_key' );
 			if ( trim( $this->secret_key ) === '' ) {
 				// First load?
-				$this->secret_key = md5( home_url() . time() . wp_rand( 0, 999 ) );
+				$this->secret_key = wp_generate_password( 32, false );
 				// Save
 				$this->update_option( 'secret_key', $this->secret_key );
 				$this->update_option( 'debug', 'yes' );
@@ -922,7 +922,7 @@ if ( ! class_exists( 'WC_CofidisPay_IfThen_Webdados' ) ) {
 			$order             = wc_get_order( $order_id );
 			$valor             = WC_IfthenPay_Webdados()->get_order_total_to_pay_for_gateway( $order );
 			$cofidispaykey     = apply_filters( 'multibanco_ifthen_base_cofidispaykey', $this->cofidispaykey, $order );
-			$wd_secret         = substr( strrev( md5( time() ) ), 0, 10 ); // Set a secret on our end for extra validation
+			$wd_secret         = wp_generate_password( 10, false ); // Set a secret on our end for extra validation
 			$id_for_backoffice = apply_filters( 'ifthen_webservice_send_order_number_instead_id', false ) ? $order->get_order_number() : $order->get_id();
 			$desc              = trim( get_bloginfo( 'name' ) );
 			$desc              = substr( $desc, 0, COFIDISPAY_IFTHEN_DESC_LEN - strlen( ' #' . $order->get_order_number() ) );

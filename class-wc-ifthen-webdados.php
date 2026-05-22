@@ -3410,6 +3410,15 @@ final class WC_IfthenPay_Webdados {
 	 */
 	public function wp_ajax_mbway_ifthen_request_payment_again() {
 		if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( $_REQUEST['nonce'], 'mbway_ifthen_request_payment_again' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( ! current_user_can( 'edit_shop_orders' ) ) {
+				echo wp_json_encode(
+					array(
+						'status' => 0,
+						'error'  => esc_html__( 'Insufficient permissions', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+					)
+				);
+				wp_die();
+			}
 			if ( isset( $_REQUEST['order_id'] ) && intval( $_REQUEST['order_id'] ) > 0 && isset( $_REQUEST['order_id'] ) ) {
 				$order = wc_get_order( intval( $_REQUEST['order_id'] ) );
 				$mbway = new WC_MBWAY_IfThen_Webdados();

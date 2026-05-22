@@ -75,7 +75,7 @@ if ( ! class_exists( 'WC_Multibanco_IfThen_Webdados' ) ) {
 			$this->secret_key = $this->get_option( 'secret_key' );
 			if ( trim( $this->secret_key ) === '' ) {
 				// First load?
-				$this->secret_key = md5( home_url() . time() . wp_rand( 0, 999 ) );
+				$this->secret_key = wp_generate_password( 32, false );
 				// Save
 				$this->update_option( 'secret_key', $this->secret_key );
 				$this->update_option( 'debug', 'yes' );

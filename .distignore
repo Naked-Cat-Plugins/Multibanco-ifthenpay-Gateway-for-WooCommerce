@@ -20,6 +20,8 @@ __MACOSX
 .eslintrc.js
 .nvmrc
 .phpcs.xml.dist
+.claude
+.claude/*
 node_modules/*
 package.json
 package-lock.json
