@@ -1304,7 +1304,7 @@ if ( ! class_exists( 'WC_Payshop_IfThen_Webdados' ) ) {
 
 						if ( $orders_exist ) {
 							if ( $orders_count === 1 ) {
-								if ( floatval( $val ) === floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) ) {
+								if ( number_format( (float) $val, 2, '.', '' ) === number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) ) {
 									$note = sprintf(
 										/* translators: %s: payment method */
 										__( 'ifthenpay %s payment received.', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
@@ -1318,7 +1318,7 @@ if ( ! class_exists( 'WC_Payshop_IfThen_Webdados' ) ) {
 										if ( $order->get_meta( '_wc_deposits_order_has_deposit' ) === 'yes' ) { // Has deposit
 											if ( $order->get_meta( '_wc_deposits_deposit_paid' ) === 'yes' ) { // First payment - OK!
 												if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' ) { // Second payment - not ok
-													if ( floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $val ) ) { // This really seems like the second payment
+													if ( number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $val, 2, '.', '' ) ) { // This really seems like the second payment
 														// Set the current order status temporarly back to partially-paid, but first stop the emails
 														add_filter( 'woocommerce_email_enabled_customer_partially_paid', '__return_false' );
 														add_filter( 'woocommerce_email_enabled_partial_payment', '__return_false' );

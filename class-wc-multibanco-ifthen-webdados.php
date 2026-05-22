@@ -1231,7 +1231,7 @@ if ( ! class_exists( 'WC_Multibanco_IfThen_Webdados' ) ) {
 					if ( isset( WC_IfthenPay_Webdados()->multibanco_ents_no_repeat[ $base['ent'] ] ) && intval( WC_IfthenPay_Webdados()->multibanco_ents_no_repeat[ $base['ent'] ] ) > 0 && ! WC_IfthenPay_Webdados()->multibanco_api_mode_enabled ) {
 						$clear_details = true;
 						$this->debug_log( 'process_payment - Is pay form, clear details from database to force new ref because its a special entity with no repetition of references - Order ' . $order->get_id() );
-					} elseif ( floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) !== floatval( $order_mb_details['val'] ) ) { // Check if value changed - not very likely
+					} elseif ( number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) !== number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) { // Check if value changed - not very likely
 						$clear_details = true;
 						$this->debug_log( 'process_payment - Is pay form, clear details from database to force new ref because the value has changed - Order ' . $order->get_id() );
 					} elseif ( WC_IfthenPay_Webdados()->get_multibanco_ref_mode() === 'incremental_expire' ) { // The value hasn't changed - Is it incremental?
@@ -1473,7 +1473,7 @@ if ( ! class_exists( 'WC_Multibanco_IfThen_Webdados' ) ) {
 					}
 					if ( $orders_exist ) {
 						if ( $orders_count === 1 ) {
-							if ( floatval( $val ) === floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) ) {
+							if ( number_format( (float) $val, 2, '.', '' ) === number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) ) {
 								$note = sprintf(
 									/* translators: %s: payment method */
 									__( 'ifthenpay %s payment received.', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
@@ -1490,7 +1490,7 @@ if ( ! class_exists( 'WC_Multibanco_IfThen_Webdados' ) ) {
 									if ( $order->get_meta( '_wc_deposits_order_has_deposit' ) === 'yes' ) { // Has deposit
 										if ( $order->get_meta( '_wc_deposits_deposit_paid' ) === 'yes' ) { // First payment - OK!
 											if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' ) { // Second payment - not ok
-												if ( floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $val ) ) { // This really seems like the second payment
+												if ( number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $val, 2, '.', '' ) ) { // This really seems like the second payment
 													// Set the current order status temporarly back to partially-paid, but first stop the emails
 													add_filter( 'woocommerce_email_enabled_customer_partially_paid', '__return_false' );
 													add_filter( 'woocommerce_email_enabled_partial_payment', '__return_false' );

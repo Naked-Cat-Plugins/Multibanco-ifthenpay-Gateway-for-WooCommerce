@@ -1383,7 +1383,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 									||
 									trim( $order->get_order_number() ) === trim( $id ) // because ifthen_webservice_send_order_number_instead_id
 								) {
-									if ( floatval( $val ) === floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) ) {
+									if ( number_format( (float) $val, 2, '.', '' ) === number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) ) {
 										$note = sprintf(
 											/* translators: %s: payment method */
 											__( 'ifthenpay %s payment received.', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
@@ -1397,7 +1397,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 											if ( $order->get_meta( '_wc_deposits_order_has_deposit' ) === 'yes' ) { // Has deposit
 												if ( $order->get_meta( '_wc_deposits_deposit_paid' ) === 'yes' ) { // First payment - OK!
 													if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' ) { // Second payment - not ok
-														if ( floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $val ) ) { // This really seems like the second payment
+														if ( number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $val, 2, '.', '' ) ) { // This really seems like the second payment
 															// Set the current order status temporarly back to partially-paid, but first stop the emails
 															add_filter( 'woocommerce_email_enabled_customer_partially_paid', '__return_false' );
 															add_filter( 'woocommerce_email_enabled_partial_payment', '__return_false' );
@@ -1479,7 +1479,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 							$refunds = WC_IfthenPay_Webdados()->wc_get_orders( $args, $this->id );
 							foreach ( $refunds as $refund ) {
 								if ( $refund->get_meta( '_' . WC_IfthenPay_Webdados()->gateway_ifthen_id . '_callback_received' ) === '' ) {
-									if ( abs( floatval( $val ) ) === abs( floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $refund ) ) ) ) {
+									if ( number_format( abs( (float) $val ), 2, '.', '' ) === number_format( abs( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $refund ) ), 2, '.', '' ) ) {
 										$note = sprintf(
 											/* translators: %s: refund id */
 											__( 'ifthenpay Gateway callback received for successfully processed refund #%s by ifthenpay.', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
@@ -1618,7 +1618,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 			}
 			if ( $orders_exist ) {
 				if ( $orders_count === 1 ) {
-					if ( floatval( $val ) === floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) ) {
+					if ( number_format( (float) $val, 2, '.', '' ) === number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) ) {
 						$return['success'] = true;
 						$return['order']   = $order;
 						return $return;

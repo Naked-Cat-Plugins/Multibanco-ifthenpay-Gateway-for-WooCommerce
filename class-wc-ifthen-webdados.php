@@ -1047,7 +1047,7 @@ final class WC_IfthenPay_Webdados {
 						$show_debug = true;
 						if ( $this->wc_deposits_active && ( $order->get_status() === 'partially-paid' || ( $order->get_status() === 'on-hold' && $order->get_meta( '_wc_deposits_deposit_paid' ) === 'yes' ) ) ) {
 							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $order_mb_details['val'] ) ) {
+							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) {
 								echo '<p><strong>' . esc_html__( 'Awaiting second Multibanco payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
 							} else {
 								$show_debug = false;
@@ -1117,7 +1117,7 @@ final class WC_IfthenPay_Webdados {
 						$show_debug = true;
 						if ( $this->wc_deposits_active && $order->get_status() === 'partially-paid' ) {
 							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $order_mbway_details['val'] ) ) {
+							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mbway_details['val'], 2, '.', '' ) ) {
 								echo '<p><strong>' . esc_html__( 'Awaiting second MB WAY payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
 							} else {
 								$show_debug = false;
@@ -1226,7 +1226,7 @@ final class WC_IfthenPay_Webdados {
 						$show_debug = true;
 						if ( $this->wc_deposits_active && ( $order->get_status() === 'partially-paid' || ( $order->get_status() === 'on-hold' && $order->get_meta( '_wc_deposits_deposit_paid' ) === 'yes' ) ) ) {
 							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $order_mb_details['val'] ) ) {
+							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) {
 								echo '<p><strong>' . esc_html__( 'Awaiting second Payshop payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
 							} else {
 								$show_debug = false;
@@ -1293,7 +1293,7 @@ final class WC_IfthenPay_Webdados {
 						$show_debug = true;
 						if ( $this->wc_deposits_active && $order->get_status() === 'partially-paid' ) {
 							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $order_mb_details['val'] ) ) {
+							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) {
 								echo '<p><strong>' . esc_html__( 'Awaiting second Credit or debit card payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
 							} else {
 								$show_debug = false;
@@ -1360,7 +1360,7 @@ final class WC_IfthenPay_Webdados {
 						$show_debug = true;
 						if ( $this->wc_deposits_active && $order->get_status() === 'partially-paid' ) {
 							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $order_mb_details['val'] ) ) {
+							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) {
 								echo '<p><strong>' . esc_html__( 'Awaiting second Cofidis Pay payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
 							} else {
 								$show_debug = false;
@@ -1446,7 +1446,7 @@ final class WC_IfthenPay_Webdados {
 						$show_debug = true;
 						if ( $this->wc_deposits_active && $order->get_status() === 'partially-paid' ) {
 							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && floatval( $order->get_meta( '_wc_deposits_second_payment' ) ) === floatval( $order_mb_details['val'] ) ) {
+							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) {
 								echo '<p><strong>' . esc_html__( 'Awaiting second ifthenpay Gateway payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
 							} else {
 								$show_debug = false;
@@ -3409,7 +3409,8 @@ final class WC_IfthenPay_Webdados {
 	 * MB WAY - Request payment again
 	 */
 	public function wp_ajax_mbway_ifthen_request_payment_again() {
-		if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( $_REQUEST['nonce'], 'mbway_ifthen_request_payment_again' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : '';
+		if ( wp_verify_nonce( $nonce, 'mbway_ifthen_request_payment_again' ) ) {
 			if ( ! current_user_can( 'edit_shop_orders' ) ) {
 				echo wp_json_encode(
 					array(
@@ -3852,7 +3853,7 @@ final class WC_IfthenPay_Webdados {
 		$this->multibanco_notify_url     = apply_filters( 'multibanco_ifthen_notify_url', $this->multibanco_notify_url );
 		$this->mbway_notify_url          = apply_filters( 'mbway_ifthen_notify_url', $this->mbway_notify_url );
 		$this->payshop_notify_url        = apply_filters( 'payshop_ifthen_notify_url', $this->payshop_notify_url );
-		$this->creditcard_notify_url     = apply_filters( 'credicard_ifthen_notify_url', $this->creditcard_notify_url );
+		$this->creditcard_notify_url     = apply_filters( 'creditcard_ifthen_notify_url', apply_filters( 'credicard_ifthen_notify_url', $this->creditcard_notify_url ) );
 		$this->cofidispay_notify_url     = apply_filters( 'cofidispay_ifthen_notify_url', $this->cofidispay_notify_url );
 		$this->gateway_ifthen_notify_url = apply_filters( 'gateway_ifthen_notify_url', $this->gateway_ifthen_notify_url );
 	}
@@ -3999,7 +4000,7 @@ final class WC_IfthenPay_Webdados {
 	 */
 	public function get_remote_addr() {
 		if ( isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) && filter_var( wp_unslash( $_SERVER['HTTP_CF_CONNECTING_IP'] ), FILTER_VALIDATE_IP ) ) {
-			$_SERVER['REMOTE_ADDR'] = filter_var( wp_unslash( $_SERVER['HTTP_CF_CONNECTING_IP'] ), FILTER_VALIDATE_IP );
+			return filter_var( wp_unslash( $_SERVER['HTTP_CF_CONNECTING_IP'] ), FILTER_VALIDATE_IP );
 		}
 		return isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 	}

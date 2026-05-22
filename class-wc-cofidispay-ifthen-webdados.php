@@ -1272,7 +1272,7 @@ if ( ! class_exists( 'WC_CofidisPay_IfThen_Webdados' ) ) {
 					}
 					if ( $orders_exist ) {
 						if ( $orders_count === 1 ) {
-							if ( floatval( $val ) === floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) ) {
+							if ( number_format( (float) $val, 2, '.', '' ) === number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) ) {
 								$note = __( 'Cofidis Pay payment approval received.', 'multibanco-ifthen-software-gateway-for-woocommerce' );
 								if ( ! empty( $datahorapag ) ) {
 									$note .= ' ' . $datahorapag;
@@ -1359,7 +1359,7 @@ if ( ! class_exists( 'WC_CofidisPay_IfThen_Webdados' ) ) {
 			}
 			if ( $orders_exist ) {
 				if ( $orders_count === 1 ) {
-					if ( floatval( $val ) === floatval( WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ) ) ) {
+					if ( number_format( (float) $val, 2, '.', '' ) === number_format( (float) WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), 2, '.', '' ) ) {
 						$return['success'] = true;
 						$return['order']   = $order;
 						return $return;
