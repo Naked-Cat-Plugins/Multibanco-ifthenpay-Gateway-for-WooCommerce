@@ -4,7 +4,7 @@ Tags: ifthenpay, ecommerce, portugal, atm, homebanking
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.2
-Stable tag: 11.5.3
+Stable tag: 11.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -255,9 +255,11 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= TBA =
+= 11.6.0 - 2026-05-23 =
 * [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)
 * [TWEAK] Increase the interval for showing new methods notifications to each user from 180 to 365 days
+* [TWEAK] Replace "PT Woo Plugins" reference with "Naked Cat Plugins" in the settings sidebar
+* [TWEAK] Improve our gateways visibility on the payments settings screen
 * [FIX] Added capability check to MB WAY re-send payment request AJAX handler
 * [FIX] Replaced MD5-based secret key generation with `wp_generate_password()` for better randomness across all gateways
 * [FIX] Replaced temporary secret generation with `wp_generate_password()` for better randomness in redirect-based gateways
