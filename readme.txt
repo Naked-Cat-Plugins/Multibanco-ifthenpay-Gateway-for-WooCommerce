@@ -255,12 +255,20 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= TBA *
+= TBA =
 * [TWEAK] Increase the interval for showing new methods notifications to each user from 180 to 365 days
+* [FIX] Added capability check to MB WAY re-send payment request AJAX handler
+* [FIX] Replaced MD5-based secret key generation with `wp_generate_password()` for better randomness across all gateways
+* [FIX] Replaced temporary secret generation with `wp_generate_password()` for better randomness in redirect-based gateways
+* [FIX] Fixed `$_SERVER['REMOTE_ADDR']` mutation in IP detection code
+* [FIX] Fixed nonce sanitization in AJAX handlers (extract nonce before verification)
+* [FIX] Added correct spelling of credit card filter wrapper for backwards compatibility
+* [FIX] Replaced floating-point amount comparisons with string-based comparisons using 2-decimal formatting to prevent precision errors
+* [DEV] Tested with WordPress 7.1-alpha-62404 and WooCommerce 10.6.1
 
 = 11.5.3 - 2026-03-15 =
 * [TWEAK] Remove anti-phishing key from debug logs
-* [DEV] Tested with WordPress 7.0-beta5 and WooCommerce 10.6.1
+* [DEV] Tested with WordPress 7.0-beta5 and WooCommerce 10.8.0-beta.2
 
 = 11.5.2 - 2026-03-02 =
 * [TWEAK] Unify some strings
@@ -475,7 +483,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Better quality payment method banners on emails
 * Apply additional WordPress Coding Standards
 * Requires WordPress 5.6 and WooCommerce 6.0
-* Tested with WordPress 6.5-alpha-57258 and WooCommerce 8.5
+* Tested up to WordPress 6.5-alpha-57258 and WooCommerce 8.5
 
 = 8.9.3 - 2023-12-12 =
 * You can safely update to this version if you’re running WooCommerce 5.0 or newer **but we’ll very drop support for WooCommerce previous to 6.0 on the next update**
@@ -489,72 +497,72 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Fix Credit Card Callback testing when WP_DEBUG = true
 * Better debug on the new `wc_get_orders` wrapper
 * Apply additional WordPress Coding Standards
-* Tested with WordPress 6.5-alpha-57159 and WooCommerce 8.4.0-rc.1
+* Tested up to WordPress 6.5-alpha-57159 and WooCommerce 8.4.0-rc.1
 
 = 8.9.0 - 2023-12-05 =
 * `wc_get_orders` wrapper to remove Polylang language filters when seraching for orders, for example on callback calls, and apply meta conversions for HPOS in the wrapper instead of all over the place
 * Better explanation of value limits on each gateway
 * Fix credit card API refund URL from HTTP to HTTPS
 * Start applying WordPress Coding Standards
-* Tested with WordPress 6.5-alpha-57150 and WooCommerce 8.4.0-beta.1
+* Tested up to WordPress 6.5-alpha-57150 and WooCommerce 8.4.0-beta.1
 
 = 8.8.0 - 2023-11-15 =
 * [PRO add-on 1.6](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/): Countdown timer on the “Thank you” page for MB WAY payments
-* Tested with WordPress 6.5-alpha-57110, WooCommerce 8.3.0-rc.2 and WooCommerce Blocks 11.5.4
+* Tested up to WordPress 6.5-alpha-57110, WooCommerce 8.3.0-rc.2 and WooCommerce Blocks 11.5.4
 
 = 8.7.0 - 2023-10-30 =
 * Remove beta status from the HPOS and Blocks Checkout compatibility
-* Tested with WordPress 6.5-alpha-57027, WooCommerce 8.2.1 and WooCommerce Blocks 11.4.1
+* Tested up to WordPress 6.5-alpha-57027, WooCommerce 8.2.1 and WooCommerce Blocks 11.4.1
 
 = 8.6.0 - 2023-08-31 =
 * Pass $_GET to the `*_ifthen_callback_payment_complete` hooks
 * Update hooks-examples.php with an example on how to use the payment complete hook with the new parameter
-* Tested with WordPress 6.4-beta2-56771 and WooCommerce 8.2.0-rc.2
+* Tested up to WordPress 6.4-beta2-56771 and WooCommerce 8.2.0-rc.2
 
 = 8.5.0 - 2023-08-31 =
 * Fix a PHP notice
 * Rearrange premium plugins information on the settings screen
-* Tested with WordPress 6.4-alpha-56479 and WooCommerce 8.1.0-beta.1
+* Tested up to WordPress 6.4-alpha-56479 and WooCommerce 8.1.0-beta.1
 
 = 8.4.0 - 2023-08-04 =
 * Better compatibility with newer versions of WooCommerce Deposits by webtomizer (Thanks Instituto Macrobiótico de Portugal)
 * Throw Exception instead of adding notice when finalizing the order, to be compatible with both traditional and blocks checkout
-* Tested with WordPress 6.3-RC3-56344 and WooCommerce 8.0.0-rc.1
+* Tested up to WordPress 6.3-RC3-56344 and WooCommerce 8.0.0-rc.1
 
 = 8.3.0 - 2023-07-08 =
 * Fix a small bug when showing the order value on our metabox on the order edit screen on multicurrency websites
-* Tested with WordPress 6.3-beta3-56143 and WooCommerce 7.9.0-rc.2
+* Tested up to WordPress 6.3-beta3-56143 and WooCommerce 7.9.0-rc.2
 
 = 8.2.0 - 2023-04-28 =
 * Fix a bug when changing email language if WPML is active
 * Add security bugs report information to the readme file
-* Tested with WordPress 6.3-alpha-55693 and WooCommerce 7.7.0-beta.2
+* Tested up to WordPress 6.3-alpha-55693 and WooCommerce 7.7.0-beta.2
 
 = 8.1.0 - 2023-04-04 =
 * [PRO add-on 1.3](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/): Recover unpaid MB WAY orders by converting them to Multibanco and notify the customer via email
 * Fix a bug where old installs would incorrectly show the “MB Key or Entity and subentity” setting on the backoffice
 * Remove debug string from MB WAY settings
 * Add FAQ about why the MB WAY payment instructions are not send by email
-* Tested with PHP 8.1.9, WordPress 6.3-alpha-55618 and WooCommerce 7.6.0-beta.2
+* Tested up to PHP 8.1.9, WordPress 6.3-alpha-55618 and WooCommerce 7.6.0-beta.2
 
 = 8.0.2 - 2023-04-01 =
 * Fix a PHP notice
-* Tested with WordPress 6.3-alpha-55615 and WooCommerce 7.6.0-beta.2
+* Tested up to WordPress 6.3-alpha-55615 and WooCommerce 7.6.0-beta.2
 
 = 8.0.1 - 2023-02-28 =
 * New actions before `process_payment` functions
-* Tested with WordPress 6.2-beta3-55428 and WooCommerce 7.5.0-beta.2
+* Tested up to WordPress 6.2-beta3-55428 and WooCommerce 7.5.0-beta.2
 
 = 8.0.0 - 2023-02-03 =
 * You can safely update to this version if you’re running WooCommerce 5.0 or newer
 * Support for the new WooCommerce block based checkout (in beta) for all payment methods;
-* Tested with WordPress 6.2-alpha-55198, WooCommerce 7.4.0-beta.2 and WooCommerce Blocks 9.5.0
+* Tested up to WordPress 6.2-alpha-55198, WooCommerce 7.4.0-beta.2 and WooCommerce Blocks 9.5.0
 
 = 7.1.1 - 2022-12-18 =
 * Set debug to true by default on new installs
 * Fix the callback instructions when using the new MB Key instead of Entity / Subentity
 * Fix version number on 7.1.0
-* Tested with WordPress 6.2-alpha-54951 and WooCommerce 7.2.0
+* Tested up to WordPress 6.2-alpha-54951 and WooCommerce 7.2.0
 
 = 7.0.0 - 2022-12-05 =
 * Direct and automatic MB WAY and Credit or debit card refunds via the order admin screen
@@ -562,7 +570,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Fix a bug on emails when the shop language is not the same as the user managing the orders
 * Fix jQuery deprecations
 * Requires WooCommerce 5.0
-* Tested with WordPress 6.2-alpha-54888 and WooCommerce 7.2.0-beta.1
+* Tested up to WordPress 6.2-alpha-54888 and WooCommerce 7.2.0-beta.1
 
 = 6.5.2 - 2022-11-29 =
 * You can safely update to this version if you’re running WooCommerce 4.3 or newer **but we’ll very soon drop support for WooCommerce previous to 5.0**
@@ -575,7 +583,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Fix a bug on the MB WAY callback introduced in 6.5.0
 * Code cleanup
 * Declare WooCommerce High-Performance Order Storage incompatibility (for now)
-* Tested with WordPress 6.2-alpha-54799 and WooCommerce 7.1.0
+* Tested up to WordPress 6.2-alpha-54799 and WooCommerce 7.1.0
 
 = 6.5.0 - 2022-11-11 =
 * Do not use this version
@@ -583,22 +591,22 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 6.4.1 - 2022-11-03 =
 * Fix bug on MB WAY callback when comparing the incoming reference with the order id and/or number which would cause the order not to be identified
 * Debug tweaks - Stop sending “payment received” emails and only send warning or error emails
-* Tested with WordPress 6.1 and WooCommerce 7.1.0-rc.1
+* Tested up to WordPress 6.1 and WooCommerce 7.1.0-rc.1
 
 = 6.4.0 - 2022-10-25 =
 * [PRO add-on 1.1](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/): allow sending order number (for sequential order number plugins) instead of order id to the ifthenpay webservices and backoffice
-* Tested with WordPress 6.1-RC2-54684 and WooCommerce 7.1.0-beta.1
+* Tested up to WordPress 6.1-RC2-54684 and WooCommerce 7.1.0-beta.1
 
 = 6.3.0 - 2022-10-19 =
 * **New [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/)**
 * Code refactoring when querying orders, cancel expiring orders
 * Suggest MB Key instead of Entity / Subentity
 * Replace “home banking” with “homebanking”
-* Tested with WordPress 6.1-beta3-54428 and WooCommerce 7.1.0-beta.1
+* Tested up to WordPress 6.1-beta3-54428 and WooCommerce 7.1.0-beta.1
 
 = 6.2.0 - 2022-09-03 =
 * Fix - Payment instructions were not shown on subscription parent and renewal orders
-* Tested with WordPress 6.1-alpha-54043 and WooCommerce 6.9.0-beta.2
+* Tested up to WordPress 6.1-alpha-54043 and WooCommerce 6.9.0-beta.2
 
 = 6.1.1 - 2022-08-01 =
 * Restore - The option to reduce stock when the order is created is available again
@@ -627,43 +635,43 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 6.0.0 - 2022-06-24 =
 * New configuration method with an “MB Key” instead of an Entity and Subentity, which uses an API and allows for reference expiration (you should ask ifthenpay for configuration details for this method)
 * New filters for the new configuration method: `multibanco_ifthen_base_mbkey`, `multibanco_ifthen_webservice_timeout`, `multibanco_ifthen_webservice_desc` and `multibanco_ifthen_webservice_expire_days`
-* Tested with WordPress 6.1-alpha-53556 and WooCommerce 6.7.0-beta.1
+* Tested up to WordPress 6.1-alpha-53556 and WooCommerce 6.7.0-beta.1
 
 = 5.2.0 - 2022-05-31 =
 * New brand: PT Woo Plugins 🥳
 * See you in WordCamp Europe 2022, in Porto?
-* Tested with WordPress 6.1-alpha-53451 and WooCommerce 6.6.0-rc.1
+* Tested up to WordPress 6.1-alpha-53451 and WooCommerce 6.6.0-rc.1
 
 = 5.1.4 - 2022-05-04 =
 * May the 4th be with you
 * Small change on the checkout MB WAY field label
-* Tested with WordPress 6.0-beta2-53236 and WooCommerce 6.5.0-rc.1
+* Tested up to WordPress 6.0-beta2-53236 and WooCommerce 6.5.0-rc.1
 
 = 5.1.3 - 2022-01-05 =
 * New option to set Payshop reference validity to 15 days
 * Small bug fixes on checking the payment methods key length
-* Tested with WordPress 5.9-RC1-52446 and WooCommerce 6.1.0-rc.2
+* Tested up to WordPress 5.9-RC1-52446 and WooCommerce 6.1.0-rc.2
 * Happy New Year!
 
 = 5.1.2 - 2021-08-11 =
 * It’s now possible to remove the new methods notifications by returning `true` to the `multibanco_ifthen_hide_newmethod_notifications` filter
-* Tested with 5.9-alpha-51588 and WooCommerce 5.6.0-rc.1
+* Tested up to 5.9-alpha-51588 and WooCommerce 5.6.0-rc.1
 
 = 5.1.1 - 2021-06-16 =
 * Fix a bug on the credit card gateway where some payments were not recognised
 * Small tweaks and debug
-* Tested with WordPress 5.8-beta2-51167 and WooCommerce 5.4.1
+* Tested up to WordPress 5.8-beta2-51167 and WooCommerce 5.4.1
 
 = 5.1.0 - 2021-05-27 =
 * Several code tweaks, input sanitization and extra checks
-* Tested with WordPress 5.8-alpha-51034, WooCommerce 5.4.0-rc.1 and WooCommerce Blocks 5.2.0
+* Tested up to WordPress 5.8-alpha-51034, WooCommerce 5.4.0-rc.1 and WooCommerce Blocks 5.2.0
 
 = 5.0.1 - 2021-04-03 =
 * New `multibanco_ifthen_send_email_instructions`, `mbway_ifthen_send_email_instructions`, `creditcard_ifthen_send_email_instructions` and `payshop_ifthen_send_email_instructions` filters to allow removing the payment gateway instructions from emails
 * Fix Credit card settings fields not hiding when the key is not set
 * WooCommerce Blocks (4.7.0 and above) improvements: respect the Multibanco “Only for Portuguese customers” setting and fix icon size
 * Small copy adjustments
-* Tested with WordPress 5.8-alpha-50650, WooCommerce 5.2.0-rc.1 and WooCommerce Blocks 4.7.0
+* Tested up to WordPress 5.8-alpha-50650, WooCommerce 5.2.0-rc.1 and WooCommerce Blocks 4.7.0
 
 = 5.0.0 - 2021-03-16 =
 * **New payment method available: “Credit or debit card”** (WooCommerce >= 4.0) - You need to sign an [amendment to the contract](https://www.ifthenpay.com/downloads/ifmb/AditamentoCCredito.pdf)
@@ -684,39 +692,39 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Bugfix: When paying again from the customer area, no email was sent if the customer changes from Multibanco to Multibanco in “Incremental references with expiration date” mode and the reference is already expired
 * Full readme.txt and hooks-examples.php revision
 * Several small improvements
-* Tested with WordPress 5.8-alpha-50535 and WooCommerce 5.1.0
+* Tested up to WordPress 5.8-alpha-50535 and WooCommerce 5.1.0
 
 = 4.4.9 - 2021-02-19 =
 * You can safely update this plugin if you’re running WooCommece 2.6.0 or newer **but we’ll drop support for WooCommerce previous to 3.0 IN THE NEXT RELEASE**
 * Last release before 5.0 (good news are on its way)
 * Fix force “New order” email to the store owner upon Multibanco payment on WooCommerce 5.0 and above
-* Tested with WordPress 5.7-beta2-50285 and WooCommerce 5.1.0-beta.1
+* Tested up to WordPress 5.7-beta2-50285 and WooCommerce 5.1.0-beta.1
 
 = 4.4.8 - 2020-12-22 =
 * Fix minimum and maximum values for all gateways
 * Fix PHP notice
-* Tested with WordPress 5.7-alpha-49862 and WooCommerce 4.9.0-beta.1
+* Tested up to WordPress 5.7-alpha-49862 and WooCommerce 4.9.0-beta.1
 
 = 4.4.7 - 2020-12-10 =
 * You can safely update this plugin if you’re running WooCommece 2.6.0 or newer **but we’ll drop support for WooCommerce previous to 3.0 IN THE NEXT RELEASE**
 * Requires WordPress 4.4 or above
 * Small readme.txt fix
-* Tested with WordPress 5.7-alpha-49782 and WooCommerce 4.8
+* Tested up to WordPress 5.7-alpha-49782 and WooCommerce 4.8
 
 = 4.4.6 - 2020-11-04 =
 * Bugfix setting the Multibanco order cancelation when using references with expiration (Thanks @josefreitas2)
 * Lay ground for a (yet to be confirmed) MB WAY refund functionality - Callback processing
-* Tested with WordPress 5.6-beta1-49314 and WooCommerce 4.7.0-rc.1
+* Tested up to WordPress 5.6-beta1-49314 and WooCommerce 4.7.0-rc.1
 
 = 4.4.5 - 2020-08-11 =
 * Bugfix when sending order emails after a Payshop order is paid for
-* Tested with WordPress 5.5-RC3-48781, WooCommerce 4.4.0-rc.1 and WooCommerce Blocks 3.1.0
+* Tested up to WordPress 5.5-RC3-48781, WooCommerce 4.4.0-rc.1 and WooCommerce Blocks 3.1.0
 
 = 4.4.4 - 2020-08-05 =
 * New WooCommerce Blocks checkout only if the feature plugin is installed and activated
 * Bugfix on the Payshop callback activation request
 * Fix a PHP notice
-* Tested with WordPress 5.5-RC1-48708, WooCommerce 4.4.0-rc.1 and WooCommerce Blocks 3.1.0
+* Tested up to WordPress 5.5-RC1-48708, WooCommerce 4.4.0-rc.1 and WooCommerce Blocks 3.1.0
 
 
 = 4.4.3 - 2020-07-23 =
@@ -727,7 +735,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 4.4.2 =
 * Bugfix when WooCommerce Blocks 3.0.0 or above is active
 * Try to fix a fatal error when themes override the WooCommerce email templates with old (pre WooCommerce 2.6.0) versions
-* Tested with WordPress 5.5-beta3-48556, WooCommerce 4.3.1 and WooCommerce Blocks 3.0.0
+* Tested up to WordPress 5.5-beta3-48556, WooCommerce 4.3.1 and WooCommerce Blocks 3.0.0
 
 = 4.4.1 =
 * Bugfix checking if order is paid when the “WooCommerce Order Status Manager” (by SkyVerge) plugin is active
@@ -740,7 +748,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Try to fix a (very odd) behavior where the customer is redirected to the “pay order” page when completing checkout, which will generate a duplicate Multibanco payment reference (as expected).
 * New filters to hide the “Pay” button on “My Account” (which we do not recommend): `multibanco_ifthen_hide_my_account_pay_button`, `mbway_ifthen_hide_my_account_pay_button`, `payshop_ifthen_hide_my_account_pay_button`
 * (VERY) Experimental Multibanco support for the new [https://woocommerce.wordpress.com/category/blocks/](WooCommerce Blocks) [https://woocommerce.wordpress.com/2020/05/27/available-for-testing-a-block-based-woocommerce-cart-and-checkout/](checkout experience)
-* Tested with WordPress 5.5-beta2-48501 and WooCommerce 4.3.0
+* Tested up to WordPress 5.5-beta2-48501 and WooCommerce 4.3.0
 
 = 4.3.0 =
 * New instant callback activation method via webservice instead of email
@@ -748,7 +756,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Only apply our WooCommerce 4.2.0 fix if version is equal or above 4.2.0 and below 4.3.0 (a WooCommerce fix is scheduled to be released on that version)
 * More prominent admin notice regarding old WordPress, WooCommerce or PHP versions in use
 * Remove old Spanish translation from the plugin folder, now that we have a proper one on WordPress.org thanks to [https://profiles.wordpress.org/fernandot](@fernandot)
-* Tested with WordPress 5.5-alpha-48241 and WooCommerce 4.3.0-rc.2
+* Tested up to WordPress 5.5-alpha-48241 and WooCommerce 4.3.0-rc.2
 
 = 4.2.3 =
 * Show paid date and time on the order admin metabox
@@ -766,18 +774,18 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Better information when MB WAY order is already paid for
 * Better debug when requesting the MB WAY payment to the ifthenpay webservice
 * readme.txt tweaks
-* Tested with WordPress 5.5-alpha-47923 and WooCommerce 4.2.0
+* Tested up to WordPress 5.5-alpha-47923 and WooCommerce 4.2.0
 
 = 4.2.1 =
 * Bugfix issuing new Multibanco or Payshop payment details when the order value is changed on wp-admin on WooCommerce 4.0 and above
 * Extensions and other premium plugins list on the payment gateways settings page
-* Tested with WordPress 5.5-alpha-47547 and WooCommerce 4.0.1
+* Tested up to WordPress 5.5-alpha-47547 and WooCommerce 4.0.1
 
 = 4.2.0 =
 * Experimental: Automatically cancel unpaid orders after the Multibanco reference expires, if the “Incremental references with expiration date” mode is active
 * Bugfix when hiding Multibanco settings fields, if the “Incremental references with expiration date” mode is active
 * New hourly cron event for general plugin use
-* Tested with WooCommerce 4.0.0-rc.1
+* Tested up to WooCommerce 4.0.0-rc.1
 * Requires WooCommerce 2.6.0 or above
 * **For WooCommerce 2.5.0 support you need to use [version 4.1.3](https://downloads.wordpress.org/plugin/multibanco-ifthen-software-gateway-for-woocommerce.4.1.3.zip)**
 
@@ -806,20 +814,20 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * **For WordPress 3.8 and WooCommerce 2.2 support you need to use [version 4.0.8](https://downloads.wordpress.org/plugin/multibanco-ifthen-software-gateway-for-woocommerce.4.0.8.zip)**
 * Use SVG icons and banners (except on emails where we still use PNG because SVG is not fully supported)
 * Deprecate big icons on the checkout
-* Tested with WordPress 5.3.3-alpha-46995 and WooCommerce 3.9.0-rc.2
+* Tested up to WordPress 5.3.3-alpha-46995 and WooCommerce 3.9.0-rc.2
 
 
 = 4.0.8 =
 * Fix WooCommerce Subscriptions experimental integration
-* Tested with WooCommerce 3.8.1
+* Tested up to WooCommerce 3.8.1
 
 = 4.0.7 =
 * Fix Payshop small icon size
 * Small fix on MB WAY WooCommerce Subscriptions support
-* Tested with WordPress 5.3.1-alpha-46771
+* Tested up to WordPress 5.3.1-alpha-46771
 
 = 4.0.6 =
-* Tested with WordPress 5.2.5-alpha and WooCommerce 3.8.0
+* Tested up to WordPress 5.2.5-alpha and WooCommerce 3.8.0
 
 = 4.0.5 =
 * Fix fatal error on WooCommerce below 3.4.0 when MB WAY or Payshop were not initialized yet
@@ -856,16 +864,16 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 = 3.6.4 =
 * Bugfix when creating a new reference if the order value changes while editing it on wp-admin
-* Tested with WordPress 5.2.3-alpha-45666 and WooCommerce 3.7.0-rc.1
+* Tested up to WordPress 5.2.3-alpha-45666 and WooCommerce 3.7.0-rc.1
 
 = 3.6.3.1 =
 * Bugfix on the WooCommerce Subscriptions integration (Thanks @vascothemudo)
-* Tested with WooCommerce 3.6.2
+* Tested up to WooCommerce 3.6.2
 
 = 3.6.3 =
 * Add the `partially-paid` status to Multibanco valid pending payment status when checking the callback
 * New `multibanco_ifthen_valid_callback_pending_status` and `mbway_ifthen_valid_callback_pending_status` filters when checking for pending payment orders on Multibanco and MB WAY callbacks (WooCommerce >= 3.0)
-* Tested with WordPress 5.1.1 and WooCommerce 3.6.0-rc.1
+* Tested up to WordPress 5.1.1 and WooCommerce 3.6.0-rc.1
 
 = 3.6.2.2 =
 * 30 seconds timeout instead of 10 seconds when calling ifthenpay’s MB WAY webservice, because SIBS is having performance problems which results in ifthenpay being unable to reply to our request on time
@@ -901,7 +909,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Change the payment instructions table on the “View order” (My account) page after the MB WAY payment request is expired and the order is still not paid (also a new `mbway_ifthen_thankyou_instructions_table_html_expired` filter)
 * Small debug tweaks on mbway.js
 * Minor tweaks on the plugin and readme.txt copy
-* Tested with WordPress 5.1 and WooCommerce 3.5.5
+* Tested up to WordPress 5.1 and WooCommerce 3.5.5
 
 = 3.4.3 =
 * New option (activated by default) to force the resending of the “New Order” email (not the British Synthpop band), when the Multibanco payment is done via callback (this was happening erroneously before we fixed the stock management issue on 3.4.2, but we understand this is usefull for the Multibanco payment method)
@@ -914,8 +922,8 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Small tweak on mbway.js
 * Small tweak on the MB WAY payment instructions
 * Dropped support for WooCommerce prior to 2.2 / Bumped `WC requires at least` tag
-* Tested with WooCommerce 3.5.2 / Bumped `WC tested up to` tag
-* Tested with WordPress 5.0 / Bumped `Tested up to` tag
+* Tested up to WooCommerce 3.5.2 / Bumped `WC tested up to` tag
+* Tested up to WordPress 5.0 / Bumped `Tested up to` tag
 
 = 3.4 =
 * WooCommerce Deposits by webtomizer (experimental) integration on WooCommerce >= 3.0 (sponsored by mojobrands.net)
@@ -928,14 +936,14 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 = 3.3 =
 * New actions for developers: `multibanco_ifthen_created_reference`, `mbway_ifthen_created_reference`, `multibanco_ifthen_unpaid_order_cancelled`, `mbway_ifthen_unpaid_order_cancelled`, `multibanco_ifthen_callback_payment_complete`, `multibanco_ifthen_callback_payment_failed`, `mbway_ifthen_callback_payment_complete` and `mbway_ifthen_callback_payment_failed`
-* Tested with WordPress * / Bumped `Tested up to` tag
+* Tested up to WordPress * / Bumped `Tested up to` tag
 * Downgraded the `Requires at least` tag to reflect the fact the plugin is still compatible with WooCommerce 2.0 and above
-* Tested with WooCommerce 3.5.1 / Bumped `WC tested up to` tag
+* Tested up to WooCommerce 3.5.1 / Bumped `WC tested up to` tag
 * Added `WC requires at least` tag on the plugin main file
 
 = 3.2.1.2 =
 * Fix when getting Order WPML language on WooCommerce below 3.0
-* Tested with WooCommerce 3.5 / Bumped `WC tested up to` tag
+* Tested up to WooCommerce 3.5 / Bumped `WC tested up to` tag
 
 = 3.2.1.1 =
 * Fixed a small bug where the Multibanco payment details would be regenerated if, for some exotic reason, an order value was changed on wp-admin for already paid orders
@@ -1016,7 +1024,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Fix: Some code introduced in version 2.1 was only compatible with WooCommerce 2.6 and above and on minor versions a fatal error was thrown
 
 = 2.1.1.1 =
-* Tested with WooCommerce 3.3
+* Tested up to WooCommerce 3.3
 
 = 2.1.1 =
 * New `multibanco_ifthen_cancel_unpaid_orders_restore_stock` filter to which `true` should be returned if you want the stock for the products on auto-cancelled orders (by the `multibanco_ifthen_cancel_unpaid_orders` filter) to be restored;
@@ -1061,7 +1069,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Rollback the French translation to the local plugin folder, because it’s still not approved on GlotPress
 
 = 1.9.3.4 =
-* Tested with WooCommerce 3.2
+* Tested up to WooCommerce 3.2
 * Added `WC tested up to` tag on the plugin main file
 * Bumped `Tested up to` tag
 
@@ -1090,7 +1098,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * Improved debug logging
 
 = 1.9 =
-* Tested with WooCommerce 3.0.0-rc.2
+* Tested up to WooCommerce 3.0.0-rc.2
 * Changed version tests from 2.7 to 3.0
 * New WC_Multibanco_IfThen_Webdados class for better code organization
 * New WC_Order_MB_Ifthen class (extends WC_Order) to be used by the plugin to get and set order details
