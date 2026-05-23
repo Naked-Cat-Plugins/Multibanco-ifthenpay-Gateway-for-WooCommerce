@@ -256,6 +256,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 == Changelog ==
 
 = TBA =
+* [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)
 * [TWEAK] Increase the interval for showing new methods notifications to each user from 180 to 365 days
 * [FIX] Added capability check to MB WAY re-send payment request AJAX handler
 * [FIX] Replaced MD5-based secret key generation with `wp_generate_password()` for better randomness across all gateways
@@ -264,6 +265,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [FIX] Fixed nonce sanitization in AJAX handlers (extract nonce before verification)
 * [FIX] Added correct spelling of credit card filter wrapper for backwards compatibility
 * [FIX] Replaced floating-point amount comparisons with string-based comparisons using 2-decimal formatting to prevent precision errors
+* [DEV] Development moved to the Naked Cat Plugins organization GitHub account
 * [DEV] Tested with WordPress 7.1-alpha-62404 and WooCommerce 10.6.1
 
 = 11.5.3 - 2026-03-15 =
