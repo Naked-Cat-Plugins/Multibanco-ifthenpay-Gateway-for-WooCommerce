@@ -1094,11 +1094,7 @@ final class WC_IfthenPay_Webdados {
 						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
 					}
 				} else {
-					echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . sprintf(
-						/* translators: $s: payment method */
-						esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'Multibanco'
-					) . '.</p>';
+					$this->multibanco_order_metabox_html_data_missing( 'Multibanco' );
 				}
 				break;
 			// MB WAY
@@ -1205,11 +1201,7 @@ final class WC_IfthenPay_Webdados {
 						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
 					}
 				} else {
-					echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . sprintf(
-						/* translators: $s: payment method */
-						esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'MB WAY'
-					) . '.</p>';
+					$this->multibanco_order_metabox_html_data_missing( 'MB WAY' );
 				}
 				break;
 			// Payshop
@@ -1274,11 +1266,7 @@ final class WC_IfthenPay_Webdados {
 						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
 					}
 				} else {
-					echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . sprintf(
-						/* translators: $s: payment method */
-						esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'Payshop'
-					) . '.</p>';
+					$this->multibanco_order_metabox_html_data_missing( 'Payshop' );
 				}
 				break;
 			// Credit card
@@ -1340,12 +1328,7 @@ final class WC_IfthenPay_Webdados {
 						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
 					}
 				} else {
-					echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . sprintf(
-						/* translators: $s: payment method */
-						esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'Credit card'
-					) . '.</p>';
-
+					$this->multibanco_order_metabox_html_data_missing( 'Credit card' );
 				}
 				break;
 			// Cofidis Pay
@@ -1404,12 +1387,7 @@ final class WC_IfthenPay_Webdados {
 						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
 					}
 				} else {
-					echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . sprintf(
-						/* translators: $s: payment method */
-						esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'Cofidis Pay'
-					) . '.</p>';
-
+					$this->multibanco_order_metabox_html_data_missing( 'Cofidis Pay' );
 				}
 				break;
 			// ifthenpay Gateway
@@ -1495,18 +1473,15 @@ final class WC_IfthenPay_Webdados {
 						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ' - ' . esc_html( $this->helper_format_method( $order_mb_details['payment_method'] ) ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
 					}
 				} else {
-					echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . sprintf(
-						/* translators: $s: payment method */
-						esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'ifthenpay Gateway'
-					) . '.</p>';
-
+					$this->multibanco_order_metabox_html_data_missing( 'ifthenpay Gateway' );
 				}
 				break;
 			// None
 			default:
-				echo '<p>' . esc_html__( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p><p>' . esc_html__( 'The payment method of this order is not ifthenpay', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '.</p>';
-				echo '<style type="text/css">#' . esc_html( $this->multibanco_id ) . ' { display: none; }</style>';
+				?>
+				<p><?php esc_html_e( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?></p>
+				<p><?php esc_html_e( 'The payment method of this order is not one of ifthenpay', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?></p>
+				<?php
 				$deleted = false;
 				// If we have Multibanco data, we should delete it
 				$order_mb_details = $this->get_multibanco_order_details( $order->get_id() );
@@ -1561,6 +1536,26 @@ final class WC_IfthenPay_Webdados {
 				}
 				break;
 		}
+	}
+
+	/**
+	 * Show a message in the order details page when we expect to have data but it's missing, to help debugging
+	 *
+	 * @param string $payment_method The payment method that is missing data.
+	 */
+	private function multibanco_order_metabox_html_data_missing( $payment_method ) {
+		?>
+		<p><?php esc_html_e( 'No details available', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?></p>
+		<p>
+			<?php
+			printf(
+				/* translators: $s: payment method */
+				esc_html__( 'This must be an error because the payment method of this order is %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+				esc_html( $payment_method )
+			);
+			?>
+		</p>
+		<?php
 	}
 
 	/**
