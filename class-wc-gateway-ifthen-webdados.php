@@ -80,7 +80,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 			$this->api_url_production       = 'https://api.ifthenpay.com/gateway/pinpay/'; // production mode
 			$this->api_url_sandbox          = ''; // test mode?
 			$this->api_url                  = '';
-			$this->gateways_api_url         = 'https://www.ifthenpay.com/IfmbWS/ifthenpaymobile.asmx/GetGatewayKeys';
+			$this->gateways_api_url         = 'https://api.ifthenpay.com/gateway/get'; // Since 2026-06
 			$this->gateways_methods_api_url = 'https://www.ifthenpay.com/IfmbWS/ifthenpaymobile.asmx/GetAccountsByGatewayKey';
 
 			// Plugin options and settings
@@ -222,7 +222,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 							if ( ! is_numeric( $gateway_method->Entidade ) ) {
 								if ( ! in_array(
 									trim( $gateway_method->Entidade ),
-									apply_filters( 'gateway_ifthen_unavailable_methods', array( 'MB', 'MBWAY', 'PAYSHOP', 'CCARD', 'COFIDIS' ) ),
+									apply_filters( 'gateway_ifthen_unavailable_methods', array( 'MB', 'MBWAY', 'PAYSHOP', 'CCARD', 'COFIDIS', 'BIZUM' ) ),
 									true
 								) ) {
 									if ( ! isset( $available_methods[ trim( $gateway_method->Entidade ) ] ) ) {
@@ -308,8 +308,20 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 					);
 					$count_gateways                  = 0;
 					foreach ( $gateways as $gateway ) {
-						if ( $gateway->Tipo === 'Estáticas' || apply_filters( 'gateway_ifthen_allow_dynamic_gateways', false ) ) {
-							$this->form_fields['gatewaykey']['options'][ $gateway->GatewayKey ] = $gateway->Alias . ( $gateway->Tipo !== 'Estáticas' ? ' (' . trim( $gateway->Tipo ) . ')' : '' );
+						if (
+							// Since June 2026, all new gateways will be "Woocommerce"
+							strcasecmp( trim( $gateway->Tipo ), 'Woocommerce' ) === 0
+							||
+							// Keep dynamic gateways available if the filter is enabled, for backwards compatibility
+							( strcasecmp( trim( $gateway->Tipo ), 'Dinâmicas' ) === 0 && apply_filters( 'gateway_ifthen_allow_dynamic_gateways', false ) )
+							||
+							// Keep static gateways available if the filter is enabled, for backwards compatibility
+							( strcasecmp( trim( $gateway->Tipo ), 'Estáticas' ) === 0 && apply_filters( 'gateway_ifthen_allow_static_gateways', false ) )
+							||
+							// Keep the selected gateway available even if it's not "WooCommerce", for backwards compatibility
+							strcasecmp( $gateway->GatewayKey, trim( $this->get_option( 'gatewaykey' ) ) ) === 0
+						) {
+							$this->form_fields['gatewaykey']['options'][ $gateway->GatewayKey ] = $gateway->Alias . ' (' . trim( str_replace( 'Woocommerce', 'WooCommerce', $gateway->Tipo ) ) . ')';
 							++$count_gateways;
 						}
 					}
@@ -623,8 +635,11 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 				$backoffice_key = trim( sanitize_text_field( wp_unslash( $_POST[ 'woocommerce_' . $this->id . '_backoffice_key' ] ) ) );
 				if ( strlen( $backoffice_key ) === 19 ) {
 					if ( $backoffice_key !== $this->backoffice_key ) {
+						// Clear currently selected gateway from payment method options
+						$this->settings['gatewaykey'] = '';
 						// Update gateways
-						$url      = $this->gateways_api_url . '?backofficekey=' . $backoffice_key;
+						// $url      = $this->gateways_api_url . '?backofficekey=' . $backoffice_key;
+						$url      = $this->gateways_api_url . '?boKey=' . $backoffice_key . '&type=Dinâmicas;Estáticas;Woocommerce';
 						$response = wp_remote_get( $url );
 						if ( ! is_wp_error( $response ) ) {
 							if ( isset( $response['response']['code'] ) && intval( $response['response']['code'] ) === 200 && isset( $response['body'] ) && trim( $response['body'] ) !== '' ) {
@@ -646,6 +661,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 							delete_option( $this->id . '_gateways' );
 							delete_option( $this->id . '_gateway_methods' );
 						}
+						update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' );
 					} elseif ( isset( $_POST[ 'woocommerce_' . $this->id . '_gatewaykey' ] ) ) {
 						$gatewaykey = trim( sanitize_text_field( wp_unslash( $_POST[ 'woocommerce_' . $this->id . '_gatewaykey' ] ) ) );
 						if ( strlen( $gatewaykey ) === 11 ) {
@@ -751,6 +767,10 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 						}
 					}
 				} elseif ( strlen( $backoffice_key ) === 0 ) {
+					// Clear currently selected gateway from payment method options
+					$this->settings['gatewaykey'] = '';
+					update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' );
+					// Error handling missing
 					delete_option( $this->id . '_gateways' );
 					delete_option( $this->id . '_gateway_methods' );
 				}

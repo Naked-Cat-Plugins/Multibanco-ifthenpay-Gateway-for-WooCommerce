@@ -255,8 +255,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= 11.6.1 - TBA =
-* [TWEAk] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
+= 11.7.0 - TBA =
+* [TWEAK] Gateway keys should now be of type "WooCommerce" and not "Estáticas" (your current gateway key will still work, tho)
+* [TWEAK] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
 
 = 11.6.0 - 2026-05-23 =
 * [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)
