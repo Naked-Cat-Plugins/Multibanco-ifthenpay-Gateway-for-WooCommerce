@@ -5,3 +5,9 @@ createzip.command
 _roadmap.txt
 
 .claude
+
+# Playwright - stored auth state (contains session cookies)
+specs/.auth/
+
+# Playwright - test output/artifacts
+test-results/
