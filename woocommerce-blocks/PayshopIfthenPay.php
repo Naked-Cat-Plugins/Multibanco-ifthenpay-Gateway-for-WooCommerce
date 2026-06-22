@@ -46,13 +46,15 @@ final class PayshopIfthenPay extends AbstractPaymentMethodType {
 	 * @return array
 	 */
 	public function get_payment_method_script_handles() {
+		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/payshop-block.asset.php';
 		wp_register_script(
 			'wc-payment-method-payshop-ifthenpay',
 			plugins_url( 'build/payshop-block.js', __FILE__ ),
-			array(),
+			$asset_file['dependencies'],
 			WC_IfthenPay_Webdados()->get_version() . ( WP_DEBUG ? '.' . wp_rand( 0, 9999 ) : '' ),
 			true
 		);
+		wp_set_script_translations( 'wc-payment-method-payshop-ifthenpay', 'multibanco-ifthen-software-gateway-for-woocommerce' );
 		return array( 'wc-payment-method-payshop-ifthenpay' );
 	}
 

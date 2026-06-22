@@ -26,6 +26,11 @@ node_modules/*
 package.json
 package-lock.json
 webpack.config.js
+playwright.config.js
+specs
+specs/*
+test-results
+test-results/*
 
 # Local ZIP creation tool
 createzip.command

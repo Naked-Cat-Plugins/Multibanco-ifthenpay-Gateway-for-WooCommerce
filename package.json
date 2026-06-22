@@ -6,11 +6,14 @@
   "scripts": {
     "build": "wp-scripts build && phpcs && npm run wp-since",
     "start": "wp-scripts start",
-    "wp-since": "~/vendor/eduardovillao/wp-since/bin/wp-since check ./"
+    "wp-since": "~/vendor/eduardovillao/wp-since/bin/wp-since check ./",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@woocommerce/dependency-extraction-webpack-plugin": "^2.2.0",
     "@wordpress/scripts": "25.2.0",
     "mini-css-extract-plugin": "^2.9.4"

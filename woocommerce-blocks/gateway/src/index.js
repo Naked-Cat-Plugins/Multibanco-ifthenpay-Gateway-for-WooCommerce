@@ -5,9 +5,8 @@ import { registerPaymentMethod } from '@woocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
 import { getSetting } from '@woocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import React, { useEffect } from 'react';
-//import { CART_STORE_KEY } from '@woocommerce/block-data';
-//import { useSelect } from '@wordpress/data';
+import React from 'react';
+import { dispatch } from '@wordpress/data';
 
 const settings = getSetting( 'gateway_ifthen_ifthen_for_woocommerce_data', {} );
 const defaultLabel = __(
@@ -47,7 +46,6 @@ const CanMakePayment = ( checkoutData ) => {
 	// Error notice?
 	var error_notice = checkoutData?.cart?.extensions?.ifthenpay?.gatewayFailedPayment;
 	if ( error_notice ) {
-		const { dispatch } = window.wp.data;
 		dispatch( 'core/notices' ).createErrorNotice(
 			error_notice,
 			{ context: 'wc/checkout' }

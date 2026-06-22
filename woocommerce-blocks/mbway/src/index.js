@@ -5,7 +5,7 @@ import { registerPaymentMethod } from '@woocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
 import { getSetting } from '@woocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { applyFilters } from '@wordpress/hooks';
 
 const settings = getSetting( 'mbway_ifthen_for_woocommerce_data', {} );

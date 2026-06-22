@@ -5,6 +5,7 @@ import { registerPaymentMethod } from '@woocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
 import { getSetting } from '@woocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
+import React from 'react';
 
 const settings = getSetting( 'payshop_ifthen_for_woocommerce_data', {} );
 const defaultLabel = __(

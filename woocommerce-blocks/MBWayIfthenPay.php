@@ -47,14 +47,15 @@ final class MBWayIfthenPay extends AbstractPaymentMethodType {
 	 */
 	public function get_payment_method_script_handles() {
 		$script_handle = 'wc-payment-method-mbway-ifthenpay';
-		// Register the script
+		$asset_file    = include plugin_dir_path( __FILE__ ) . 'build/mbway-block.asset.php';
 		wp_register_script(
 			$script_handle,
 			plugins_url( 'build/mbway-block.js', __FILE__ ),
-			array(),
+			$asset_file['dependencies'],
 			WC_IfthenPay_Webdados()->get_version() . ( WP_DEBUG ? '.' . wp_rand( 0, 9999 ) : '' ),
 			true
 		);
+		wp_set_script_translations( $script_handle, 'multibanco-ifthen-software-gateway-for-woocommerce' );
 		return array( $script_handle );
 	}
 

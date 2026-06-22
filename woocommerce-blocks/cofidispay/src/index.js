@@ -5,9 +5,8 @@ import { registerPaymentMethod } from '@woocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
 import { getSetting } from '@woocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import React, { useEffect } from 'react';
-//import { CART_STORE_KEY } from '@woocommerce/block-data';
-//import { useSelect } from '@wordpress/data';
+import React from 'react';
+import { dispatch } from '@wordpress/data';
 
 const settings = getSetting( 'cofidispay_ifthen_for_woocommerce_data', {} );
 const defaultLabel = __(
@@ -15,27 +14,6 @@ const defaultLabel = __(
 	'multibanco-ifthen-software-gateway-for-woocommerce'
 ) + ' (ifthenpay)';
 const label = decodeEntities( settings.title ) || defaultLabel;
-
-/**
- * Notices
- */
-// Testing notices
-/*const { dispatch } = window.wp.data;
-dispatch( 'core/notices' ).createErrorNotice(
-	__(
-		'Payment failed on the gateway. Please try again.',
-		'multibanco-ifthen-software-gateway-for-woocommerce'
-	),
-	{ context: 'wc/checkout' }
-);*/
-// Testing getting data from the Store API - We need to do this only on page load and show the notice
-/*const { cofidisFailedPayment } = useSelect(
-	( select ) => select( 'wc/store/cart' ).getCartData().extensions.ifthenpay
-);
-console.log( cofidisFailedPayment );*/
-//useEffect(() => {
-//	console.log( 'useEffect' );
-//});
 
 /**
  * Content component
@@ -82,7 +60,6 @@ const CanMakePayment = ( checkoutData ) => {
 	// Error notice?
 	var error_notice = checkoutData?.cart?.extensions?.ifthenpay?.cofidisFailedPayment;
 	if ( error_notice ) {
-		const { dispatch } = window.wp.data;
 		dispatch( 'core/notices' ).createErrorNotice(
 			error_notice,
 			{ context: 'wc/checkout' }
