@@ -2134,7 +2134,7 @@ final class WC_IfthenPay_Webdados {
 						'limit'      => 1, // If there's one, it's enough
 						'_' . $this->multibanco_id . '_ent' => $ent,
 						'_' . $this->multibanco_id . '_ref' => $ref,
-						'date_after' => date_i18n( 'Y-m-d', strtotime( '-' . intval( $no_repeat_days ) . ' days ' ) ),
+						'date_after' => date_i18n( 'Y-m-d', strtotime( '-' . intval( $no_repeat_days ) . ' days ', current_time( 'timestamp' ) ) ), // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 					),
 					$this->multibanco_id
 				);
@@ -2697,6 +2697,7 @@ final class WC_IfthenPay_Webdados {
 					case '_' . $this->multibanco_id . '_exp':
 					case '_' . $this->mbway_id . '_exp':
 					case '_' . $this->payshop_id . '_exp':
+					case '_' . $this->creditcard_id . '_time':
 						$query['meta_query'][] = array(
 							'key'     => $key,
 							'value'   => esc_attr( $value ), // WHY esc_attr?
