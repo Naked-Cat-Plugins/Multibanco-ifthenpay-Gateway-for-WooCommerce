@@ -447,6 +447,7 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 						</li>
 					</ul>
 					<?php
+					do_action( 'creditcard_ifthen_after_settings_intro' );
 					if ( strlen( trim( $this->creditcardkey ) ) !== 10 ) {
 						if ( intval( $this->settings_saved ) === 1 ) {
 							?>
