@@ -59,6 +59,7 @@ Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit
 
 * Recover unpaid MB WAY orders (even if already automatically cancelled by WooCommerce) by converting them to Multibanco and notifying the customer via email;
 * Recover unpaid Credit card orders (even if already automatically cancelled by WooCommerce) by emailing the customer a new payment link;
+* Set MB WAY, Cofidis Pay, Credit card, and ifthenpay Gateway orders as “On hold” instead of “Pending payment” right after checkout;
 * Automatic cancellation of orders when Multibanco, Payshop, or MB WAY references expire;
 * Countdown timer on the “Thank you” page for MB WAY payments;
 * Save the MB WAY mobile number to the user profile for future purchases;
