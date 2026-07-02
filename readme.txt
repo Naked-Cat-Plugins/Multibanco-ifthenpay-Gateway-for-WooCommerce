@@ -258,13 +258,13 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 11.7.0 - TBA =
 * [TWEAK] Gateway keys should now be of type "WooCommerce" and not "Estáticas" (your current gateway key will still work, tho)
 * [TWEAK] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
-* [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
-* [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
-* [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY
-* [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
-* [FIX] Multibanco reference "no repeat days" check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
 * [TWEAK] Use `hash_equals()` instead of `!==`/`===` when comparing the anti-phishing key and the Credit card HMAC signature on all 6 gateway callback/return handlers, for constant-time comparison (defense in depth)
 * [TWEAK] Add missing `defined( 'ABSPATH' ) || exit;` guard to the 6 WooCommerce Blocks integration class files
+* [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
+* [FIX] Multibanco reference "no repeat days" check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
+* [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
+* [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY
+* [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
 * [DEV] Tested up to WordPress 7.1-alpha-62456 and WooCommerce 10.9.0-beta.1
 
 = 11.6.0 - 2026-05-23 =
