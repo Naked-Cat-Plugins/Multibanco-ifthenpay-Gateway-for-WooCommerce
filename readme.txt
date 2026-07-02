@@ -57,8 +57,8 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 
 Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) and unlock extra features:
 
-* Recover unpaid MB WAY orders — even if already cancelled — by converting them to Multibanco and notifying the customer via email;
-* Recover unpaid Credit card orders by emailing the customer a new payment link;
+* Recover unpaid MB WAY orders (even if already automatically cancelled by WooCommerce) by converting them to Multibanco and notifying the customer via email;
+* Recover unpaid Credit card orders (even if already automatically cancelled by WooCommerce) by emailing the customer a new payment link;
 * Automatic cancellation of orders when Multibanco, Payshop, or MB WAY references expire;
 * Countdown timer on the “Thank you” page for MB WAY payments;
 * Save the MB WAY mobile number to the user profile for future purchases;
@@ -258,12 +258,12 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 == Changelog ==
 
 = 11.7.0 - TBA =
-* [TWEAK] Gateway keys should now be of type "WooCommerce" and not "Estáticas" (your current gateway key will still work, tho)
+* [TWEAK] Gateway keys should now be of type “WooCommerce” and not “Estáticas” (your current gateway key will still work, tho)
 * [TWEAK] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
 * [TWEAK] Use `hash_equals()` instead of `!==`/`===` when comparing the anti-phishing key and the Credit card HMAC signature on all 6 gateway callback/return handlers, for constant-time comparison (defense in depth)
 * [TWEAK] Add missing `defined( 'ABSPATH' ) || exit;` guard to the 6 WooCommerce Blocks integration class files
 * [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
-* [FIX] Multibanco reference "no repeat days" check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
+* [FIX] Multibanco reference “no repeat days” check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
 * [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
 * [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
@@ -272,7 +272,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 11.6.0 - 2026-05-23 =
 * [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)
 * [TWEAK] Increase the interval for showing new methods notifications to each user from 180 to 365 days
-* [TWEAK] Replace "PT Woo Plugins" reference with "Naked Cat Plugins" in the settings sidebar
+* [TWEAK] Replace “PT Woo Plugins” reference with “Naked Cat Plugins” in the settings sidebar
 * [TWEAK] Improve our gateways visibility on the payments settings screen
 * [FIX] Added capability check to MB WAY re-send payment request AJAX handler
 * [FIX] Replaced MD5-based secret key generation with `wp_generate_password()` for better randomness across all gateways
