@@ -261,6 +261,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
 * [DEV] Tested up to WordPress 7.1-alpha-62456 and WooCommerce 10.9.0-beta.1
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY
+* [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
 
 = 11.6.0 - 2026-05-23 =
 * [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)

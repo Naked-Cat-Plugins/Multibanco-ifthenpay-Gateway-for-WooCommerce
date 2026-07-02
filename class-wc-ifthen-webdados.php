@@ -2697,6 +2697,7 @@ final class WC_IfthenPay_Webdados {
 					case '_' . $this->multibanco_id . '_exp':
 					case '_' . $this->mbway_id . '_exp':
 					case '_' . $this->payshop_id . '_exp':
+					case '_' . $this->creditcard_id . '_time':
 						$query['meta_query'][] = array(
 							'key'     => $key,
 							'value'   => esc_attr( $value ), // WHY esc_attr?
