@@ -422,6 +422,24 @@ add_filter( 'mbway_ifthen_order_initial_status_pending', '__return_false' );
 
 
 /**
+ * Cofidis Pay - Set orders as on-hold instead of pending
+ */
+add_filter( 'cofidispay_ifthen_order_initial_status_pending', '__return_false' );
+
+
+/**
+ * Credit card - Set orders as on-hold instead of pending
+ */
+add_filter( 'creditcard_ifthen_order_initial_status_pending', '__return_false' );
+
+
+/**
+ * Gateway ifthenpay - Set orders as on-hold instead of pending
+ */
+add_filter( 'gateway_ifthen_order_initial_status_pending', '__return_false' );
+
+
+/**
  * Multibanco - Cancel orders if "Manage stock" and "Hold stock (minutes)" are configured - Be advised that the Multibanco reference will still be active and can be paid - Available on Webdados Toolbox plugin
  */
 add_filter( 'multibanco_ifthen_cancel_unpaid_orders', '__return_true' );

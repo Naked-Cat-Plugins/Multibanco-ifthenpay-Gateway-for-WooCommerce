@@ -23,6 +23,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 		public $debug_email;
 		public $version;
 		public $secret_key;
+		public $order_initial_status_pending;
 		public $api_url_production;
 		public $api_url_sandbox;
 		public $api_url;
@@ -75,6 +76,9 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 				$this->update_option( 'secret_key', $this->secret_key );
 				$this->update_option( 'debug', 'yes' );
 			}
+
+			// on hold or pending?
+			$this->order_initial_status_pending = apply_filters( 'gateway_ifthen_order_initial_status_pending', true );
 
 			// Webservice
 			$this->api_url_production       = 'https://api.ifthenpay.com/gateway/pinpay/'; // production mode
@@ -1126,8 +1130,13 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 						add_filter( 'woocommerce_email_enabled_customer_processing_order', '__return_false' );
 						add_filter( 'woocommerce_email_enabled_full_payment', '__return_false' );
 					}
-					// Mark pending
-					WC_IfthenPay_Webdados()->set_initial_order_status( $order, 'pending', __( 'ifthenpay Gateway', 'multibanco-ifthen-software-gateway-for-woocommerce' ) );
+					if ( ! $this->order_initial_status_pending ) {
+						// Mark as on-hold
+						WC_IfthenPay_Webdados()->set_initial_order_status( $order, 'on-hold', __( 'ifthenpay Gateway', 'multibanco-ifthen-software-gateway-for-woocommerce' ) );
+					} else {
+						// Mark pending
+						WC_IfthenPay_Webdados()->set_initial_order_status( $order, 'pending', __( 'ifthenpay Gateway', 'multibanco-ifthen-software-gateway-for-woocommerce' ) );
+					}
 				} else {
 					throw new Exception(
 						sprintf(
