@@ -57,12 +57,14 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 
 Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) and unlock extra features:
 
-* Recover unpaid MB WAY orders by converting them to Multibanco and notifying the customer via email;
+* Recover unpaid MB WAY orders — even if already cancelled — by converting them to Multibanco and notifying the customer via email;
+* Recover unpaid Credit card orders by emailing the customer a new payment link;
 * Automatic cancellation of orders when Multibanco, Payshop, or MB WAY references expire;
 * Countdown timer on the “Thank you” page for MB WAY payments;
 * Save the MB WAY mobile number to the user profile for future purchases;
 * Trigger Multibanco and MB WAY payments when creating orders via the REST API;
-* Store and show the ifthenpay fee on each order;
+* Store and show the ifthenpay fee and payout (net total) on each order;
+* Show a customizable row of ifthenpay payment method icons anywhere on your site with the “ifthenpay Payment Logos” block or shortcode;
 * Codifis payment information banner, with the price to pay monthly, on the product page (simple and variable products);
 * Set a payment entity for Multibanco, MB WAY, Credit card, Payshop, and Cofidis Pay at the product category level, so that you can receive payment in different accounts based on the order products (replaces previously available specific extension);
 	* Simplified marketplace;
@@ -263,9 +265,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
 * [FIX] Multibanco reference "no repeat days" check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
 * [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
-* [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY
+* [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
 * [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
-* [DEV] Tested up to WordPress 7.1-alpha-62456 and WooCommerce 10.9.0-beta.1
+* [DEV] Tested up to WordPress 7.1-alpha-62619 and WooCommerce 10.9.1
 
 = 11.6.0 - 2026-05-23 =
 * [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)
@@ -280,16 +282,16 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [FIX] Added correct spelling of credit card filter wrapper for backwards compatibility
 * [FIX] Replaced floating-point amount comparisons with string-based comparisons using 2-decimal formatting to prevent precision errors
 * [DEV] Development moved to the Naked Cat Plugins organization GitHub account
-* [DEV] Tested with WordPress 7.1-alpha-62404 and WooCommerce 10.6.1
+* [DEV] Tested up to WordPress 7.1-alpha-62404 and WooCommerce 10.6.1
 
 = 11.5.3 - 2026-03-15 =
 * [TWEAK] Remove anti-phishing key from debug logs
-* [DEV] Tested with WordPress 7.0-beta5 and WooCommerce 10.8.0-beta.2
+* [DEV] Tested up to WordPress 7.0-beta5 and WooCommerce 10.8.0-beta.2
 
 = 11.5.2 - 2026-03-02 =
 * [TWEAK] Unify some strings
 * [DEV] New `cofidispay_ifthen_order_initial_status_pending` hook to which returning false will set Cofidis Pay orders On hold instead of Pending
-* [DEV] Tested with WordPress 7.0-beta2-61777 and WooCommerce 10.6.0-beta.1
+* [DEV] Tested up to WordPress 7.0-beta2-61777 and WooCommerce 10.6.0-beta.1
 
 = 11.5.1 - 2026-02-24 =
 * [TWEAK] Retouch some SVG icons
@@ -298,17 +300,17 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 11.5.0 - 2026-02-23 =
 * [TWEAK] Expose icons paths to [PRO add-on 6.0](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) so it can render the new “ifthenpay Payment Logos” block and shortcode
 * [FIX] Polylang home url for callbacks and return URLs for Credit card, ifthenpay gateway and Cofidispay (can be disabled by passing `false` to the `ifthen_fix_polylang_home_url` filter)
-* [DEV] Tested with WordPress 7.0-beta1-61715 and WooCommerce 10.5.2
+* [DEV] Tested up to WordPress 7.0-beta1-61715 and WooCommerce 10.5.2
 
 = 11.4.1 - 2026-02-10 =
 * [TWEAK] Allow [PRO add-on 5.8](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) to cancel or convert to Multibanco expired MB WAY orders after 20 minutes of expiration
-* [DEV] Tested with WordPress 7.0-alpha-61605 and WooCommerce 10.5.1
+* [DEV] Tested up to WordPress 7.0-alpha-61605 and WooCommerce 10.5.1
 
 = 11.4.0 - 2026-01-21 =
 * [TWEAK] Order note and debug (including email) when order is found by callback, but not in pending statuses (for example, already paid or cancelled)
 * [TWEAK] Add “ifthenpay” to all the “payment received” order notes
 * [DEV] Better debug when arguments are missing on the callback requested URL
-* [DEV] Tested with WordPress 7.0-alpha-61594 and WooCommerce 10.5.0
+* [DEV] Tested up to WordPress 7.0-alpha-61594 and WooCommerce 10.5.0
 
 = 11.3.2 - 2026-01-21 =
 * [FIX] Add an empty function to the `wc_ifthen_hourly_cron` scheduled action to avoid loop issues on Action Scheduler, introduced on 11.3.0, and clear its failed logs (Thanks BestSites.pt for reporting)
@@ -322,43 +324,43 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [DEV] Replace hourly WP cron with Action Scheduler
 * [TWEAK] Normalize MB WAY payment date/time received on the callback to ISO format
 * [FIX] Callback URL output on the callback activation section on each payment method
-* [DEV] Tested with 7.0-alpha-61480 and WooCommerce 10.4.3
+* [DEV] Tested up to 7.0-alpha-61480 and WooCommerce 10.4.3
 
 = 11.2.1 - 2025-10-30 =
 * [FIX] Debug errors to email when requesting Multibanco or MB Way payments to ifthenpay
 * [TWEAK] Small readme.txt adjustments
 * [TWEAK] Replace “homebanking” with “home banking”
-* [DEV] Tested with WordPress 6.9-beta2-61087 and WooCommerce 10.3.3
+* [DEV] Tested up to WordPress 6.9-beta2-61087 and WooCommerce 10.3.3
 
 = 11.2.0 - 2025-10-20 =
 * [TWEAK] Display payment method icons on the backend
 * [TWEAK] Better UX on the country code and phone number fields on the blocks checkout
 * [TWEAK] Remove old method of callback activation via email
 * [FIX] Display correct translated payment gateway title and description on the blocks checkout if WPML is active
-* [DEV] Tested with WordPress 6.9-alpha-60939 and WooCommerce 10.3.0-rc.1
+* [DEV] Tested up to WordPress 6.9-alpha-60939 and WooCommerce 10.3.0-rc.1
 
 = 11.1.0 - 2025-09-22 =
 * [DEV] Change some remaining `wc_get_orders` calls to our internal wrapper
 * [DEV] Use WooCommerce internal method to get international calling codes for MB WAY numbers
 * [DEV] Fix version upgrade routine
 * [DEV] Remove autoload from some options
-* [DEV] Tested with WordPress 6.9-alpha-60789 and WooCommerce 10.2.1
+* [DEV] Tested up to WordPress 6.9-alpha-60789 and WooCommerce 10.2.1
 
 = 11.0.0 - 2025-09-11 =
 * [NEW] It’s now possible to use international phone numbers for MB WAY (can be disabled on the payment method options)
 * [DEV] Use ifthenpay’s MB WAY most recent API endpoint
 * [DEV] Compare values with two decimal places when checking for a possible order value change
-* [DEV] Tested with WordPress 6.9-alpha-60725 and WooCommerce 10.2.0-beta.2
+* [DEV] Tested up to WordPress 6.9-alpha-60725 and WooCommerce 10.2.0-beta.2
 
 = 10.5.0 - 2025-08-19 =
 * [TWEAK] New payment method notices are now only shown every 180 days for each admin or shop manager user, and this is now handled by user meta and not a transient, because in some setups because transients are cleared when the cache is cleared
 * [FIX] Store MB KEY on the order meta when saving the Multibanco payment details
 * [DEV] Debug (extra) time it took on each API call
-* [DEV] Tested with WordPress 6.9-alpha-60645 and WooCommerce 10.1.0
+* [DEV] Tested up to WordPress 6.9-alpha-60645 and WooCommerce 10.1.0
 
 = 10.4.1 - 2025-05-22 =
 * [FIX] Check for WooCommerce version before declaring HPOS and Blocks checkout compatibility
-* [DEV] Tested with WordPress 6.9-alpha-60243 and WooCommerce 9.9.0-beta.1
+* [DEV] Tested up to WordPress 6.9-alpha-60243 and WooCommerce 9.9.0-beta.1
 
 = 10.4.0 - 2025-05-03 =
 * [TWEAK] New payment method notices are now only shown every 90 days for each admin or shop manager user (they can also be dismissed by returning `true` to the `multibanco_ifthen_hide_newmethod_notifications` filter)
@@ -369,17 +371,17 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [DEV] Update Cofidis API URL
 * [DEV] New `mbway_ifthen_after_process_payment` hook (action)
 * [TWEAK] [PRO add-on 5.1](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/): Only save MBWAY number to user profile if the request payment API call to ifthenpay is successfully
-* [DEV] Tested with WordPress 6.8-RC3-60146 and WooCommerce 9.8.1
+* [DEV] Tested up to WordPress 6.8-RC3-60146 and WooCommerce 9.8.1
 
 = 10.2.1 - 2025-03-17 =
 * [DEV] Stop trying to fix the email locale with WPML active because it was causing the language to be incorrect (can be reactivated by returning `true` to `multibanco_ifthen_maybe_change_email_locale` filter)
 * [TWEAK] Reuse several i18n strings on all the payment methods with placeholders
-* [DEV] Tested with WordPress 6.8-beta2-59993 and WooCommerce 9.8.0-beta.1
+* [DEV] Tested up to WordPress 6.8-beta2-59993 and WooCommerce 9.8.0-beta.1
 
 = 10.1.0 - 2025-01-15 =
 * [FIX] Callback calls failing for values under 1.00 Euro
 * [FIX] Set Payshop expiration at the end of the day
-* [DEV] Tested with WordPress 6.8-alpha-59604 and WooCommerce 9.6.0-rc.1
+* [DEV] Tested up to WordPress 6.8-alpha-59604 and WooCommerce 9.6.0-rc.1
 
 = 10.0.2 - 2025-01-13 =
 * [FIX] PHP notice on the `multibanco_ifthen_thankyou_instructions_table_html` filter
@@ -403,7 +405,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [DEV] New `refund_ifthen_api_timeout` developer filter
 * [DEV] Apply additional WordPress Coding Standards
 * [DEV] Requires PHP 7.2, WordPress 5.8, and WooCommerce 7.1
-* [DEV] Tested with WordPress 6.8-alpha-59576 and WooCommerce 9.6.0-beta.1
+* [DEV] Tested up to WordPress 6.8-alpha-59576 and WooCommerce 9.6.0-beta.1
 
 = 9.7.1 - 2024-11-29 =
 * [FIX] Fix MB WAY and Cofidis order status check on the “Thank you” for non-logged in customers
@@ -413,26 +415,26 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [TWEAK] Better “refund not issued” message
 * [FIX] Check order object before saving Multibanco details on the classic checkout
 * [DEV] Change default webservices timeout to 15 seconds instead of 30
-* [DEV] Tested with WordPress 6.8-alpha-59459 and WooCommerce 9.5.0-beta.1
+* [DEV] Tested up to WordPress 6.8-alpha-59459 and WooCommerce 9.5.0-beta.1
 
 = 9.6.0 - 2024-10-08 =
 * [FIX] Load text domain at the right time to avoid PHP notices on WordPress 6.7 and above
-* [DEV] Tested with WordPress 6.7-beta1-59184 and WooCommerce 9.4.0-beta.2
+* [DEV] Tested up to WordPress 6.7-beta1-59184 and WooCommerce 9.4.0-beta.2
 
 = 9.5.0 - 2024-09-19 =
 * [FIX] Get the Multibanco reference earlier on the blocks checkout so that we can throw the error before hitting the “Thank you” page
 * [TWEAK] Try to get MB WAY phone number from `$_REQUEST` if not found in `$_POST` for edge scenarios
 * [TWEAK] Refactor code to set initial order status, order note and payment request errors
 * [TWEAK] Update readme.txt FAQ information about 404 callback error because of specific permalink settings
-* [DEV] Tested with WordPress 6.7-alpha-59064 and WooCommerce 9.3.2
+* [DEV] Tested up to WordPress 6.7-alpha-59064 and WooCommerce 9.3.2
 
 = 9.4.4 - 2024-07-16 =
 * [TWEAK] Implement hook on the MB WAY payment gateway needed by [PRO add-on 4.1](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/)
-* [DEV] Tested with WordPress 6.7-alpha-58848 and WooCommerce 9.2.0-beta.1
+* [DEV] Tested up to WordPress 6.7-alpha-58848 and WooCommerce 9.2.0-beta.1
 
 = 9.4.3 - 2024-07-16 =
 * [TWEAK] Implement hook on the MB WAY settings screen needed by the [PRO add-on 4.0](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/)
-* [DEV] Tested with WordPress 6.6-RC4-58723 and WooCommerce 9.1.2
+* [DEV] Tested up to WordPress 6.6-RC4-58723 and WooCommerce 9.1.2
 
 = 9.4.2 - 2024-06-27 =
 * [TWEAK] Add the order as second argument for the `creditcard_ifthen_cancel_order_on_back` filter
@@ -440,13 +442,13 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 9.4.1 - 2024-06-26 =
 * [TWEAK] The order is now not canceled when hitting “Back” on the credit card gateway, and the user is redirected to the checkout. The old behavior can be activated by returning `true` to `creditcard_ifthen_cancel_order_on_back`.
 * [TWEAK] Change Cofidis Pay “payment received” text to better explain the payment was pre-approved and that the shop owner still needs to submit documentation to Cofidis before processing the order.
-* [DEV] Tested with WordPress 6.6-RC1-58573 and WooCommerce 9.1.0-beta.1
+* [DEV] Tested up to WordPress 6.6-RC1-58573 and WooCommerce 9.1.0-beta.1
 
 = 9.4.0 - 2024-06-05 =
 * [FIX] Error notice on the block-based checkout when returning from the Cofidis Pay gateway without success
 * [TWEAK] Remove .pot file from the repository
 * [TWEAK] Include source files for payment gateway blocks
-* [DEV] Tested with WordPress 6.6-beta1	and WooCommerce 9.0.0-rc.1
+* [DEV] Tested up to WordPress 6.6-beta1	and WooCommerce 9.0.0-rc.1
 
 = 9.3.0 - 2024-05-22 =
 * [NEW] `ifthen_allow_settings_woocommerce_not_euro` filter to allow setting up the payment gateways even if the shop currency is not set to Euro - For multi-currency shops
@@ -454,26 +456,26 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [FIX] Cofidis Pay return without Success attribute on the callback URL
 * [TWEAK] Refactor the way the payment gateways are loaded so that plugins that call new \WC_Payment_Gateways(); will get our payment methods
 * [TWEAK] Cofidis Pay icon in SVG format
-* [DEV] Tested with WordPress 6.6-alpha-58182 and WooCommerce 8.9.1
+* [DEV] Tested up to WordPress 6.6-alpha-58182 and WooCommerce 8.9.1
 
 = 9.2.4 - 2024-04-09 =
 * [TWEAK] Show [PRO add-on 3.5](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) blurred options 
 
 = 9.2.3 - 2024-04-08 =
 * [NEW] [PRO add-on 3.5](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/): Codifis payment information banner, with the price to pay month, on the product page (simple product for now)
-* [DEV] Tested with WordPress 6.6-alpha-57928 and WooCommerce 8.8.0-rc.1
+* [DEV] Tested up to WordPress 6.6-alpha-57928 and WooCommerce 8.8.0-rc.1
 
 = 9.2.2 - 2024-03-26 =
 * [FIX] Deprecation notices “Creation of dynamic property” on PHP 8.2 and above
 * [FIX] Typo
-* [DEV] Tested with WordPress 6.5-RC3-57875 and WooCommerce 8.7.0
+* [DEV] Tested up to WordPress 6.5-RC3-57875 and WooCommerce 8.7.0
 
 = 9.2.0 - 2024-03-18 =
 * [FIX] Avoid loading payment gateways more than once
 * [FIX] Typo on the Cofidis Pay settings
 * [DEV] Set WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE for usage on the Pro Add-on
 * [DEV] Set `Requires Plugins` tag to `woocommerce`
-* [DEV] Tested with WordPress 6.5-RC2-57846 and WooCommerce 8.7.0-rc.1
+* [DEV] Tested up to WordPress 6.5-RC2-57846 and WooCommerce 8.7.0-rc.1
 
 = 9.1.2 - 2024-03-03 =
 * [DEV] Store Mutibanco Key used to generate reference
@@ -487,12 +489,12 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [NEW] [PRO add-on 3.2](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/): Store and show ifthenpay fees on order (Multibanco, MB WAY and Payshop)
 * [DEV] Allow filtering callback URLs
 * [DEV] New `order_has_ifthenpay_method` method
-* [DEV] Tested with WordPress 6.5-beta3-57747 and WooCommerce 8.7.0-beta.2
+* [DEV] Tested up to WordPress 6.5-beta3-57747 and WooCommerce 8.7.0-beta.2
 
 = 9.0.1 - 2024-02-17 =
 * [FIX] Deprecated notices for `wc_get_log_file_path` for WooCommerce 8.6 and above
 * [FIX] Fatal error when installing the plugin in HPOS mode
-* [DEV] Tested with WordPress 6.5-alpha-57571 and WooCommerce 8.6
+* [DEV] Tested up to WordPress 6.5-alpha-57571 and WooCommerce 8.6
 
 = 9.0.0 - 2024-01-17 =
 * New payment method: Cofidis Pay - Pay in up to 12 interest-free installments
