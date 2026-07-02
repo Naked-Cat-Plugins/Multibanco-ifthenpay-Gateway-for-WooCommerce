@@ -1358,7 +1358,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 				$request_id         = trim( sanitize_text_field( wp_unslash( $_GET['request_id'] ) ) ); // This is what we'll use for refunds later
 				$arguments_ok       = true;
 				$arguments_error    = '';
-				if ( trim( sanitize_text_field( wp_unslash( $_GET['key'] ) ) ) !== trim( $this->secret_key ) ) {
+				if ( ! hash_equals( trim( $this->secret_key ), trim( sanitize_text_field( wp_unslash( $_GET['key'] ) ) ) ) ) {
 					$arguments_ok     = false;
 					$arguments_error .= ' - Anti-phishing key';
 				}

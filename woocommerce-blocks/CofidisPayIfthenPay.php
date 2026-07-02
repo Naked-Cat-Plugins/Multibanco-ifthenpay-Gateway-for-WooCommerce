@@ -5,6 +5,8 @@
 
 namespace Automattic\WooCommerce\Blocks\Payments\Integrations;
 
+defined( 'ABSPATH' ) || exit;
+
 use Automattic\WooCommerce\Blocks\Assets\Api;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
 

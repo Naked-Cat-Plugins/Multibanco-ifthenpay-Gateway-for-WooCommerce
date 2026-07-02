@@ -1426,7 +1426,7 @@ if ( ! class_exists( 'WC_Multibanco_IfThen_Webdados' ) ) {
 				$val             = floatval( $_GET['valor'] );
 				$arguments_ok    = true;
 				$arguments_error = '';
-				if ( trim( sanitize_text_field( wp_unslash( $_GET['chave'] ) ) ) !== trim( $this->secret_key ) ) {
+				if ( ! hash_equals( trim( $this->secret_key ), trim( sanitize_text_field( wp_unslash( $_GET['chave'] ) ) ) ) ) {
 					$arguments_ok     = false;
 					$arguments_error .= ' - Anti-phishing key';
 				}

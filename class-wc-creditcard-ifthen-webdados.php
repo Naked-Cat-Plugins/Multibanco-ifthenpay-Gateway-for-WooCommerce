@@ -994,7 +994,7 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 							$order_details = WC_IfthenPay_Webdados()->get_creditcard_order_details( $order->get_id() );
 							$sk            = isset( $_GET['sk'] ) ? trim( sanitize_text_field( wp_unslash( $_GET['sk'] ) ) ) : '';
 							$hash          = hash_hmac( 'sha256', $id . $val . $request_id, $order_details['creditcardkey'] );
-							if ( $sk === $hash ) {
+							if ( hash_equals( $hash, $sk ) ) {
 								$this->debug_log_extra( 'Order found: ' . $order->get_id() . ' - Hash ok' );
 								$note = sprintf(
 									/* translators: %s: payment method */
@@ -1145,7 +1145,7 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 				$request_id      = trim( sanitize_text_field( wp_unslash( $_GET['request_id'] ) ) );
 				$arguments_ok    = true;
 				$arguments_error = '';
-				if ( trim( sanitize_text_field( wp_unslash( $_GET['key'] ) ) ) !== trim( $this->secret_key ) ) {
+				if ( ! hash_equals( trim( $this->secret_key ), trim( sanitize_text_field( wp_unslash( $_GET['key'] ) ) ) ) ) {
 					$arguments_ok     = false;
 					$arguments_error .= ' - Anti-phishing key';
 				}

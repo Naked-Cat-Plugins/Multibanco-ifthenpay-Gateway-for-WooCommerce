@@ -1455,7 +1455,7 @@ if ( ! class_exists( 'WC_MBWAY_IfThen_Webdados' ) ) {
 				}
 				$arguments_ok    = true;
 				$arguments_error = '';
-				if ( $chave !== trim( $this->secret_key ) ) {
+				if ( ! hash_equals( trim( $this->secret_key ), $chave ) ) {
 					$arguments_ok     = false;
 					$arguments_error .= ' - Anti-phishing key';
 				}

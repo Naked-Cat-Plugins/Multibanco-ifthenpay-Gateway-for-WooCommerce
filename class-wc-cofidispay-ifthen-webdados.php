@@ -1236,7 +1236,7 @@ if ( ! class_exists( 'WC_CofidisPay_IfThen_Webdados' ) ) {
 				$datahorapag     = isset( $_GET['datahorapag'] ) ? trim( sanitize_text_field( wp_unslash( $_GET['datahorapag'] ) ) ) : '';
 				$arguments_ok    = true;
 				$arguments_error = '';
-				if ( $key !== trim( $this->secret_key ) ) {
+				if ( ! hash_equals( trim( $this->secret_key ), $key ) ) {
 					$arguments_ok     = false;
 					$arguments_error .= ' - Anti-phishing key';
 				}

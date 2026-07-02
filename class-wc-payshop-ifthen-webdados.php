@@ -1259,7 +1259,7 @@ if ( ! class_exists( 'WC_Payshop_IfThen_Webdados' ) ) {
 				$datahorapag     = isset( $_GET['datahorapag'] ) ? trim( sanitize_text_field( wp_unslash( $_GET['datahorapag'] ) ) ) : '';
 				$arguments_ok    = true;
 				$arguments_error = '';
-				if ( $chave !== trim( $this->secret_key ) ) {
+				if ( ! hash_equals( trim( $this->secret_key ), $chave ) ) {
 					$arguments_ok     = false;
 					$arguments_error .= ' - Anti-phishing key';
 				}
