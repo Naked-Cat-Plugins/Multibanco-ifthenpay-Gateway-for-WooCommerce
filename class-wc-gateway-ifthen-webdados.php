@@ -1074,7 +1074,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 			$args['body']     = wp_json_encode( $args['body'] ); // Json not post variables
 			$response         = wp_remote_post( $url, $args );
 			if ( is_wp_error( $response ) ) {
-				$debug_msg       = '- Error contacting the ifthenpay servers - Order ' . $order->get_id() . ' - ' . $response->get_error_message();
+				$debug_msg       = '- Error contacting the ifthenpay servers - Order ' . $order->get_id() . ' - Error: ' . $response->get_error_code() . ' ' . $response->get_error_message();
 				$debug_msg_email = $debug_msg . ' - URL: ' . $url . ' - Args: ' . wp_json_encode( $args ) . ' - Response: ' . wp_json_encode( $response );
 				$this->debug_log( $debug_msg, 'error', true, $debug_msg_email );
 				return false;
