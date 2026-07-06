@@ -269,6 +269,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
 * [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
 * [DEV] Add `creditcard_ifthen_order_initial_status_pending` and `gateway_ifthen_order_initial_status_pending` filters, matching the existing MB WAY and Cofidis Pay filters, to set orders as “on-hold” instead of “pending” right from checkout
+* [DEV] Improve ifthenpay Gateway error handling when requesting for a new payment
 * [DEV] Tested up to WordPress 7.1-alpha-62619 and WooCommerce 10.9.1
 
 = 11.6.0 - 2026-05-23 =
