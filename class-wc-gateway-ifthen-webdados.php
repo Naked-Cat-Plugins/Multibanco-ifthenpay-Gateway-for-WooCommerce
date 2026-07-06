@@ -1075,28 +1075,35 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 			$response         = wp_remote_post( $url, $args );
 			if ( is_wp_error( $response ) ) {
 				$debug_msg       = '- Error contacting the ifthenpay servers - Order ' . $order->get_id() . ' - ' . $response->get_error_message();
-				$debug_msg_email = $debug_msg . ' - Args: ' . wp_json_encode( $args ) . ' - Response: ' . wp_json_encode( $response );
+				$debug_msg_email = $debug_msg . ' - URL: ' . $url . ' - Args: ' . wp_json_encode( $args ) . ' - Response: ' . wp_json_encode( $response );
 				$this->debug_log( $debug_msg, 'error', true, $debug_msg_email );
 				return false;
 			} elseif ( isset( $response['response']['code'] ) && intval( $response['response']['code'] ) === 200 && isset( $response['body'] ) && trim( $response['body'] ) !== '' ) {
 				$body = json_decode( trim( $response['body'] ) );
 				if ( $body ) {
-					WC_IfthenPay_Webdados()->set_order_gatewayifthenpay_details(
-						$order->get_id(),
-						array(
-							'gatewaykey'  => $gatewaykey,
-							'pincode'     => $body->PinCode,
-							'id'          => apply_filters( 'ifthen_webservice_send_order_number_instead_id', false ) ? $order->get_order_number() : $order->get_id(),
-							'val'         => $valor,
-							'payment_url' => $body->RedirectUrl,
-							'wd_secret'   => $wd_secret,
-						)
-					);
-					$this->debug_log( '- ifthenpay Gateway payment request created on ifthenpay servers - Redirecting to payment gateway - Order ' . $order->get_id() . ' - Pincode: ' . $body->PinCode );
-					do_action( 'gateway_ifthen_created_reference', $body->PinCode, $order->get_id() );
-					$debug_elapsed_time = microtime( true ) - $debug_start_time;
-					$this->debug_log_extra( 'wp_remote_post + response handling took: ' . $debug_elapsed_time . ' seconds.' );
-					return $body->RedirectUrl;
+					if ( ( ! empty( $body->RedirectUrl ) ) && ( ! empty( $body->PinCode ) ) ) {
+						WC_IfthenPay_Webdados()->set_order_gatewayifthenpay_details(
+							$order->get_id(),
+							array(
+								'gatewaykey'  => $gatewaykey,
+								'pincode'     => $body->PinCode,
+								'id'          => apply_filters( 'ifthen_webservice_send_order_number_instead_id', false ) ? $order->get_order_number() : $order->get_id(),
+								'val'         => $valor,
+								'payment_url' => $body->RedirectUrl,
+								'wd_secret'   => $wd_secret,
+							)
+						);
+						$this->debug_log( '- ifthenpay Gateway payment request created on ifthenpay servers - Redirecting to payment gateway - Order ' . $order->get_id() . ' - Pincode: ' . $body->PinCode );
+						do_action( 'gateway_ifthen_created_reference', $body->PinCode, $order->get_id() );
+						$debug_elapsed_time = microtime( true ) - $debug_start_time;
+						$this->debug_log_extra( 'wp_remote_post + response handling took: ' . $debug_elapsed_time . ' seconds.' );
+						return $body->RedirectUrl;
+					} else {
+						$debug_msg       = '- Error contacting the ifthenpay servers - Order ' . $order->get_id() . ' - Missing RedirectUrl or PinCode in response body';
+						$debug_msg_email = $debug_msg . ' - Args: ' . wp_json_encode( $args ) . ' - Response: ' . wp_json_encode( $response );
+						$this->debug_log( $debug_msg, 'error', true, $debug_msg_email );
+						return false;
+					}
 				} else {
 					$debug_msg = '- Error contacting the ifthenpay servers - Order ' . $order->get_id() . ' - Can not json_decode body';
 					$this->debug_log( $debug_msg, 'error', true, $debug_msg );
