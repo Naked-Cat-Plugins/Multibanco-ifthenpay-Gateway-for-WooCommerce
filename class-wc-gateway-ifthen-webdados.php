@@ -82,7 +82,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 
 			// Webservice
 			$this->api_url_production       = 'https://api.ifthenpay.com/gateway/pinpay/'; // production mode
-			$this->api_url_sandbox          = ''; // test mode?
+			$this->api_url_sandbox          = ''; // test mode? Does not exist yet
 			$this->api_url                  = '';
 			$this->gateways_api_url         = 'https://api.ifthenpay.com/gateway/get'; // Since 2026-06
 			$this->gateways_methods_api_url = 'https://www.ifthenpay.com/IfmbWS/ifthenpaymobile.asmx/GetAccountsByGatewayKey';
@@ -157,7 +157,7 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 
 				// Method title in sandbox mode
 				if ( apply_filters( 'gateway_ifthen_sandbox', false ) ) {
-					$this->title .= ' - SANDBOX (TEST MODE)';
+					$this->title .= ' - SANDBOX (TEST MODE - DOES NOT EXIST YET, payment requests will fail)';
 				}
 
 				// Frontend availability checker for Apple and Google Pay - Maybe later
