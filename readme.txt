@@ -268,9 +268,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [FIX] Set API URL on Credit Card and Gateway ifthenpay earlier to avoid edge case issues when they're instantiated more than once
 * [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
-* [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
 * [DEV] Add `creditcard_ifthen_order_initial_status_pending` and `gateway_ifthen_order_initial_status_pending` filters, matching the existing MB WAY and Cofidis Pay filters, to set orders as “on-hold” instead of “pending” right from checkout
 * [DEV] Improve ifthenpay Gateway error handling when requesting for a new payment
+* [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
 * [DEV] Tested up to WordPress 7.1-alpha-62619 and WooCommerce 10.9.1
 
 = 11.6.0 - 2026-05-23 =
