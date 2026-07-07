@@ -265,6 +265,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [TWEAK] Add missing `defined( 'ABSPATH' ) || exit;` guard to the 6 WooCommerce Blocks integration class files
 * [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
 * [FIX] Multibanco reference “no repeat days” check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
+* [FIX] Set API URL on Credit Card and Gateway ifthenpay earlier to avoid edge case issues when they're instantiated more than once
 * [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
 * [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout

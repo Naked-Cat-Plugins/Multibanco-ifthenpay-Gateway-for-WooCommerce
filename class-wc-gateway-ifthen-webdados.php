@@ -112,6 +112,9 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 				}
 			}
 
+			// API URL
+			$this->api_url = apply_filters( 'gateway_ifthen_sandbox', false ) ? $this->api_url_sandbox : $this->api_url_production;
+
 			// Actions and filters
 			if ( self::$instances === 1 ) { // Avoid duplicate actions and filters if it's initiated more than once (if WooCommerce loads after us)
 
@@ -146,9 +149,6 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 
 				// Admin notices
 				add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-
-				// API URL
-				$this->api_url = apply_filters( 'gateway_ifthen_sandbox', false ) ? $this->api_url_sandbox : $this->api_url_production;
 
 				// Method title in frontend
 				if ( apply_filters( 'gateway_ifthen_add_frontend_title', true ) ) {

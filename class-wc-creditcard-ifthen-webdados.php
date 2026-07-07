@@ -103,6 +103,9 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 				$this->supports[] = 'refunds';
 			}
 
+			// API URL
+			$this->api_url = apply_filters( 'creditcard_ifthen_sandbox', false ) ? $this->api_url_sandbox : $this->api_url_production;
+
 			// Actions and filters
 			if ( self::$instances === 1 ) { // Avoid duplicate actions and filters if it's initiated more than once (if WooCommerce loads after us)
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -143,9 +146,6 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 
 				// Admin notices
 				add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-
-				// API URL
-				$this->api_url = apply_filters( 'creditcard_ifthen_sandbox', false ) ? $this->api_url_sandbox : $this->api_url_production;
 
 				// Method title in sandbox mode
 				if ( apply_filters( 'creditcard_ifthen_sandbox', false ) ) {
