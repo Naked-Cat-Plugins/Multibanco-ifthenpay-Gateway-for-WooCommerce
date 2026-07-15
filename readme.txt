@@ -1,10 +1,10 @@
 === Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, Cofidis Pay, and PIX (ifthenpay) for WooCommerce ===
 Contributors: nakedcatplugins, webdados, ifthenpay
 Tags: ifthenpay, ecommerce, portugal, atm, homebanking
-Requires at least: 5.8
+Requires at least: 6.4
 Tested up to: 7.0
-Requires PHP: 7.2
-Stable tag: 11.6.0
+Requires PHP: 7.4
+Stable tag: 12.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -258,20 +258,23 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= 11.7.0 - TBA =
+= 12.0.0 - 2026-07-15 =
 * [TWEAK] Gateway keys should now be of type “WooCommerce” and not “Estáticas” (your current gateway key will still work, tho)
 * [TWEAK] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
-* [TWEAK] Use `hash_equals()` instead of `!==`/`===` when comparing the anti-phishing key and the Credit card HMAC signature on all 6 gateway callback/return handlers, for constant-time comparison (defense in depth)
-* [TWEAK] Add missing `defined( 'ABSPATH' ) || exit;` guard to the 6 WooCommerce Blocks integration class files
 * [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
 * [FIX] Multibanco reference “no repeat days” check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
 * [FIX] Set API URL on Credit Card and Gateway ifthenpay earlier to avoid edge case issues when they're instantiated more than once
+* [DEV] Use `hash_equals()` instead of `!==`/`===` when comparing the anti-phishing key and the Credit card HMAC signature on all 6 gateway callback/return handlers, for constant-time comparison (defense in depth)
+* [DEV] Add missing `defined( 'ABSPATH' ) || exit;` guard to the 6 WooCommerce Blocks integration class files
 * [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
 * [DEV] Add `creditcard_ifthen_order_initial_status_pending` and `gateway_ifthen_order_initial_status_pending` filters, matching the existing MB WAY and Cofidis Pay filters, to set orders as “on-hold” instead of “pending” right from checkout
 * [DEV] Improve ifthenpay Gateway error handling when requesting for a new payment
 * [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
-* [DEV] Tested up to WordPress 7.1-alpha-62619 and WooCommerce 10.9.1
+* [DEV] Remove WooCommerce &lt; 8.6 check for the logging settings description
+* [DEV] Bump the “coming soon” version thresholds in the old technology admin notice to PHP 8.0, WordPress 6.7, and WooCommerce 9.6, now that the previous thresholds are already below the plugin's actual requirements
+* [DEV] Requires PHP 7.4, WordPress 6.4, and WooCommerce 9.0
+* [DEV] Tested up to WordPress 7.1-alpha-62745 and WooCommerce 10.9.4
 
 = 11.6.0 - 2026-05-23 =
 * [NEW] Plugin ownership transferred from [Marco Almeida | Webdados](https://profiles.wordpress.org/webdados/) to [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) on WordPress.org - No worries, we’re the same people :-)
