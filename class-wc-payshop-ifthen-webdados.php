@@ -375,13 +375,9 @@ if ( ! class_exists( 'WC_Payshop_IfThen_Webdados' ) ) {
 						'label'       => __( 'Enable logging', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
 						'default'     => 'yes',
 						'description' => sprintf(
-							/* translators: %s: file name or link to logs */
+							/* translators: %s: link to logs */
 							__( 'Log payment method events in %s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-							( ( defined( 'WC_LOG_HANDLER' ) && 'WC_Log_Handler_DB' === WC_LOG_HANDLER ) || version_compare( WC_VERSION, '8.6', '>=' ) )
-							?
 							'<a href="admin.php?page=wc-status&tab=logs&source=' . esc_attr( $this->id ) . '" target="_blank">' . __( 'WooCommerce &gt; Status &gt; Logs', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</a>'
-							:
-							'<code>' . wc_get_log_file_path( $this->id ) . '</code>'
 						),
 					),
 					'debug_email'       => array(

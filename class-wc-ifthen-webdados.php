@@ -4127,38 +4127,38 @@ final class WC_IfthenPay_Webdados {
 				)
 			) {
 				$notices = array();
-				// WordPress below 6.0
-				if ( version_compare( get_bloginfo( 'version' ), '6.0', '<' ) ) {
+				// WordPress below 6.7
+				if ( version_compare( get_bloginfo( 'version' ), '6.7', '<' ) ) {
 					$notices[] = sprintf(
 						/* translators: %1$s: required software name and version, %2$s: current version */
 						esc_html__( '%1$s - Your version: %2$s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'<strong>WordPress 6.0</strong>',
+						'<strong>WordPress 6.7</strong>',
 						sprintf(
 							'<strong style="color:red;">%s</strong>',
 							get_bloginfo( 'version' )
 						)
 					);
 				}
-				// WooCommerce below 8.0
-				if ( version_compare( WC_VERSION, '8.0', '<' ) ) {
+				// WooCommerce below 9.6
+				if ( version_compare( WC_VERSION, '9.6', '<' ) ) {
 					$notices[] = sprintf(
 						/* translators: %1$s: required software name and version, %2$s: current version */
 						esc_html__( '%1$s - Your version: %2$s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'<strong>WooCommerce 8.0</strong>',
+						'<strong>WooCommerce 9.6</strong>',
 						sprintf(
 							'<strong style="color:red;">%s</strong>',
 							WC_VERSION
 						)
 					)
 					.
-					' - <strong>' . esc_html__( 'Support for WooCommerce &lt; 8.0 will end soon!', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong>';
+					' - <strong>' . esc_html__( 'Support for WooCommerce &lt; 9.6 will end soon!', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong>';
 				}
-				// PHP below 7.4
-				if ( version_compare( phpversion(), '7.4', '<' ) ) {
+				// PHP below 8.0
+				if ( version_compare( phpversion(), '8.0', '<' ) ) {
 					$notices[] = sprintf(
 						/* translators: %1$s: required software name and version, %2$s: current version */
 						esc_html__( '%1$s - Your version: %2$s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-						'<strong>PHP 7.4</strong>',
+						'<strong>PHP 8.0</strong>',
 						sprintf(
 							'<strong style="color:red;">%s</strong>',
 							phpversion()
