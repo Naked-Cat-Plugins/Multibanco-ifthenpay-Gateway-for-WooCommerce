@@ -261,7 +261,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = 12.0.0 - 2026-07-15 =
 * [TWEAK] Gateway keys should now be of type “WooCommerce” and not “Estáticas” (your current gateway key will still work, tho)
 * [TWEAK] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
-* [FIX] Several improvements to all WooCommerce Blocks payment methods, including translations support
+* [FIX] Several improvements to all WooCommerce Blocks payment methods, including translation support
 * [FIX] Multibanco reference “no repeat days” check computed its date threshold in a way that could be off by one day right at the site's midnight boundary, due to a UTC/local offset mismatch
 * [FIX] Set API URL on Credit Card and Gateway ifthenpay earlier to avoid edge case issues when they're instantiated more than once
 * [DEV] Use `hash_equals()` instead of `!==`/`===` when comparing the anti-phishing key and the Credit card HMAC signature on all 6 gateway callback/return handlers, for constant-time comparison (defense in depth)
@@ -269,9 +269,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [DEV] Add query support for filtering orders by `_{creditcard_id}_time` (order query meta translation), matching the existing `_exp` support for other gateways
 * [DEV] Add `creditcard_ifthen_after_settings_intro` hook to the Credit card settings screen, matching Multibanco and MB WAY, so that the new Credit Card orders recovery new settings work properly
 * [DEV] Add `creditcard_ifthen_order_initial_status_pending` and `gateway_ifthen_order_initial_status_pending` filters, matching the existing MB WAY and Cofidis Pay filters, to set orders as “on-hold” instead of “pending” right from checkout
-* [DEV] Improve ifthenpay Gateway error handling when requesting for a new payment
+* [DEV] Improve ifthenpay Gateway error handling when requesting a new payment
 * [DEV] Add Playwright end-to-end test suite for WooCommerce Blocks checkout
-* [DEV] Remove WooCommerce &lt; 8.6 check for the logging settings description
+* [DEV] Remove WooCommerce lower than 8.6 check for the logging settings description
 * [DEV] Bump the “coming soon” version thresholds in the old technology admin notice to PHP 8.0, WordPress 6.7, and WooCommerce 9.6, now that the previous thresholds are already below the plugin's actual requirements
 * [DEV] Requires PHP 7.4, WordPress 6.4, and WooCommerce 9.0
 * [DEV] Tested up to WordPress 7.1-alpha-62745 and WooCommerce 10.9.4
