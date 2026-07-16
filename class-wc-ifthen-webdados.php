@@ -790,7 +790,7 @@ final class WC_IfthenPay_Webdados {
 			$value_to_pay = $this->get_order_total_to_pay( $order );
 		} elseif ( ! is_null( WC()->cart ) ) {
 			// Checkout?
-			$value_to_pay = WC()->cart->total; // We're not checking if we're paying just a deposit...
+			$value_to_pay = WC()->cart->get_total( 'edit' ); // We're not checking if we're paying just a deposit...
 		} else { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedElse
 			// No cart? Where are we? We shouldn't unset our payment gateway
 		}
