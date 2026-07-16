@@ -709,6 +709,11 @@ final class WC_IfthenPay_Webdados {
 	 * @return array
 	 */
 	public function disable_if_currency_not_euro( $available_gateways, $gateway_id ) {
+		// Bail out if site owner needs to disable this because of other plugins edge cases
+		if ( apply_filters( 'ifthen_disable_disable_if_currency_not_euro', false, $gateway_id )) {
+			return $available_gateways;
+		}
+		// Go ahead
 		if ( isset( $available_gateways[ $gateway_id ] ) ) {
 			if ( trim( get_woocommerce_currency() ) !== 'EUR' ) {
 				unset( $available_gateways[ $gateway_id ] );
@@ -739,6 +744,11 @@ final class WC_IfthenPay_Webdados {
 	 * @return array
 	 */
 	public function disable_unless_portugal( $available_gateways, $gateway_id ) {
+		// Bail out if site owner needs to disable this because of other plugins edge cases
+		if ( apply_filters( 'ifthen_disable_disable_unless_portugal', false, $gateway_id )) {
+			return $available_gateways;
+		}
+		// Go ahead
 		if ( isset( $available_gateways[ $gateway_id ] ) ) {
 			if (
 				$available_gateways[ $gateway_id ]->only_portugal
@@ -765,6 +775,11 @@ final class WC_IfthenPay_Webdados {
 	 * @return array
 	 */
 	public function disable_only_above_or_below( $available_gateways, $gateway_id, $default_only_above = null, $default_only_below = null ) {
+		// Bail out if site owner needs to disable this because of other plugins edge cases, like Event Booking Manager for WooCommerce
+		if ( apply_filters( 'ifthen_disable_disable_only_above_or_below', false, $gateway_id )) {
+			return $available_gateways;
+		}
+		// Go ahead
 		$value_to_pay = null;
 		// Order total or cart total?
 		$pay_slug = get_option( 'woocommerce_checkout_pay_endpoint', 'order-pay' );

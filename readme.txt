@@ -258,6 +258,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
+= TBA =
+* [DEV] New `ifthen_disable_disable_only_above_or_below`, `ifthen_disable_disable_unless_portugal`, and `ifthen_disable_disable_if_currency_not_euro` to disable these tests on edge case interactions with other plugins, like “Event Booking Manager for WooCommerce” in which the cart has total of zero when processing the checkout
+
 = 12.0.0 - 2026-07-15 =
 * [TWEAK] Gateway keys should now be of type “WooCommerce” and not “Estáticas” (your current gateway key will still work, tho)
 * [TWEAK] Do not hide the ifthenpay order metabox even if the payment method is not one of ours
