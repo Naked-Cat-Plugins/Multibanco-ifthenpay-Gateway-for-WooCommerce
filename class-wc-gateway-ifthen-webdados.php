@@ -471,34 +471,6 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 				)
 			);
 
-			// PRO fake fields
-			$pro_fake_fields = array(
-				// Icon per payment method
-				'_pro_gateway_icons_per_method' => array(
-					'type'     => 'checkbox',
-					'title'    => __( 'Icon per payment method', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-					'label'    => __( 'Show an icon for each active payment method (Apple Pay, Google Pay, PIX) instead of the generic ifthenpay Gateway icon', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-					'disabled' => true,
-				),
-			);
-			foreach ( $pro_fake_fields as $key => $temp ) {
-				$pro_fake_fields[ $key ]['title'] = '⭐️ ' . $pro_fake_fields[ $key ]['title'];
-				if ( isset( $pro_fake_fields[ $key ]['description'] ) ) {
-					$pro_fake_fields[ $key ]['description'] .= '<br/>';
-				} else {
-					$pro_fake_fields[ $key ]['description'] = '';
-				}
-				$pro_fake_fields[ $key ]['description'] .= sprintf(
-					/* translators: %1$s: link open, %2$s: link close */
-					__( 'Available on the %1$sPRO Add-on%2$s', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-					'<a href="https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/' . esc_attr( WC_IfthenPay_Webdados()->out_link_utm ) . '" target="_blank">',
-					'</a>'
-				);
-			}
-			$this->form_fields = array_merge(
-				$this->form_fields,
-				$pro_fake_fields
-			);
 			$this->form_fields = array_merge(
 				$this->form_fields,
 				array(
