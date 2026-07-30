@@ -57,6 +57,7 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 
 Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) and unlock extra features:
 
+* For logged-in returning customers, automatically pre-select whichever of our payment methods they used on their last order at checkout, instead of the default gateway order;
 * Recover unpaid MB WAY orders (even if already automatically cancelled by WooCommerce) by converting them to Multibanco and notifying the customer via email;
 * Recover unpaid Credit card orders (even if already automatically cancelled by WooCommerce) by emailing the customer a new payment link;
 * Set MB WAY, Cofidis Pay, Credit card, and ifthenpay Gateway orders as “On hold” instead of “Pending payment” right after checkout;
