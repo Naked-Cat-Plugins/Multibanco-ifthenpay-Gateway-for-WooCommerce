@@ -70,7 +70,8 @@ Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit
 * Set a payment entity for Multibanco, MB WAY, Credit card, Payshop, and Cofidis Pay at the product category level, so that you can receive payment in different accounts based on the order products (replaces previously available specific extension);
 	* Simplified marketplace;
 	* Lock the cart so you can only have products from a single account in the same order;
-* Remove “ifthenpay Gateway” from the payment method title on the frontend for Apple Pay, Google Pay, and PIX
+* Remove “ifthenpay Gateway” from the payment method title on the frontend for Apple Pay, Google Pay, and PIX;
+* Show an icon for each active payment method (Apple Pay, Google Pay, PIX), instead of the generic ifthenpay Gateway icon, on both classic and block-based checkout;
 * Remove payment instructions from specific emails, for example, “order completed”, to avoid customer confusion when they are no longer necessary;
 * Autofill the VAT number on the Cofidis Pay gateway from several VAT number plugins (more can be added on request);
 * Change the default timeout for calls to the ifthenpay APIs if your website is experiencing communication difficulties;
@@ -157,6 +158,12 @@ There are filters for this, and you can find examples in `hooks-examples.php`.
 = Can I change the payment gateway icon on the checkout page? =
 
 There are also filters for this. See `hooks-examples.php`.
+
+= How do I change a payment method’s icon(s)? =
+
+On the classic checkout, use the `woocommerce_gateway_icon` filter, which receives the icon HTML and the payment gateway ID, and should return the new icon HTML. See the examples in `hooks-examples.php`.
+On the block-based checkout, each payment method exposes its data (including the icon, its width, and its height) to a filter named after the method, for example `gateway_ifthen_blocks_payment_method_data` for the ifthenpay Gateway (Apple Pay, Google Pay, PIX).
+The [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) already has a ready-made feature for the ifthenpay Gateway that replaces its generic icon with an icon for each active payment method (Apple Pay, Google Pay, and/or PIX), on both classic and block-based checkout, no coding required.
 
 = I want to charge an additional fee for these payment methods. How should I do it? =
 
