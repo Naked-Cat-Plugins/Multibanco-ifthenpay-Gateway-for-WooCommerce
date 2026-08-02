@@ -36,4 +36,4 @@ test-results/*
 createzip.command
 
 # Other files specific to the plugin
-roadmap.txt
+_roadmap.txt
