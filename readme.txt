@@ -260,6 +260,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 == Changelog ==
 
 = TBA =
+* [NEW] "Issue new Multibanco reference" button on the order edit screen, once the current reference has expired, so the shop owner can request payment again without waiting for the customer to revisit the pay page
 * [NEW] Redirect to the payment gateways settings page after single-plugin activation
 * [DEV] New `ifthen_disable_disable_only_above_or_below`, `ifthen_disable_disable_unless_portugal`, and `ifthen_disable_disable_if_currency_not_euro` to disable these tests on edge case interactions with other plugins, like “Event Booking Manager for WooCommerce” in which the cart has total of zero when processing the checkout
 * [DEV] Use `WC()->cart->get_total( 'edit' )` instead of `WC()->cart->total` to get cart current total value
