@@ -62,7 +62,7 @@ final class WC_IfthenPay_Webdados {
 	public $multibanco_last_incremental_expire_ref = null;
 	public $multibanco_min_value                   = 0.01;
 	public $multibanco_max_value                   = 99999.99;
-	public $multibanco_new_reference_grace_minutes = 10; // Grace period after expiration before offering "Issue new reference", to avoid a race with a payment still being processed by the bank right at the expiration boundary
+	public $multibanco_new_reference_grace_minutes = 30; // Grace period after expiration before offering "Issue new reference". Multibanco references always expire at 23:59:59 of a given day (not per-order, unlike MB WAY), so every reference from that day expires at the exact same instant; this buffer avoids a race with a payment still being processed/confirmed by the bank right at that shared midnight boundary
 	public $multibanco_banner_email                = '';
 	public $multibanco_banner                      = '';
 	public $multibanco_icon                        = '';
