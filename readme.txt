@@ -4,7 +4,7 @@ Tags: ifthenpay, ecommerce, portugal, atm, homebanking
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 12.0.0
+Stable tag: 12.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -260,14 +260,14 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= TBA =
+= 12.1.0 - 2026-08-03 =
 * [NEW] "Issue new Multibanco reference" button on the order edit screen, once the current reference has expired, so the shop owner can request payment again without waiting for the customer to revisit the pay page
 * [NEW] Redirect to the payment gateways settings page after single-plugin activation
 * [DEV] New `ifthen_disable_disable_only_above_or_below`, `ifthen_disable_disable_unless_portugal`, and `ifthen_disable_disable_if_currency_not_euro` to disable these tests on edge case interactions with other plugins, like “Event Booking Manager for WooCommerce” in which the cart has total of zero when processing the checkout
 * [DEV] Use `WC()->cart->get_total( 'edit' )` instead of `WC()->cart->total` to get cart current total value
 * [DEV] Fix PHPCS config: minimum_supported_wp_version now matches the actual Requires at least (6.4), re-enable PHPCompatibilityWP with testVersion 7.4-
 * [DEV] Add a delete-release GitHub Actions workflow
-* [DEV] Tested up to WordPress 7.1 and WooCommerce 11.0
+* [DEV] Tested up to WordPress 7.1-beta4-62968 and WooCommerce 11.0.0-rc.3
 
 = 12.0.0 - 2026-07-15 =
 * [TWEAK] Gateway keys should now be of type “WooCommerce” and not “Estáticas” (your current gateway key will still work, tho)
