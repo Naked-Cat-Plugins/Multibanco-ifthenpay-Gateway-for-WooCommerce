@@ -3529,10 +3529,11 @@ final class WC_IfthenPay_Webdados {
 				wp_die();
 			}
 			if ( isset( $_REQUEST['order_id'] ) && intval( $_REQUEST['order_id'] ) > 0 ) {
-				$order = wc_get_order( intval( $_REQUEST['order_id'] ) );
-				if ( $order && $this->order_needs_payment( $order ) ) {
-					$order_mb_details = $this->get_multibanco_order_details( $order->get_id() );
-					$ref              = $this->multibanco_get_ref( $order->get_id(), true );
+				$order            = wc_get_order( intval( $_REQUEST['order_id'] ) );
+				$order_mb_details = $order ? $this->get_multibanco_order_details( $order->get_id() ) : false;
+				// Only makes sense for references that actually have an expiration date set (e.g. not a static entity/subentity reference).
+				if ( $order && $this->order_needs_payment( $order ) && $order_mb_details && trim( $order_mb_details['exp'] ) !== '' ) {
+					$ref = $this->multibanco_get_ref( $order->get_id(), true );
 					if ( is_array( $ref ) ) {
 						$note = sprintf(
 							/* translators: %s: payment method */
