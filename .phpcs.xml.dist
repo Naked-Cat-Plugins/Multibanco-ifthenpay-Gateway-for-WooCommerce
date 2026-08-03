@@ -25,7 +25,8 @@
 	<!-- Enable colors in report. -->
 	<arg name="colors"/>
 
-	<config name="minimum_supported_wp_version" value="5.8"/>
+	<config name="minimum_supported_wp_version" value="6.4"/>
+	<config name="testVersion" value="7.4-"/>
 
 	<!-- Add custom capabilities -->
 	<rule ref="WordPress.WP.Capabilities">
@@ -37,8 +38,8 @@
 		</properties>
 	</rule>
 
-	<!--<rule ref="PHPCompatibilityWP"/>-->
-	
+	<rule ref="PHPCompatibilityWP"/>
+
 	<!-- WordPress Coding Standards -->
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
