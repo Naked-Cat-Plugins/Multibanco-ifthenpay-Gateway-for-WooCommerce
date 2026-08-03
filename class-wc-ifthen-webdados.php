@@ -62,6 +62,7 @@ final class WC_IfthenPay_Webdados {
 	public $multibanco_last_incremental_expire_ref = null;
 	public $multibanco_min_value                   = 0.01;
 	public $multibanco_max_value                   = 99999.99;
+	public $multibanco_new_reference_grace_minutes = 10; // Grace period after expiration before offering "Issue new reference", to avoid a race with a payment still being processed by the bank right at the expiration boundary
 	public $multibanco_banner_email                = '';
 	public $multibanco_banner                      = '';
 	public $multibanco_icon                        = '';
@@ -355,6 +356,8 @@ final class WC_IfthenPay_Webdados {
 		add_action( 'wp_ajax_nopriv_wc_gateway_ifthenpay_order_status', array( $this, 'gatewayifthenpay_ajax_order_status' ) );
 		// Request MB WAY payment again
 		add_action( 'wp_ajax_mbway_ifthen_request_payment_again', array( $this, 'wp_ajax_mbway_ifthen_request_payment_again' ) );
+		// Issue a new Multibanco reference
+		add_action( 'wp_ajax_multibanco_ifthen_request_payment_again', array( $this, 'wp_ajax_multibanco_ifthen_request_payment_again' ) );
 		// Order value changed?
 		add_action( 'woocommerce_order_item_add_action_buttons', array( $this, 'multibanco_maybe_value_changed' ) );
 		// Dismiss new method notices
@@ -1069,6 +1072,44 @@ final class WC_IfthenPay_Webdados {
 							}
 						} else {
 							echo '<p><strong>' . esc_html__( 'Awaiting Multibanco payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
+							if (
+								trim( $order_mb_details['exp'] ) !== ''
+								&&
+								date_i18n( 'Y-m-d H:i:s', strtotime( '-' . intval( $this->multibanco_new_reference_grace_minutes * 60 ) . ' SECONDS', current_time( 'timestamp' ) ) ) > $order_mb_details['exp'] // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
+							) {
+								?>
+								<p style="text-align: center;">
+									<input type="button" class="button" id="multibanco_ifthen_request_payment_again" value="<?php echo esc_attr( __( 'Issue new Multibanco reference', 'multibanco-ifthen-software-gateway-for-woocommerce' ) ); ?>"/>
+								</p>
+								<script type="text/javascript">
+								jQuery( document ).ready( function() {
+									jQuery( '#multibanco_ifthen_request_payment_again' ).on( 'click', function() {
+										if ( confirm( '<?php echo esc_html__( 'Are you sure you want to issue a new Multibanco reference? Don’t do it unless your client asks you to.', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' ) ) {
+											jQuery( '#multibanco_ifthen_request_payment_again' ).val( '<?php esc_html_e( 'Wait...', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
+											var data = {
+												'action'  : 'multibanco_ifthen_request_payment_again',
+												'order_id': <?php echo intval( $order->get_id() ); ?>,
+												'nonce'   : '<?php echo esc_attr( wp_create_nonce( 'multibanco_ifthen_request_payment_again' ) ); ?>'
+											};
+											jQuery.post( ajaxurl, data, function( response ) {
+												if ( response.status === 1 ) {
+													jQuery( '#multibanco_ifthen_request_payment_again' ).val( '<?php esc_html_e( 'Done!', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
+													alert( response.message );
+													window.location.reload();
+												} else {
+													jQuery( '#multibanco_ifthen_request_payment_again' ).val( '<?php esc_html_e( 'Issue new Multibanco reference', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
+													alert( response.error );
+												}
+											}, 'json' ).fail( function() {
+												jQuery( '#multibanco_ifthen_request_payment_again' ).val( '<?php esc_html_e( 'Issue new Multibanco reference', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
+												alert( '<?php esc_html_e( 'Unknown error.', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
+											} );
+										}
+									});
+								});
+								</script>
+								<?php
+							}
 						}
 						if ( $show_debug && WP_DEBUG ) {
 							$callback_url = $this->multibanco_notify_url;
@@ -3447,6 +3488,86 @@ final class WC_IfthenPay_Webdados {
 						array(
 							'status' => 0,
 							'error'  => esc_html__( 'Error contacting ifthenpay servers to create MB WAY Payment', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+						)
+					);
+				}
+			} else {
+				echo wp_json_encode(
+					array(
+						'status' => 0,
+						'error'  => esc_html__( 'Invalid parameters', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+					)
+				);
+			}
+		} else {
+			echo wp_json_encode(
+				array(
+					'status' => 0,
+					'error'  => esc_html__( 'Error', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+				)
+			);
+		}
+		wp_die();
+	}
+
+	/**
+	 * Issue a new Multibanco reference on admin request, when the current one has expired.
+	 * Reuses multibanco_get_ref() (the same method used elsewhere to regenerate a reference when
+	 * the order value changes), forcing a new reference regardless of expiration/value, and the
+	 * same order-note/notify-customer pattern already used by multibanco_maybe_value_changed().
+	 */
+	public function wp_ajax_multibanco_ifthen_request_payment_again() {
+		$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : '';
+		if ( wp_verify_nonce( $nonce, 'multibanco_ifthen_request_payment_again' ) ) {
+			if ( ! current_user_can( 'edit_shop_orders' ) ) {
+				echo wp_json_encode(
+					array(
+						'status' => 0,
+						'error'  => esc_html__( 'Insufficient permissions', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+					)
+				);
+				wp_die();
+			}
+			if ( isset( $_REQUEST['order_id'] ) && intval( $_REQUEST['order_id'] ) > 0 ) {
+				$order = wc_get_order( intval( $_REQUEST['order_id'] ) );
+				if ( $order && $this->order_needs_payment( $order ) ) {
+					$order_mb_details = $this->get_multibanco_order_details( $order->get_id() );
+					$ref              = $this->multibanco_get_ref( $order->get_id(), true );
+					if ( is_array( $ref ) ) {
+						$note = sprintf(
+							/* translators: %s: payment method */
+							esc_html__( 'New %s reference issued by request', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+							'Multibanco'
+						) . ':
+' . esc_html__( 'New entity', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . trim( $ref['ent'] ) . '
+' . esc_html__( 'New reference', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . $this->format_multibanco_ref( $ref['ref'] );
+						if ( $order_mb_details ) {
+							$note .= '
+- - - - - - - - - - - - - - - - - - - - -
+' . esc_html__( 'Previous entity', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . trim( $order_mb_details['ent'] ) . '
+' . esc_html__( 'Previous reference', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . $this->format_multibanco_ref( $order_mb_details['ref'] );
+						}
+						// Notify customer via a customer-facing order note, same as multibanco_maybe_value_changed().
+						$order->add_order_note( $note, $this->multibanco_settings['update_ref_client'] === 'yes' ? 1 : 0 );
+						echo wp_json_encode(
+							array(
+								'status'  => 1,
+								'message' => esc_html__( 'A new Multibanco reference has been issued', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ( $this->multibanco_settings['update_ref_client'] === 'yes' ? ' - ' . esc_html__( 'The customer will be notified', 'multibanco-ifthen-software-gateway-for-woocommerce' ) : ' - ' . esc_html__( 'You should notify the customer', 'multibanco-ifthen-software-gateway-for-woocommerce' ) ),
+							)
+						);
+					} else {
+						echo wp_json_encode(
+							array(
+								'status' => 0,
+								'error'  => is_string( $ref ) ? $ref : esc_html__( 'Error contacting ifthenpay servers to create a new Multibanco reference', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+							)
+						);
+					}
+				} else {
+					echo wp_json_encode(
+						array(
+							'status' => 0,
+							'error'  => esc_html__( 'Invalid parameters', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
 						)
 					);
 				}
