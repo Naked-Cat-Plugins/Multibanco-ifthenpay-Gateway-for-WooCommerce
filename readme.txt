@@ -2,7 +2,7 @@
 Contributors: nakedcatplugins, webdados, ifthenpay
 Tags: ifthenpay, ecommerce, portugal, atm, homebanking
 Requires at least: 6.4
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 12.0.0
 License: GPLv3
@@ -265,6 +265,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 * [DEV] Use `WC()->cart->get_total( 'edit' )` instead of `WC()->cart->total` to get cart current total value
 * [DEV] Fix PHPCS config: minimum_supported_wp_version now matches the actual Requires at least (6.4), re-enable PHPCompatibilityWP with testVersion 7.4-
 * [DEV] Add a delete-release GitHub Actions workflow
+* [DEV] Tested up to WordPress 7.1 and WooCommerce 11.0
 
 = 12.0.0 - 2026-07-15 =
 * [TWEAK] Gateway keys should now be of type “WooCommerce” and not “Estáticas” (your current gateway key will still work, tho)

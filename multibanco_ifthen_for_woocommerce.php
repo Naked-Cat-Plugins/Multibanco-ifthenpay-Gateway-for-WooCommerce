@@ -8,10 +8,10 @@
  * Author URI:           https://nakedcatplugins.com
  * Text Domain:          multibanco-ifthen-software-gateway-for-woocommerce
  * Requires at least:    6.4
- * Tested up to:         7.0
+ * Tested up to:         7.1
  * Requires PHP:         7.4
  * WC requires at least: 9.0
- * WC tested up to:      10.9
+ * WC tested up to:      11.0
  * Requires Plugins:     woocommerce
  * License:              GPLv3
  **/
