@@ -34,6 +34,7 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 * Allows the customer to pay in up to 12 interest-free installments via Cofidis Pay;
 * Customers with Brazilian bank accounts can use PIX;
 * Multibanco references with expiration date if the “MB Key” configuration method is used;
+* Shop owner can request an MB WAY payment again, or issue a new Multibanco reference, directly from the order edit screen once the original one has expired;
 * Automatically changes the order status to “Processing” (or “Completed” if the order only contains virtual downloadable products) and notifies both the customer and the store owner if the automatic “Callback” upon payment is activated;
 * Automatic “Callback” can be activated upon request to ifthenpay, via the plugin settings screen for each payment method;
 * Refunds for MB WAY and Credit or debit card - [read this](https://helpdesk.ifthenpay.com/pt-PT/support/solutions/articles/79000130517-devoluc%C3%B5es-de-pagamentos-aos-ordenantes);
