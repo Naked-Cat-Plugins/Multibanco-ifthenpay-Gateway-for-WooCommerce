@@ -4,7 +4,7 @@ Tags: ifthenpay, ecommerce, portugal, atm, homebanking
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 12.1.0
+Stable tag: 12.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -260,8 +260,8 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= 12.2.0 - 2026-08-20 =
-* [FIX] Set the MB WAY block checkout phone number max length from the selected country code, without accessing the DOM directly
+= 12.1.1 - 2026-08-20 =
+* [FIX] Set the MB WAY block checkout phone number max length from the selected country code, without accessing the DOM directly (which was not 100% WordPress 7.1 compatible when editing the blocks checkout page)
 * [DEV] Tested up to WordPress 7.2-alpha-63323 and WooCommerce 11.1.0-beta.1
 
 = 12.1.0 - 2026-08-03 =
