@@ -260,6 +260,10 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
+= 12.2.0 - 2026-08-20 =
+* [FIX] Set the MB WAY block checkout phone number max length from the selected country code, without accessing the DOM directly
+* [DEV] Tested up to WordPress 7.2-alpha-63323 and WooCommerce 11.1.0-beta.1
+
 = 12.1.0 - 2026-08-03 =
 * [NEW] "Issue new Multibanco reference" button on the order edit screen, once the current reference has expired, so the shop owner can request payment again without waiting for the customer to revisit the pay page
 * [NEW] Redirect to the payment gateways settings page after single-plugin activation

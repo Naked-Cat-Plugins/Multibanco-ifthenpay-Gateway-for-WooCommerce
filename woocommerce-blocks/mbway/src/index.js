@@ -79,17 +79,8 @@ const Content = ( props ) => {
 
 	/* Select value */
 	const HandleMBWayCountryChange = ( event ) => {
-		const value = event.target.value;
-		setMbwayCountryCode( value );
-		// If PT is selected, validate for Portuguese mobile number format
-		const phoneInput = document.getElementById( settings.id + '_phone' );
-		if ( phoneInput ) {
-			if ( value === 'PT' ) {
-				phoneInput.maxLength = 9;
-			} else {
-				phoneInput.maxLength = 99;
-			}
-		}
+		// The phone field max length is derived from this state when rendering, below
+		setMbwayCountryCode( event.target.value );
 	};
 
 	/* Input value */
@@ -135,11 +126,8 @@ const Content = ( props ) => {
 				)
 			)
 		);
-		if ( settings.default_country_code === 'PT' ) {
-			var maxInputLength = '9';
-		} else {
-			var maxInputLength = '99';
-		}
+		// If PT is selected, validate for Portuguese mobile number format
+		var maxInputLength = ( mbwayCountryCode === 'PT' ) ? '9' : '99';
 	} else {
 		var countrycodeselect = null;
 		var maxInputLength    = '9';
