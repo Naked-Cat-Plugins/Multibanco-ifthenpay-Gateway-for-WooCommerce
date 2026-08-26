@@ -93,6 +93,7 @@ The PRO add-on is a product of [Naked Cat Plugins](https://nakedcatplugins.com) 
 
 Already know our other WooCommerce (premium) plugins?
 
+* [VAT Number and EU VIES Validation for WooCommerce](https://nakedcatplugins.com/product/vat-number-and-eu-vies-validation-for-woocommerce/?utm_source=wordpress.org&utm_medium=link&utm_campaign=mb_ifthen_plugin) - Collect and validate VAT identification numbers for the whole European Union, confirm them against VIES and remove VAT on qualifying intra-EU B2B orders
 * [Portuguese Postcodes for WooCommerce](https://nakedcatplugins.com/product/portuguese-postcodes-for-woocommerce-technical-support/) - Automatic filling of the address details at the checkout, including street name and neighbourhood, based on the postal code
 * [Invoicing with InvoiceXpress for WooCommerce](https://invoicewoo.com/) - Automatically issue invoices directly from the WooCommerce order
 * [DPD Portugal for WooCommerce](https://nakedcatplugins.com/product/dpd-portugal-for-woocommerce/) - Create shipping and return guide in the DPD API directly from the WooCommerce order
