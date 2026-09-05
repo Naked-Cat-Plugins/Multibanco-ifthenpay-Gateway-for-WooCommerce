@@ -233,7 +233,7 @@ If your permalinks are set as “Custom structure”: `/index.php/%postname%/` t
 
 This plugin does not collect or send any private data of the website where it’s installed, its customers, or the orders, to Webdados (the plugin author) or ifthenpay (the payment processor).
 In the MB WAY module, the mobile phone number is collected to request payment authorization and it can be legitimately processed based on Article 6 (1) (b) of the GDPR.
-ifthenpay’s privacy policy can be found at [https://ifthenpay.com/termosCondicoes](https://ifthenpay.com/termosCondicoes)
+ifthenpay’s privacy policy can be found at [https://ifthenpay.com/privacy-policy/?lang=en](https://ifthenpay.com/privacy-policy/?lang=en)
 
 = Is this plugin compatible with the new WooCommerce High-Performance Order Storage? =
 
