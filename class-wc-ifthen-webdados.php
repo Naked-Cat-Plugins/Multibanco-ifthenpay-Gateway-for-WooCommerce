@@ -2739,6 +2739,7 @@ final class WC_IfthenPay_Webdados {
 					case '_' . $this->cofidispay_id . '_request_id':
 					case '_' . $this->cofidispay_id . '_wd_secret':
 					case '_' . $this->gateway_ifthen_id . '_id':
+					case '_' . $this->gateway_ifthen_id . '_request_id':
 					case '_' . $this->gateway_ifthen_id . '_wd_secret':
 						$query['meta_query'][] = array(
 							'key'   => $key,

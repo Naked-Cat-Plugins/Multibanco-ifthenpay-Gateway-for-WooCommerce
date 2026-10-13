@@ -262,6 +262,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
+= TBA =
+* [FIX] Refund confirmations sent by ifthenpay for ifthenpay Gateway payments (Apple Pay, Google Pay and others) were never recorded on the order and, on shops with many orders, made the server run out of memory and return errors until ifthenpay stopped retrying
+
 = 12.1.1 - 2026-08-20 =
 * [FIX] Set the MB WAY block checkout phone number max length from the selected country code, without accessing the DOM directly (which was not 100% WordPress 7.1 compatible when editing the blocks checkout page)
 * [DEV] Tested up to WordPress 7.2-alpha-63323 and WooCommerce 11.1.0-beta.1
