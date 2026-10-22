@@ -4,7 +4,7 @@ Tags: ifthenpay, ecommerce, portugal, atm, homebanking
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 12.1.1
+Stable tag: 12.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -258,9 +258,10 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= TBA =
+= 12.2.0 - 2026-10-22 =
 * [TWEAK] The Cofidis Pay payment method has been removed, as it is no longer available
 * [FIX] Refund confirmations sent by ifthenpay for ifthenpay Gateway payments (Apple Pay, Google Pay and others) were never recorded on the order and, on shops with many orders, made the server run out of memory and return errors until ifthenpay stopped retrying
+* [DEV] Tested up to WordPress 7.2-alpha-64319 and WooCommerce 11.2.1
 
 = 12.1.1 - 2026-08-20 =
 * [FIX] Set the MB WAY block checkout phone number max length from the selected country code, without accessing the DOM directly (which was not 100% WordPress 7.1 compatible when editing the blocks checkout page)

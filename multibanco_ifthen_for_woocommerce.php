@@ -3,7 +3,7 @@
  * Plugin Name:          Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, and PIX (ifthenpay) for WooCommerce
  * Plugin URI:           https://www.webdados.pt/wordpress/plugins/multibanco-ifthen-software-gateway-woocommerce-wordpress/
  * Description:          Secure WooCommerce payments with Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, and PIX via ifthenpay’s payment gateway.
- * Version:              12.1.1
+ * Version:              12.2.0
  * Author:               Naked Cat Plugins (by Webdados)
  * Author URI:           https://nakedcatplugins.com
  * Text Domain:          multibanco-ifthen-software-gateway-for-woocommerce
@@ -11,7 +11,7 @@
  * Tested up to:         7.1
  * Requires PHP:         7.4
  * WC requires at least: 9.0
- * WC tested up to:      11.1
+ * WC tested up to:      11.2
  * Requires Plugins:     woocommerce
  * License:              GPLv3
  **/
