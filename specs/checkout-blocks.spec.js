@@ -59,7 +59,7 @@ test.describe( 'Block checkout — ifthenpay payment methods', () => {
 
 		const labels = await paymentOptions.allTextContents();
 		const hasIfthenpay = labels.some( l =>
-			/(Multibanco|MB WAY|Cartão|Credit|Cofidis|Payshop|ifthenpay)/i.test( l )
+			/(Multibanco|MB WAY|Cartão|Credit|Payshop|ifthenpay)/i.test( l )
 		);
 		expect( hasIfthenpay, `Expected at least one ifthenpay payment option. Found: ${ labels.join(', ') }` ).toBe( true );
 	} );

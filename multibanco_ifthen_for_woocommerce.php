@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:          Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, Cofidis Pay, and PIX (ifthenpay) for WooCommerce
+ * Plugin Name:          Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, and PIX (ifthenpay) for WooCommerce
  * Plugin URI:           https://www.webdados.pt/wordpress/plugins/multibanco-ifthen-software-gateway-woocommerce-wordpress/
- * Description:          Secure WooCommerce payments with Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, Cofidis, and PIX via ifthenpay’s payment gateway.
+ * Description:          Secure WooCommerce payments with Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, and PIX via ifthenpay’s payment gateway.
  * Version:              12.1.1
  * Author:               Naked Cat Plugins (by Webdados)
  * Author URI:           https://nakedcatplugins.com
@@ -37,7 +37,6 @@ function mbifthen_init() {
 		require_once dirname( WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE ) . '/class-wc-mbway-ifthen-webdados.php';
 		require_once dirname( WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE ) . '/class-wc-creditcard-ifthen-webdados.php';
 		require_once dirname( WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE ) . '/class-wc-payshop-ifthen-webdados.php';
-		require_once dirname( WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE ) . '/class-wc-cofidispay-ifthen-webdados.php';
 		require_once dirname( WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE ) . '/class-wc-gateway-ifthen-webdados.php';
 		$GLOBALS['WC_IfthenPay_Webdados'] = WC_IfthenPay_Webdados();
 		/* Add settings links - This is here because inside the main class we cannot call the correct plugin_basename( WC_IFTHENPAY_WEBDADOS_PLUGIN_FILE ) */

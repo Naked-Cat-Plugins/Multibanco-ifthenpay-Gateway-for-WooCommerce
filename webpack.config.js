@@ -9,7 +9,6 @@ const WooCommerceDependencyExtractionWebpackPlugin = require( '@woocommerce/depe
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'cofidispay-block': path.resolve( process.cwd(), 'woocommerce-blocks', 'cofidispay', 'src', 'index.js' ),
 		'creditcard-block': path.resolve( process.cwd(), 'woocommerce-blocks', 'creditcard', 'src', 'index.js' ),
 		'mbway-block': path.resolve( process.cwd(), 'woocommerce-blocks', 'mbway', 'src', 'index.js' ),
 		'multibanco-block': path.resolve( process.cwd(), 'woocommerce-blocks', 'multibanco', 'src', 'index.js' ),
