@@ -17,7 +17,7 @@ Portuguese consumers trust the “Multibanco” and “MB WAY” payment methods
 
 This plugin generates a “Multibanco” Payment Reference that customers can use to pay for their WooCommerce orders at an ATM or via home banking, or an “MB WAY” payment request which will send a push notification to the customer’s mobile phone for payment approval.
 
-Credit or debit cards, including Apple Pay and Google Pay, and CTT Payshop payment methods are also available.
+Credit or debit cards, including Apple Pay and Google Pay, CTT Payshop, and PIX payment methods are also available.
 
 Holders of a Brazilian bank account can conveniently pay for WooCommerce orders in Euros, with automatic currency conversion to Brazilian Real, using PIX.
 
