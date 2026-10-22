@@ -83,17 +83,6 @@
 					var number_fields = 3;
 				}
 				break;
-			case 'cofidispay':
-				if (
-					$( '#woocommerce_cofidispay_ifthen_for_woocommerce_cofidispaykey' ).val().trim().length === 10
-					&&
-					$( '#woocommerce_cofidispay_ifthen_for_woocommerce_cofidispaykey' ).val().trim() !== ''
-				) {
-					hide_extra_fields = false;
-				} else {
-					var number_fields = 3;
-				}
-				break;
 			case 'gateway_ifthen':
 				if (
 					$( '#woocommerce_gateway_ifthen_ifthen_for_woocommerce_backoffice_key' ).val().trim().length === 19
@@ -149,7 +138,6 @@
 				case 'mbway':
 				case 'creditcard':
 				case 'payshop':
-				case 'cofidispay':
 				case 'gateway_ifthen':
 					$( '#wc_ifthen_settings table.form-table tr:nth-child(n+' + number_fields + ')' ).hide();
 					$( '#wc_ifthen_settings .mb_hide_extra_fields' ).hide();

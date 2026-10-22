@@ -21,7 +21,6 @@ final class WC_IfthenPay_Webdados {
 	public $mbway_id          = 'mbway_ifthen_for_woocommerce';
 	public $payshop_id        = 'payshop_ifthen_for_woocommerce';
 	public $creditcard_id     = 'creditcard_ifthen_for_woocommerce';
-	public $cofidispay_id     = 'cofidispay_ifthen_for_woocommerce';
 	public $gateway_ifthen_id = 'gateway_ifthen_ifthen_for_woocommerce';
 
 	/* Debug */
@@ -109,18 +108,6 @@ final class WC_IfthenPay_Webdados {
 	public $creditcard_banner       = ''; /* Needed ? */
 	public $creditcard_icon         = '';
 	public $creditcard_icon_path    = '';
-
-
-	/* Internal variables - For Cofidis Pay */
-	public $cofidispay_settings     = null;
-	public $cofidispay_notify_url   = '';
-	public $cofidispay_return_url   = '';
-	public $cofidispay_min_value    = 0.01; /* No limit in theory */
-	public $cofidispay_max_value    = 99999.99; /* No limit in theory */
-	public $cofidispay_banner_email = ''; /* Needed ? */
-	public $cofidispay_banner       = ''; /* Needed ? */
-	public $cofidispay_icon         = '';
-	public $cofidispay_icon_path    = '';
 
 
 	/* Internal variables - For Apple and Google Pay */
@@ -223,22 +210,6 @@ final class WC_IfthenPay_Webdados {
 			:
 			$this->home_url( '/wc-api/WC_CreditCardReturn_IfThen_Webdados/' )
 		);
-		// Cofidis Pay
-		$this->cofidispay_settings   = get_option( 'woocommerce_cofidispay_ifthen_for_woocommerce_settings', '' );
-		$this->cofidispay_notify_url = (
-			get_option( 'permalink_structure' ) === ''
-			?
-			$this->home_url( '/?wc-api=WC_CofidisPay_IfThen_Webdados&key=[ANTI_PHISHING_KEY]&orderId=[ORDER_ID]&amount=[AMOUNT]&requestId=[REQUEST_ID]' )
-			:
-			$this->home_url( '/wc-api/WC_CofidisPay_IfThen_Webdados/?key=[ANTI_PHISHING_KEY]&orderId=[ORDER_ID]&amount=[AMOUNT]&requestId=[REQUEST_ID]' )
-		);
-		$this->cofidispay_return_url = (
-			get_option( 'permalink_structure' ) === ''
-			?
-			$this->home_url( '/?wc-api=WC_CofidisPayReturn_IfThen_Webdados' )
-			:
-			$this->home_url( '/wc-api/WC_CofidisPayReturn_IfThen_Webdados/' )
-		);
 		// Gateway
 		$this->gateway_ifthen_settings   = get_option( 'woocommerce_gateway_ifthen_ifthen_for_woocommerce_settings', '' );
 		$this->gateway_ifthen_notify_url = (
@@ -321,6 +292,11 @@ final class WC_IfthenPay_Webdados {
 				}
 				// phpcs:enable
 			}
+			// Update routines when upgrading from 12.1.1 or below - Remove Cofidis Pay settings, as the payment method no longer exists
+			if ( version_compare( $db_version, '12.1.2', '<' ) ) {
+				delete_option( 'woocommerce_cofidispay_ifthen_for_woocommerce_settings' );
+				delete_option( 'cofidispay_ifthen_for_woocommerce_callback_email_sent' );
+			}
 			update_option( $this->id . '_version', $this->version );
 			$this->debug_log( $this->id, 'Upgrade from ' . $db_version . ' to ' . $this->version . ' finished' );
 		}
@@ -350,8 +326,6 @@ final class WC_IfthenPay_Webdados {
 		// Order status listener/Ajax hook
 		add_action( 'wp_ajax_wc_mbway_ifthen_order_status', array( $this, 'mbway_ajax_order_status' ) );
 		add_action( 'wp_ajax_nopriv_wc_mbway_ifthen_order_status', array( $this, 'mbway_ajax_order_status' ) );
-		add_action( 'wp_ajax_wc_cofidispay_ifthenpay_order_status', array( $this, 'cofidispay_ajax_order_status' ) );
-		add_action( 'wp_ajax_nopriv_wc_cofidispay_ifthenpay_order_status', array( $this, 'cofidispay_ajax_order_status' ) );
 		add_action( 'wp_ajax_wc_gateway_ifthenpay_order_status', array( $this, 'gatewayifthenpay_ajax_order_status' ) );
 		add_action( 'wp_ajax_nopriv_wc_gateway_ifthenpay_order_status', array( $this, 'gatewayifthenpay_ajax_order_status' ) );
 		// Request MB WAY payment again
@@ -474,11 +448,6 @@ final class WC_IfthenPay_Webdados {
 		$this->creditcard_icon         = plugins_url( 'images/creditcard_banner_and_icon.svg', __FILE__ );
 		$this->creditcard_icon_path    = plugin_dir_path( __FILE__ ) . 'images/creditcard_banner_and_icon.svg';
 
-		$this->cofidispay_banner_email = plugins_url( 'images/cofidispay_banner.png', __FILE__ );
-		$this->cofidispay_banner       = plugins_url( 'images/cofidispay_banner.svg', __FILE__ );
-		$this->cofidispay_icon         = plugins_url( 'images/cofidispay_icon.svg', __FILE__ );
-		$this->cofidispay_icon_path    = plugin_dir_path( __FILE__ ) . 'images/cofidispay_icon.svg';
-
 		$this->gateway_ifthen_banner_email = plugins_url( 'images/gateway_ifthen_banner.png', __FILE__ );
 		$this->gateway_ifthen_banner       = plugins_url( 'images/gateway_ifthen_banner.svg', __FILE__ );
 		$this->gateway_ifthen_icon         = plugins_url( 'images/gateway_ifthen_icon.svg', __FILE__ );
@@ -502,7 +471,6 @@ final class WC_IfthenPay_Webdados {
 		$settings_links          .= ' - <a href="admin.php?page=wc-settings&amp;tab=checkout&amp;section=' . $this->creditcard_id . '">' . esc_html__( 'Credit card', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</a>';
 		$settings_links          .= ' - <a href="admin.php?page=wc-settings&amp;tab=checkout&amp;section=' . $this->payshop_id . '">Payshop</a>';
 		$settings_links          .= ' - <a href="admin.php?page=wc-settings&amp;tab=checkout&amp;section=' . $this->gateway_ifthen_id . '">' . esc_html__( 'ifthenpay Gateway', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</a>';
-		$settings_links          .= ' - <a href="admin.php?page=wc-settings&amp;tab=checkout&amp;section=' . $this->cofidispay_id . '">Cofidis Pay</a>';
 		$action_links['settings'] = $settings_links;
 		$action_links['support']  = '<a href="https://wordpress.org/support/plugin/multibanco-ifthen-software-gateway-for-woocommerce/" target="_blank">' . esc_html__( 'Technical support', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</a>';
 
@@ -522,7 +490,6 @@ final class WC_IfthenPay_Webdados {
 			'WC_CreditCard_IfThen_Webdados',
 			'WC_Gateway_IfThen_Webdados',
 			'WC_Payshop_IfThen_Webdados',
-			'WC_CofidisPay_IfThen_Webdados',
 		);
 		// Avoid loading gateways more than once
 		foreach ( $our_gateways as $our_gateway ) {
@@ -568,14 +535,6 @@ final class WC_IfthenPay_Webdados {
 				'woocommerce_blocks_payment_method_type_registration',
 				function ( Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry ) {
 					$payment_method_registry->register( new \Automattic\WooCommerce\Blocks\Payments\Integrations\PayshopIfthenPay() );
-				}
-			);
-			// Cofidis Pay
-			require_once 'woocommerce-blocks/CofidisPayIfthenPay.php';
-			add_action(
-				'woocommerce_blocks_payment_method_type_registration',
-				function ( Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry ) {
-					$payment_method_registry->register( new \Automattic\WooCommerce\Blocks\Payments\Integrations\CofidisPayIfthenPay() );
 				}
 			);
 			// ifthenpay Gateway
@@ -932,35 +891,6 @@ final class WC_IfthenPay_Webdados {
 		if ( ! empty( $creditcardkey ) && ! empty( $id ) && ! empty( $request_id ) && ! empty( $val ) ) {
 			return array(
 				'creditcardkey' => $creditcardkey,
-				'request_id'    => $request_id,
-				'id'            => $id,
-				'val'           => $val,
-				'time'          => $time,
-				'payment_url'   => $payment_url,
-				'wd_secret'     => $wd_secret,
-			);
-		}
-		return false;
-	}
-
-	/**
-	 * Get Cofidis Pay order details
-	 *
-	 * @param integer $order_id The order ID.
-	 * @return array or false
-	 */
-	public function get_cofidispay_order_details( $order_id ) {
-		$order         = wc_get_order( $order_id );
-		$cofidispaykey = $order->get_meta( '_' . $this->cofidispay_id . '_cofidispaykey' );
-		$id            = $order->get_meta( '_' . $this->cofidispay_id . '_id' );
-		$request_id    = $order->get_meta( '_' . $this->cofidispay_id . '_request_id' );
-		$val           = $order->get_meta( '_' . $this->cofidispay_id . '_val' );
-		$time          = $order->get_meta( '_' . $this->cofidispay_id . '_time' );
-		$payment_url   = $order->get_meta( '_' . $this->cofidispay_id . '_payment_url' );
-		$wd_secret     = $order->get_meta( '_' . $this->cofidispay_id . '_wd_secret' );
-		if ( ! empty( $cofidispaykey ) && ! empty( $id ) && ! empty( $request_id ) && ! empty( $val ) ) {
-			return array(
-				'cofidispaykey' => $cofidispaykey,
 				'request_id'    => $request_id,
 				'id'            => $id,
 				'val'           => $val,
@@ -1387,65 +1317,6 @@ final class WC_IfthenPay_Webdados {
 					$this->multibanco_order_metabox_html_data_missing( 'Credit card' );
 				}
 				break;
-			// Cofidis Pay
-			case $this->cofidispay_id:
-				$order_mb_details = $this->get_cofidispay_order_details( $order->get_id() );
-				if ( ! empty( $order_mb_details ) ) {
-					echo '<p><img src="' . esc_url( $this->cofidispay_banner ) . '" style="display: block; margin: auto; max-width: auto; max-height: 24px;" alt="Cofidis Pay" title="Cofidis Pay"/></p>';
-					echo '<p>' . esc_html__( 'Cofidis Pay Key', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( trim( $order_mb_details['cofidispaykey'] ) ) . '<br/>';
-					echo esc_html__( 'Request ID', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( trim( $order_mb_details['request_id'] ) ) . '<br/>';
-					echo esc_html__( 'Value', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . wc_price( $order_mb_details['val'], array( 'currency' => $order->get_currency() ) ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					if ( $this->order_needs_payment( $order ) ) {
-						$show_debug = true;
-						if ( $this->wc_deposits_active && $order->get_status() === 'partially-paid' ) {
-							echo '<p><strong>' . esc_html__( 'Partially paid.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							if ( $order->get_meta( '_wc_deposits_second_payment_paid' ) !== 'yes' && number_format( (float) $order->get_meta( '_wc_deposits_second_payment' ), 2, '.', '' ) === number_format( (float) $order_mb_details['val'], 2, '.', '' ) ) {
-								echo '<p><strong>' . esc_html__( 'Awaiting second Cofidis Pay payment.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-							} else {
-								$show_debug = false;
-							}
-						} else {
-							echo '<p><strong>' . esc_html__( 'Awaiting Cofidis Pay approval.', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . '</strong></p>';
-						}
-						if ( $show_debug && WP_DEBUG ) {
-							$callback_url = $this->cofidispay_notify_url;
-							$callback_url = str_replace( '[ANTI_PHISHING_KEY]', $this->cofidispay_settings['secret_key'], $callback_url );
-							$callback_url = str_replace( '[ORDER_ID]', trim( $order_mb_details['id'] ), $callback_url );
-							$callback_url = str_replace( '[AMOUNT]', $order_mb_details['val'], $callback_url );
-							$callback_url = str_replace( '[REQUEST_ID]', $order_mb_details['request_id'], $callback_url );
-							?>
-							<hr/>
-							<p>
-								<?php esc_html_e( 'Callback URL', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>:<br/>
-								<textarea readonly type="text" class="input-text" cols="20" rows="5" style="width: 100%; height: 50%; font-size: 10px;"><?php echo esc_html( $callback_url ); ?></textarea>
-							</p>
-							<script type="text/javascript">
-							jQuery( document ).ready( function() {
-								jQuery( '#multibanco_ifthen_for_woocommerce_simulate_callback' ).on( 'click', function() {
-									if ( confirm( '<?php esc_html_e( 'This is a testing tool and will set the order as paid. Are you sure you want to proceed?', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' ) ) {
-										jQuery.get( '<?php echo $callback_url; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>', '', function( response ) {
-											alert( '<?php esc_html_e( 'This page will now reload. If the order is not set as paid and processing (or completed, if it only contains virtual and downloadable products) please check the debug logs.', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
-											window.location.reload();
-										}).fail( function() {
-											alert( '<?php esc_html_e( 'Error: Could not set the order as paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>' );
-										});
-									}
-								});
-							});
-							</script>
-							<p style="text-align: center;">
-								<input type="button" class="button" id="multibanco_ifthen_for_woocommerce_simulate_callback" value="<?php echo esc_attr( __( 'Simulate callback payment', 'multibanco-ifthen-software-gateway-for-woocommerce' ) ); ?>"/>
-							</p>
-							<?php
-						}
-					} elseif ( $date_paid ) {
-						// PAID?
-						echo '<p><strong>' . esc_html__( 'Paid', 'multibanco-ifthen-software-gateway-for-woocommerce' ) . ': ' . esc_html( $date_paid ) . '</strong></p>';
-					}
-				} else {
-					$this->multibanco_order_metabox_html_data_missing( 'Cofidis Pay' );
-				}
-				break;
 			// ifthenpay Gateway
 			case $this->gateway_ifthen_id:
 				$order_mb_details = $this->get_gatewayifthenpay_order_details( $order->get_id() );
@@ -1568,14 +1439,6 @@ final class WC_IfthenPay_Webdados {
 				if ( ! empty( $order_mb_details ) ) {
 					foreach ( $order_mb_details as $key => $value ) {
 						$order->delete_meta_data( '_' . $this->creditcard_id . '_' . $key );
-						$deleted = true;
-					}
-				}
-				// If we have Cofidis Pay data, we should delete it
-				$order_mb_details = $this->get_cofidispay_order_details( $order->get_id() );
-				if ( ! empty( $order_mb_details ) ) {
-					foreach ( $order_mb_details as $key => $value ) {
-						$order->delete_meta_data( '_' . $this->cofidispay_id . '_' . $key );
 						$deleted = true;
 					}
 				}
@@ -1794,24 +1657,6 @@ final class WC_IfthenPay_Webdados {
 		$order->update_meta_data( '_' . $this->creditcard_id . '_payment_url', $order_creditcard_details['payment_url'] );
 		$order->update_meta_data( '_' . $this->creditcard_id . '_wd_secret', $order_creditcard_details['wd_secret'] );
 		$order->update_meta_data( '_' . $this->creditcard_id . '_time', date_i18n( 'Y-m-d H:i:s' ) );
-		$order->save();
-	}
-
-	/**
-	 * Set new order Cofidis Pay details on meta
-	 *
-	 * @param integer $order_id                 The order ID.
-	 * @param array   $order_cofidispay_details The Multibanco details.
-	 */
-	public function set_order_cofidispay_details( $order_id, $order_cofidispay_details ) {
-		$order = wc_get_order( $order_id );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_cofidispaykey', $order_cofidispay_details['cofidispaykey'] );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_request_id', $order_cofidispay_details['request_id'] );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_id', $order_cofidispay_details['id'] );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_val', $order_cofidispay_details['val'] );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_payment_url', $order_cofidispay_details['payment_url'] );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_wd_secret', $order_cofidispay_details['wd_secret'] );
-		$order->update_meta_data( '_' . $this->cofidispay_id . '_time', date_i18n( 'Y-m-d H:i:s' ) );
 		$order->save();
 	}
 
@@ -2735,9 +2580,6 @@ final class WC_IfthenPay_Webdados {
 					case '_' . $this->creditcard_id . '_id':
 					case '_' . $this->creditcard_id . '_request_id':
 					case '_' . $this->creditcard_id . '_wd_secret':
-					case '_' . $this->cofidispay_id . '_id':
-					case '_' . $this->cofidispay_id . '_request_id':
-					case '_' . $this->cofidispay_id . '_wd_secret':
 					case '_' . $this->gateway_ifthen_id . '_id':
 					case '_' . $this->gateway_ifthen_id . '_request_id':
 					case '_' . $this->gateway_ifthen_id . '_wd_secret':
@@ -2843,9 +2685,6 @@ final class WC_IfthenPay_Webdados {
 		if ( apply_filters( 'mbway_ifthen_cancel_unpaid_orders', false ) ) { // Doesn't make sense, but the developer could set it to on-hold...
 			$methods[] = $this->mbway_id;
 		}
-		if ( apply_filters( 'cofidispay_ifthen_cancel_unpaid_orders', false ) ) { // Doesn't make sense, but the developer could set it to on-hold - although we have no filter for it...
-			$methods[] = $this->cofidispay_id;
-		}
 		if ( count( $methods ) > 0 ) {
 			$held_duration = get_option( 'woocommerce_hold_stock_minutes' );
 			if ( $held_duration < 1 || 'yes' !== get_option( 'woocommerce_manage_stock' ) ) {
@@ -2880,10 +2719,6 @@ final class WC_IfthenPay_Webdados {
 								case $this->mbway_id:
 									$filter_stock = 'mbway_ifthen_cancel_unpaid_orders_restore_stock';
 									$action       = 'mbway_ifthen_unpaid_order_cancelled';
-									break;
-								case $this->cofidispay_id:
-									$filter_stock = 'cofidispay_ifthen_cancel_unpaid_orders_restore_stock';
-									$action       = 'cofidispay_ifthen_unpaid_order_cancelled';
 									break;
 							}
 							if ( apply_filters( $filter_stock, false, $unpaid_order->get_id() ) && $unpaid_order->get_data_store()->get_stock_reduced( $unpaid_order->get_id() ) ) {
@@ -3051,8 +2886,6 @@ final class WC_IfthenPay_Webdados {
 			'_' . $this->payshop_id,
 			// Credit card
 			'_' . $this->creditcard_id,
-			// Cofidis Pay
-			'_' . $this->cofidispay_id,
 			// ifthenpay Gateway
 			'_' . $this->gateway_ifthen_id,
 		);
@@ -3283,7 +3116,7 @@ final class WC_IfthenPay_Webdados {
 					$premium_plugins = array(
 						array(
 							'url'         => 'https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/',
-							'title'       => esc_html__( 'Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, Cofidis Pay, and PIX (ifthenpay) for WooCommerce - PRO add-on', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
+							'title'       => esc_html__( 'Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, and PIX (ifthenpay) for WooCommerce - PRO add-on', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
 							'short_title' => esc_html__( 'PRO add-on', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
 							'image'       => 'addonpro.gif',
 						),
@@ -3371,7 +3204,7 @@ final class WC_IfthenPay_Webdados {
 				<h4><?php esc_html_e( 'Want more features?', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>:</h4>
 				<p>
 					<a href="https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/<?php echo esc_attr( $this->out_link_utm ); ?>" target="_blank" style="font-weight: bold;">
-						<?php esc_html_e( 'Get the PRO add-on of Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, Cofidis Pay, and PIX (ifthenpay) for WooCommerce', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>
+						<?php esc_html_e( 'Get the PRO add-on of Multibanco, MB WAY, Credit card, Apple Pay, Google Pay, Payshop, and PIX (ifthenpay) for WooCommerce', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>
 					</a>
 				</p>
 			</div>
@@ -3408,28 +3241,6 @@ final class WC_IfthenPay_Webdados {
 						'order_status' => '',
 						'expirde'      => '',
 					)
-				);
-			}
-		}
-		die();
-	}
-
-	/**
-	 * Cofidis Pay Ajax order status, for the thank you page
-	 */
-	public function cofidispay_ajax_order_status() {
-		$order_key = isset( $_POST['order_key'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['order_key'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( ! empty( $order_key ) ) {
-			$order_id      = wc_get_order_id_by_order_key( $order_key );
-			$post_order_id = isset( $_POST['order_id'] ) ? intval( $_POST['order_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			if ( intval( $order_id ) > 0 && $post_order_id === intval( $order_id ) ) {
-				$order = wc_get_order( intval( $order_id ) );
-				echo wp_json_encode(
-					array( 'order_status' => $order->get_status() )
-				);
-			} else {
-				echo wp_json_encode(
-					array( 'order_status' => '' )
 				);
 			}
 		}
@@ -3620,7 +3431,6 @@ final class WC_IfthenPay_Webdados {
 				$this->mbway_id,
 				$this->creditcard_id,
 				$this->payshop_id,
-				$this->cofidispay_id,
 				$this->gateway_ifthen_id,
 			),
 			true
@@ -3657,11 +3467,6 @@ final class WC_IfthenPay_Webdados {
 					break;
 				case $this->payshop_id:
 					if ( apply_filters( 'payshop_ifthen_hide_my_account_pay_button', false ) ) {
-						unset( $actions['pay'] );
-					}
-					break;
-				case $this->cofidispay_id:
-					if ( apply_filters( 'cofidispay_ifthen_hide_my_account_pay_button', false ) ) {
 						unset( $actions['pay'] );
 					}
 					break;
@@ -3988,7 +3793,6 @@ final class WC_IfthenPay_Webdados {
 		$this->mbway_notify_url          = apply_filters( 'mbway_ifthen_notify_url', $this->mbway_notify_url );
 		$this->payshop_notify_url        = apply_filters( 'payshop_ifthen_notify_url', $this->payshop_notify_url );
 		$this->creditcard_notify_url     = apply_filters( 'creditcard_ifthen_notify_url', apply_filters( 'credicard_ifthen_notify_url', $this->creditcard_notify_url ) );
-		$this->cofidispay_notify_url     = apply_filters( 'cofidispay_ifthen_notify_url', $this->cofidispay_notify_url );
 		$this->gateway_ifthen_notify_url = apply_filters( 'gateway_ifthen_notify_url', $this->gateway_ifthen_notify_url );
 	}
 

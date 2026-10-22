@@ -422,12 +422,6 @@ add_filter( 'mbway_ifthen_order_initial_status_pending', '__return_false' );
 
 
 /**
- * Cofidis Pay - Set orders as on-hold instead of pending
- */
-add_filter( 'cofidispay_ifthen_order_initial_status_pending', '__return_false' );
-
-
-/**
  * Credit card - Set orders as on-hold instead of pending
  */
 add_filter( 'creditcard_ifthen_order_initial_status_pending', '__return_false' );
