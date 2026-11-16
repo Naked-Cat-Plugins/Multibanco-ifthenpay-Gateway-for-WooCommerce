@@ -36,7 +36,7 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 * Shop owner can request an MB WAY payment again, or issue a new Multibanco reference, directly from the order edit screen once the original one has expired;
 * Automatically changes the order status to “Processing” (or “Completed” if the order only contains virtual downloadable products) and notifies both the customer and the store owner if the automatic “Callback” upon payment is activated;
 * Automatic “Callback” can be activated upon request to ifthenpay, via the plugin settings screen for each payment method;
-* Refunds for MB WAY and Credit or debit card - [read this](https://helpdesk.ifthenpay.com/pt-PT/support/solutions/articles/79000130517-devoluc%C3%B5es-de-pagamentos-aos-ordenantes);
+* Refunds for MB WAY, Credit or debit card, Apple Pay, Google Pay, and PIX - [read this](https://helpdesk.ifthenpay.com/pt-PT/support/solutions/articles/79000130517-devoluc%C3%B5es-de-pagamentos-aos-ordenantes);
 * Shop owner can set minimum and maximum order totals for each payment gateway to be available;
 * Ability to reduce stock when the order is created or paid;
 * Allows searching orders (in the admin area) by Multibanco or Payshop reference;
@@ -138,7 +138,7 @@ Then, place a test order in the frontend using any of the plugin’s payment met
 Go to the order edit screen and click the “Simulate callback payment” button.
 Don’t forget to set `WP_DEBUG` to `false` again, as it should not be active on a production website.
 
-= How to issue an MB WAY or Credit or debit card refund within WooCommerce? =
+= How to issue an MB WAY, Credit or debit card, Apple Pay, Google Pay, or PIX refund within WooCommerce? =
 
 Just like in any other WooCommerce payment gateway that supports refunds.
 Check out the instructions carefully [here (Automatic refunds, step 4)](https://woocommerce.com/document/woocommerce-refunds/) and [here (WooCommerce specific instructions)](https://helpdesk.ifthenpay.com/pt-PT/support/solutions/articles/79000130517-devoluc%C3%B5es-de-pagamentos-aos-ordenantes).
