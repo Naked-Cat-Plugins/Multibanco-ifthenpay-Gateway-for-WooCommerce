@@ -30,7 +30,7 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 * Generates a Multibanco Reference for simple payment on the Portuguese ATM network or home banking service;
 * Allows the customer to pay using MB WAY using their mobile phone;
 * Allows the customer to pay using their Credit or debit card, including Apple Pay and Google Pay;
-* Generates a Payshop Reference for simple payment on the [Payshop agents network](https://www.payshop.pt/fepsapl/app/open/showSearchAgent.jspx), CTT stores or post offices available all over Portugal;
+* Generates a Payshop Reference for simple payment on the Payshop agents network, CTT stores or post offices available all over Portugal;
 * Customers with Brazilian bank accounts can use PIX;
 * Multibanco references with expiration date if the “MB Key” configuration method is used;
 * Shop owner can request an MB WAY payment again, or issue a new Multibanco reference, directly from the order edit screen once the original one has expired;
@@ -50,7 +50,7 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 	* [WooCommerce - APG SMS Notifications](https://wordpress.org/plugins/woocommerce-apg-sms-notifications/);
 	* [Twilio SMS Notifications](https://woocommerce.com/products/twilio-sms-notifications/);
 	* [YITH WooCommerce SMS Notification](https://yithemes.com/themes/plugins/yith-woocommerce-sms-notifications/);
-	* [E-goi SMS Orders Alert/Notifications for WooCommerce](https://pt.wordpress.org/plugins/sms-orders-alertnotifications-for-woocommerce/) (integration implemented on their plugin)
+	* [E-goi SMS Orders Alert/Notifications for WooCommerce](https://pt.wordpress.org/plugins/sms-orders-alertnotifications-for-woocommerce/) (integration implemented on their plugin);
 	* Other providers can be added upon request (under quotation);
 
 = PRO add-on =
@@ -70,7 +70,7 @@ Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit
 * Set a payment entity for Multibanco, MB WAY, Credit card, and Payshop at the product category level, so that you can receive payment in different accounts based on the order products (replaces previously available specific extension);
 	* Simplified marketplace;
 	* Lock the cart so you can only have products from a single account in the same order;
-* Remove “ifthenpay Gateway” from the payment method title on the frontend for Apple Pay, Google Pay, and PIX
+* Remove “ifthenpay Gateway” from the payment method title on the frontend for Apple Pay, Google Pay, and PIX;
 * Remove payment instructions from specific emails, for example, “order completed”, to avoid customer confusion when they are no longer necessary;
 * Change the default timeout for calls to the ifthenpay APIs if your website is experiencing communication difficulties;
 * Hide notices of new available payment methods;
@@ -95,7 +95,7 @@ Already know our other WooCommerce (premium) plugins?
 * [Portuguese Postcodes for WooCommerce](https://nakedcatplugins.com/product/portuguese-postcodes-for-woocommerce-technical-support/) - Automatic filling of the address details at the checkout, including street name and neighbourhood, based on the postal code
 * [Invoicing with InvoiceXpress for WooCommerce](https://invoicewoo.com/) - Automatically issue invoices directly from the WooCommerce order
 * [DPD Portugal for WooCommerce](https://nakedcatplugins.com/product/dpd-portugal-for-woocommerce/) - Create shipping and return guide in the DPD API directly from the WooCommerce order
-* [Feed KuantoKusta for WooCommerce](https://nakedcatplugins.com/product/feed-kuantokusta-for-woocommerce-pro/) - Publish your products on Kuanto Kusta with this easy to use feed generator
+* [Feed KuantoKusta for WooCommerce](https://nakedcatplugins.com/product/feed-kuantokusta-for-woocommerce-pro/) - Publish your products on KuantoKusta with this easy to use feed generator
 * [Simple Checkout Fields Manager for WooCommerce](https://nakedcatplugins.com/product/simple-custom-fields-for-woocommerce-blocks-checkout/) - Add custom fields and manage (remove, make required or optional) core fields on the new WooCommerce Block-based Checkout
 * [Simple WooCommerce Order Approval](https://nakedcatplugins.com/product/simple-woocommerce-order-approval/) - The hassle-free solution for WooCommerce order approval before payment
 * [Shop as Client for WooCommerce](https://nakedcatplugins.com/product/shop-as-client-for-woocommerce-pro-add-on/) - Quickly create orders on behalf of your customers
@@ -146,7 +146,7 @@ Check out the instructions carefully [here (Automatic refunds, step 4)](https://
 = Can I use this plugin and the ifthenpay service on more than one website? =
 
 Yes, but not with the same payment method keys.
-Ask ifthenpay for different credentials for each website, and payment method, you need the service to be available.
+Ask ifthenpay for different credentials for each website and payment method where you need the service to be available.
 There are no extra costs, and you can even route payments to separate bank accounts.
 
 = Can I change the look and feel of the payment instructions on the “Thank you” page and/or the new order email, as well as the SMS message format? =
@@ -185,7 +185,7 @@ You will need the WPML and WPML String Translation Plugins (alongside WooCommerc
 
 = [WPML] How can I translate the payment method title and description the customer sees on the checkout page to secondary languages? =
 
-Go to WPML > String Translation > Search and translate all the strings in the `woocommerce` and `multibanco_ifthen_for_woocommerce` domains containing `ifthen_for_woocommerce` in their name.
+Go to WPML > String Translation > Search and translate all the strings in the `woocommerce`, `multibanco_ifthen_for_woocommerce`, `mbway_ifthen_for_woocommerce` and `payshop_ifthen_for_woocommerce` domains containing `ifthen_for_woocommerce` in their name.
 
 = [SMS] How to include the Multibanco and/or Payshop payment instructions in the SMS sent by “WooCommerce - APG SMS Notifications”? =
 
@@ -216,7 +216,7 @@ Be advised the Multibanco or Payshop reference will still be active and can be p
 
 = [Advanced] Can I prevent the plugin from adding the payment instructions and/or the payment received message to emails? =
 
-You can use the `multibanco_ifthen_email_instructions_pending_send` and/or `mbway_ifthen_email_instructions_pending_send` filter: return false and the payment instructions won’t be included in the “new order” email – we do not recommend you to do it, though.
+You can use the `multibanco_ifthen_email_instructions_pending_send` and/or `mbway_ifthen_email_instructions_pending_send` filter: return false and the payment instructions won’t be included in the “new order” email. We do not recommend doing it, though.
 You can use the `multibanco_ifthen_email_instructions_payment_received_send` and/or `mbway_ifthen_email_instructions_payment_received_send` filter: return false and the payment received message won’t be included in the “Processing” or “Completed” email.
 
 = ifthenpay says my callback URL is returning a 404 error. Is there a solution? =
@@ -242,8 +242,8 @@ Yes. This plugin is compatible with the Block-Based Checkout since August 2020.
 
 = I need technical support. Who should I contact, ifthenpay or Webdados? =
 
-Although this is the official ifthenpay WooCommerce plugin, development and support is provided by [Webdados](https://www.webdados.pt).
-For free/standard support you should use the [support forums here at WordPress.org](https://wordpress.org/support/plugin/multibanco-ifthen-software-gateway-for-woocommerce/)
+Although this is the official ifthenpay WooCommerce plugin, development and support are provided by [Webdados](https://www.webdados.pt).
+For free/standard support you should use the [support forums here at WordPress.org](https://wordpress.org/support/plugin/multibanco-ifthen-software-gateway-for-woocommerce/).
 For premium, urgent and experimental integrations support or custom developments you should contact [Webdados](https://www.webdados.pt/contactos/). Charges will apply.
 
 Any support related to failed payments or credit card authorizations should be directed to [ifthenpay](https://ifthenpay.com/#contactos).
