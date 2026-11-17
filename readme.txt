@@ -250,7 +250,7 @@ Any support related to failed payments or credit card authorizations should be d
 
 = Where do I report security vulnerabilities found in this plugin? =  
  
-You can report any security bugs found in the source code of this plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/multibanco-ifthen-software-gateway-for-woocommerce). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
+You can report any security bugs found in the source code of this plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/9e5fbb51-633e-45ac-bfb9-3f0aad5f8271). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
 
 = Can I contribute with a translation? =
 
