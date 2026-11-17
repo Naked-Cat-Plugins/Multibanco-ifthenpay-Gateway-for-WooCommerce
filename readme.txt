@@ -185,7 +185,7 @@ You will need the WPML and WPML String Translation Plugins (alongside WooCommerc
 
 = [WPML] How can I translate the payment method title and description the customer sees on the checkout page to secondary languages? =
 
-Go to WPML > String Translation > Search and translate all the strings in the `woocommerce`, `multibanco_ifthen_for_woocommerce`, `mbway_ifthen_for_woocommerce`, `creditcard_ifthen_for_woocommerce`, `payshop_ifthen_for_woocommerce` and `gateway_ifthen_for_woocommerce` domains containing `ifthen_for_woocommerce` in their name.
+Go to WPML > String Translation > Search and translate all the strings in the `woocommerce`, `multibanco_ifthen_for_woocommerce`, `mbway_ifthen_for_woocommerce`, `creditcard_ifthen_for_woocommerce`, `payshop_ifthen_for_woocommerce` and `gateway_ifthen_ifthen_for_woocommerce` domains containing `ifthen_for_woocommerce` in their name.
 
 = [SMS] How to include the Multibanco and/or Payshop payment instructions in the SMS sent by “WooCommerce - APG SMS Notifications”? =
 
