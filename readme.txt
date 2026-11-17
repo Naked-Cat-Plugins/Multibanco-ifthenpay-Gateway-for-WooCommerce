@@ -244,7 +244,7 @@ Yes. This plugin is compatible with the Block-Based Checkout since August 2020.
 
 Although this is the official ifthenpay WooCommerce plugin, development and support are provided by [Webdados](https://www.webdados.pt).
 For free/standard support you should use the [support forums here at WordPress.org](https://wordpress.org/support/plugin/multibanco-ifthen-software-gateway-for-woocommerce/).
-For premium, urgent and experimental integrations support or custom developments you should contact [Webdados](https://www.webdados.pt/contactos/). Charges will apply.
+For premium, urgent and experimental integrations support or custom developments you should contact [Naked Cat Plugins](https://nakedcatplugins.com/product/custom-development/). Charges will apply.
 
 Any support related to failed payments or credit card authorizations should be directed to [ifthenpay](https://ifthenpay.com/#contactos).
 
