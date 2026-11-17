@@ -106,11 +106,11 @@ Already know our other WooCommerce (premium) plugins?
 
 * Make sure you already have a contract with [ifthenpay](https://ifthenpay.com)
 * Use the included automatic install feature on your WordPress admin panel and search for “ifthenpay”.
-* Multibanco: Go to WooCommerce > Settings > Checkout > Pagamento de Serviços no Multibanco and fill in the data provided by ifthenpay: MB Key (or legacy Entity and Subentity).
-* MB WAY: Go to WooCommerce > Settings > Checkout > Pagamento MB WAY no telemóvel and fill in the data provided by ifthenpay: MB WAY Key.
-* Credit or debit card: Go to WooCommerce > Settings > Checkout > Credit or debit card and fill in the data provided by ifthenpay: Credit card Key.
-* Payshop: Go to WooCommerce > Settings > Checkout > Pagamento na rede de agentes Payshop and fill in the data provided by ifthenpay: Payshop Key.
-* Apple Pay, Google Pay, and PIX: Go to WooCommerce > Settings > Checkout > ifthenpay Gateway and fill in the data provided by ifthenpay: Backoffice Key, then choose the Gateway Key (request a new “Static gateway” if you don’t have one already), and finally, the Payment methods you want to activate.
+* Multibanco: Go to WooCommerce > Settings > Payments > Payment of Services at Multibanco (ifthenpay) and fill in the data provided by ifthenpay: MB Key (or legacy Entity and Subentity).
+* MB WAY: Go to WooCommerce > Settings > Payments > MB WAY mobile payment (ifthenpay) and fill in the data provided by ifthenpay: MB WAY Key.
+* Credit or debit card: Go to WooCommerce > Settings > Payments > Credit or debit card (ifthenpay) and fill in the data provided by ifthenpay: Credit card Key.
+* Payshop: Go to WooCommerce > Settings > Payments > Payment at the Payshop agent network (ifthenpay) and fill in the data provided by ifthenpay: Payshop Key.
+* Apple Pay, Google Pay, and PIX: Go to WooCommerce > Settings > Payments > ifthenpay Gateway and fill in the data provided by ifthenpay: Backoffice Key, then choose the Gateway Key (request a new “Static gateway” if you don’t have one already), and finally, the Payment methods you want to activate.
 * Make sure you ask ifthenpay to activate the “Callback” on their side with the URL and Anti-phishing key provided in the settings screen. There is a feature on each payment method screen that allows you to make this request via an API, except for payment methods via the “ifthenpay Gateway” (Apple Pay, Google Pay, and PIX), where the callback activation is automatically set.
 * Start receiving payments :-)
 
@@ -185,7 +185,7 @@ You will need the WPML and WPML String Translation Plugins (alongside WooCommerc
 
 = [WPML] How can I translate the payment method title and description the customer sees on the checkout page to secondary languages? =
 
-Go to WPML > String Translation > Search and translate all the strings in the `woocommerce`, `multibanco_ifthen_for_woocommerce`, `mbway_ifthen_for_woocommerce` and `payshop_ifthen_for_woocommerce` domains containing `ifthen_for_woocommerce` in their name.
+Go to WPML > String Translation > Search and translate all the strings in the `woocommerce`, `multibanco_ifthen_for_woocommerce`, `mbway_ifthen_for_woocommerce`, `creditcard_ifthen_for_woocommerce`, `payshop_ifthen_for_woocommerce` and `gateway_ifthen_for_woocommerce` domains containing `ifthen_for_woocommerce` in their name.
 
 = [SMS] How to include the Multibanco and/or Payshop payment instructions in the SMS sent by “WooCommerce - APG SMS Notifications”? =
 
