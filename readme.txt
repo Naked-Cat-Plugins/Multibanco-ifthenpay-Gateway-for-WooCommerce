@@ -58,8 +58,8 @@ This is the official [ifthenpay](https://ifthenpay.com) plugin, and a contract w
 Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit-card-payshop-ifthenpay-woocommerce-pro-add-on/) and unlock extra features:
 
 * For logged-in returning customers, automatically pre-select whichever of our payment methods they used on their last order at checkout, instead of the default gateway order;
-* Recover unpaid MB WAY orders (even if already automatically cancelled by WooCommerce) by converting them to Multibanco and notifying the customer via email;
-* Recover unpaid Credit card orders (even if already automatically cancelled by WooCommerce) by emailing the customer a new payment link;
+* Recover unpaid MB WAY orders (optionally, even if already automatically cancelled by WooCommerce) by converting them to Multibanco and notifying the customer via email;
+* Recover unpaid Credit card orders (optionally, even if already automatically cancelled by WooCommerce) by emailing the customer a new payment link;
 * Set MB WAY, Credit card, and ifthenpay Gateway orders as “On hold” instead of “Pending payment” right after checkout;
 * Automatic cancellation of orders when Multibanco, Payshop, or MB WAY references expire;
 * Countdown timer on the “Thank you” page for MB WAY payments;
@@ -71,8 +71,12 @@ Get the [PRO add-on](https://nakedcatplugins.com/product/multibanco-mbway-credit
 	* Simplified marketplace;
 	* Lock the cart so you can only have products from a single account in the same order;
 * Remove “ifthenpay Gateway” from the payment method title on the frontend for Apple Pay, Google Pay, and PIX;
+* Show an icon for each active ifthenpay Gateway payment method (Apple Pay, Google Pay, PIX) instead of the generic ifthenpay Gateway icon;
 * Remove payment instructions from specific emails, for example, “order completed”, to avoid customer confusion when they are no longer necessary;
 * Change the default timeout for calls to the ifthenpay APIs if your website is experiencing communication difficulties;
+* Send the order number instead of the order ID to the ifthenpay APIs and backoffice, for shops using a plugin that changes order numbers;
+* Disable the MB WAY and ifthenpay Gateway payment status verification on the “Thank you” page, if you have performance issues;
+* Force the callback re-activation for all payment methods, for example, after activating the PRO add-on;
 * Hide notices of new available payment methods;
 * Hide notices of pending callback activation requests;
 * Hide sidebar in payment method settings screen;
