@@ -4,7 +4,7 @@ Tags: ifthenpay, ecommerce, portugal, atm, homebanking
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 12.2.0
+Stable tag: 12.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -263,12 +263,13 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
-= TBA =
+= 12.2.1 - 2026-11-24 =
 * [FIX] Credit card and ifthenpay Gateway (Apple Pay, Google Pay and PIX): the emails sent to the customer about an unpaid order, like “Order on-hold” and “Order failed”, now have a link to pay the order
 * [FIX] MB WAY: the names of Curaçao and São Tomé and Príncipe were shown with codes instead of accented letters in the country code list on the block checkout
 * [FIX] ifthenpay Gateway: the “payment received” message had no payment method name on orders set as paid by the shop, and PHP warnings were logged
 * [FIX] WooCommerce Subscriptions: a deprecation notice was logged on every renewal and resubscribe order
 * [DEV] New `creditcard_ifthen_email_instructions_pending_send`, `gateway_ifthen_email_instructions_pending_send`, `creditcard_ifthen_email_instructions_table_html`, and `gateway_ifthen_email_instructions_table_html` filters
+* [DEV] Tested up to WordPress 7.2-RC1-65559 and WooCommerce 11.3.0
 
 = 12.2.0 - 2026-10-22 =
 * [TWEAK] The Cofidis Pay payment method has been removed, as it is no longer available
