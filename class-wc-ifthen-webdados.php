@@ -316,8 +316,12 @@ final class WC_IfthenPay_Webdados {
 		add_action( 'woocommerce_cancel_unpaid_orders', array( $this, 'multibanco_woocommerce_cancel_unpaid_orders' ), 99 );
 		add_filter( 'apg_sms_message', array( $this, 'multibanco_apg_sms_message' ), 10, 2 );
 		add_filter( 'apg_sms_message', array( $this, 'payshop_apg_sms_message' ), 10, 2 );
-		add_filter( 'wcs_renewal_order_meta', array( $this, 'multibanco_wcs_filter_meta' ), 10, 3 );
-		add_filter( 'wcs_resubscribe_order_meta', array( $this, 'multibanco_wcs_filter_meta' ), 10, 3 );
+		add_filter( 'wc_subscriptions_renewal_order_data', array( $this, 'multibanco_wcs_filter_data' ) );
+		add_filter( 'wc_subscriptions_resubscribe_order_data', array( $this, 'multibanco_wcs_filter_data' ) );
+		if ( ! class_exists( 'WC_Subscriptions_Data_Copier' ) ) { // WooCommerce Subscriptions below 4.7
+			add_filter( 'wcs_renewal_order_meta', array( $this, 'multibanco_wcs_filter_meta' ), 10, 3 );
+			add_filter( 'wcs_resubscribe_order_meta', array( $this, 'multibanco_wcs_filter_meta' ), 10, 3 );
+		}
 		add_filter( 'wcs_renewal_order_created', array( $this, 'multibanco_wcs_renewal_order_created' ), 11, 2 );
 		add_action( 'plugins_loaded', array( $this, 'wpml_ajax_fix_locale' ) );
 		add_action( 'woocommerce_new_customer_note', array( $this, 'woocommerce_new_customer_note_fix_wpml' ), 1 );
@@ -2870,33 +2874,47 @@ final class WC_IfthenPay_Webdados {
 	}
 
 	/**
-	 * WooCommece Subscriptions - Do not copy our fields for renewal and resubscribe orders
+	 * Check if a meta key is from one of our payment methods
 	 *
-	 * @param string   $meta_query The SQL query to fetch the meta data to be copied.
+	 * @param string $meta_key The meta key.
+	 * @return bool
+	 */
+	private function is_our_meta_key( $meta_key ) {
+		foreach ( array( $this->multibanco_id, $this->mbway_id, $this->payshop_id, $this->creditcard_id, $this->gateway_ifthen_id ) as $method_id ) {
+			if ( strpos( $meta_key, '_' . $method_id ) === 0 ) { // Check if it starts with our field names
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * WooCommerce Subscriptions - Do not copy our fields for renewal and resubscribe orders
+	 *
+	 * @param array $data The data to be copied, by meta key.
+	 * @return array
+	 */
+	public function multibanco_wcs_filter_data( $data ) {
+		foreach ( array_keys( $data ) as $meta_key ) {
+			if ( $this->is_our_meta_key( (string) $meta_key ) ) {
+				unset( $data[ $meta_key ] );
+			}
+		}
+		return $data;
+	}
+
+	/**
+	 * WooCommerce Subscriptions below 4.7 - Do not copy our fields for renewal and resubscribe orders
+	 *
+	 * @param array    $meta_query The meta data to be copied, rows of meta_key and meta_value.
 	 * @param WC_Order $to_order   The object to copy data to.
 	 * @param WC_Order $from_order The object to copy data from.
+	 * @return array
 	 */
 	public function multibanco_wcs_filter_meta( $meta_query, $to_order, $from_order ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		$mb_fields = array(
-			// Multibanco
-			'_' . $this->multibanco_id,
-			// MB WAY
-			'_' . $this->mbway_id,
-			// Payshop
-			'_' . $this->payshop_id,
-			// Credit card
-			'_' . $this->creditcard_id,
-			// ifthenpay Gateway
-			'_' . $this->gateway_ifthen_id,
-		);
 		foreach ( $meta_query as $key => $value ) {
-			if ( isset( $value['meta_key'] ) ) {
-				foreach ( $mb_fields as $field ) {
-					if ( strpos( $value['meta_key'], $field ) !== false && strpos( $value['meta_key'], $field ) === 0 ) { // Check if it starts with our field names
-						unset( $meta_query[ $key ] );
-						break;
-					}
-				}
+			if ( isset( $value['meta_key'] ) && $this->is_our_meta_key( $value['meta_key'] ) ) {
+				unset( $meta_query[ $key ] );
 			}
 		}
 		return $meta_query;

@@ -1,3 +1,4 @@
 {
-	"plugin": "multibanco-ifthen-software-gateway-for-woocommerce"
+	"plugin": "multibanco-ifthen-software-gateway-for-woocommerce",
+	"activate_if_installed": [ "woocommerce-subscriptions" ]
 }
