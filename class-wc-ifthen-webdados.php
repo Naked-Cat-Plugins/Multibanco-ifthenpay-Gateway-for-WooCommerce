@@ -3871,6 +3871,8 @@ final class WC_IfthenPay_Webdados {
 		foreach ( $wc_countries as $country_code => $country_name ) {
 			$calling_code = WC()->countries->get_country_calling_code( $country_code );
 			if ( ! empty( $calling_code ) ) {
+				// WooCommerce stores some names with HTML entities, which the block checkout shows as they are
+				$country_name                             = html_entity_decode( $country_name, ENT_QUOTES, 'UTF-8' );
 				$prefix                                   = $calling_code;
 				$countries_with_prefixes[ $country_code ] = array(
 					'name'    => $country_name,

@@ -262,6 +262,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
+= TBA =
+* [FIX] MB WAY: the names of Curaçao and São Tomé and Príncipe were shown with codes instead of accented letters in the country code list on the block checkout
+
 = 12.2.0 - 2026-10-22 =
 * [TWEAK] The Cofidis Pay payment method has been removed, as it is no longer available
 * [FIX] Refund confirmations sent by ifthenpay for ifthenpay Gateway payments (Apple Pay, Google Pay and others) were never recorded on the order and, on shops with many orders, made the server run out of memory and return errors until ifthenpay stopped retrying
