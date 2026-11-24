@@ -221,6 +221,7 @@ Be advised the Multibanco or Payshop reference will still be active and can be p
 = [Advanced] Can I prevent the plugin from adding the payment instructions and/or the payment received message to emails? =
 
 You can use the `multibanco_ifthen_email_instructions_pending_send` and/or `mbway_ifthen_email_instructions_pending_send` filter: return false and the payment instructions won’t be included in the “new order” email. We do not recommend doing it, though.
+For Credit card and the ifthenpay Gateway, use the `creditcard_ifthen_email_instructions_pending_send` and/or `gateway_ifthen_email_instructions_pending_send` filter: return false and the link to pay the order won’t be included in the emails of unpaid orders.
 You can use the `multibanco_ifthen_email_instructions_payment_received_send` and/or `mbway_ifthen_email_instructions_payment_received_send` filter: return false and the payment received message won’t be included in the “Processing” or “Completed” email.
 
 = ifthenpay says my callback URL is returning a 404 error. Is there a solution? =
@@ -263,7 +264,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 == Changelog ==
 
 = TBA =
+* [FIX] Credit card and ifthenpay Gateway (Apple Pay, Google Pay and PIX): the emails sent to the customer about an unpaid order, like “Order on-hold” and “Order failed”, now have a link to pay the order
 * [FIX] MB WAY: the names of Curaçao and São Tomé and Príncipe were shown with codes instead of accented letters in the country code list on the block checkout
+* [DEV] New `creditcard_ifthen_email_instructions_pending_send`, `gateway_ifthen_email_instructions_pending_send`, `creditcard_ifthen_email_instructions_table_html`, and `gateway_ifthen_email_instructions_table_html` filters
 
 = 12.2.0 - 2026-10-22 =
 * [TWEAK] The Cofidis Pay payment method has been removed, as it is no longer available

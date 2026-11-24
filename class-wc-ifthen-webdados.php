@@ -3542,6 +3542,65 @@ final class WC_IfthenPay_Webdados {
 	}
 
 	/**
+	 * Check if the payment link should be added to an email
+	 * Used by the methods paid on the ifthenpay website, which have no payment details to show
+	 *
+	 * @param WC_Order $order         The order.
+	 * @param bool     $sent_to_admin If it's sent to admin.
+	 * @param WC_Email $email         The email being sent.
+	 * @return bool
+	 */
+	public function email_needs_payment_link( $order, $sent_to_admin, $email = null ) {
+		// Only the customer pays and only orders accepted on the pay page, which is not the case of subscriptions
+		if ( $sent_to_admin || is_a( $order, 'WC_Subscription' ) || ! $order->needs_payment() ) {
+			return false;
+		}
+		// These emails already have a payment link - WooCommerce and WooCommerce Subscriptions
+		return ! ( is_object( $email ) && isset( $email->id ) && in_array( $email->id, array( 'customer_invoice', 'customer_renewal_invoice', 'customer_payment_retry' ), true ) );
+	}
+
+	/**
+	 * The payment link for emails
+	 *
+	 * @param WC_Order $order      The order.
+	 * @param string   $alt        The payment method title.
+	 * @param string   $banner     The payment method banner URL.
+	 * @param bool     $plain_text If it's plain text format.
+	 * @return string
+	 */
+	public function email_payment_link_html( $order, $alt, $banner, $plain_text = false ) {
+		$text = __( 'If you have not completed the payment yet, you can do it here:', 'multibanco-ifthen-software-gateway-for-woocommerce' );
+		$url  = $order->get_checkout_payment_url();
+		if ( $plain_text ) {
+			return "\n" . wp_strip_all_tags( $text ) . "\n" . esc_url_raw( $url ) . "\n\n";
+		}
+		ob_start();
+		?>
+		<table cellpadding="10" cellspacing="0" align="center" border="0" style="margin: auto; margin-top: 2em; margin-bottom: 2em; border-collapse: collapse; border: 1px solid #1465AA; border-radius: 4px !important; background-color: #FFFFFF;">
+			<tr>
+				<td style="border: 1px solid #1465AA; border-top-right-radius: 4px !important; border-top-left-radius: 4px !important; text-align: center; color: #000000; font-weight: bold;" colspan="2">
+					<?php esc_html_e( 'Payment instructions', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>
+					<br/>
+					<img src="<?php echo esc_url( $banner ); ?>" alt="<?php echo esc_attr( $alt ); ?>" title="<?php echo esc_attr( $alt ); ?>" style="margin-top: 10px; max-height: 48px"/>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top: 1px solid #1465AA; color: #000000;"><?php esc_html_e( 'Value', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?>:</td>
+				<td style="border-top: 1px solid #1465AA; color: #000000; white-space: nowrap; text-align: right;"><?php echo wp_kses_post( wc_price( $this->get_order_total_to_pay( $order ), array( 'currency' => $order->get_currency() ) ) ); ?></td>
+			</tr>
+			<tr>
+				<td style="border: 1px solid #1465AA; border-bottom-right-radius: 4px !important; border-bottom-left-radius: 4px !important; color: #000000; text-align: center;" colspan="2">
+					<?php echo esc_html( $text ); ?>
+					<br/>
+					<a href="<?php echo esc_url( $url ); ?>" style="font-weight: bold;"><?php esc_html_e( 'Pay for this order', 'multibanco-ifthen-software-gateway-for-woocommerce' ); ?></a>
+				</td>
+			</tr>
+		</table>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
 	 * Process MBWAY and CC refunds
 	 *
 	 * @since 7.0

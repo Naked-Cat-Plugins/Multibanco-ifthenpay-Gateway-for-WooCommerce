@@ -731,8 +731,8 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 						if ( WC_IfthenPay_Webdados()->order_needs_payment( $order ) ) {
 							if ( WC_IfthenPay_Webdados()->wc_deposits_active && $order->get_status() === 'partially-paid' ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
 								// WooCommerce deposits - No instructions
-							} else { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedElse
-								// We should not be here because there's no email for pending orders
+							} elseif ( apply_filters( 'creditcard_ifthen_email_instructions_pending_send', WC_IfthenPay_Webdados()->email_needs_payment_link( $order, $sent_to_admin, $email ), $order->get_id(), $email ) ) {
+								echo $this->email_instructions_table_html( $order, $plain_text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							}
 						} elseif ( $order->has_status( 'processing' ) || $order->has_status( 'completed' ) ) { // Processing
 							if ( apply_filters( 'creditcard_ifthen_email_instructions_payment_received_send', true, $order->get_id() ) ) {
@@ -742,6 +742,18 @@ if ( ! class_exists( 'WC_CreditCard_IfThen_Webdados' ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * The instructions table - Link to pay the order
+		 *
+		 * @param WC_Order $order      The order.
+		 * @param bool     $plain_text If it's plain text format.
+		 */
+		private function email_instructions_table_html( $order, $plain_text ) {
+			$alt  = ( WC_IfthenPay_Webdados()->wpml_active ? icl_t( $this->id, $this->id . '_title', $this->title ) : $this->title );
+			$html = WC_IfthenPay_Webdados()->email_payment_link_html( $order, $alt, WC_IfthenPay_Webdados()->creditcard_banner_email, $plain_text );
+			return apply_filters( 'creditcard_ifthen_email_instructions_table_html', $html, WC_IfthenPay_Webdados()->get_order_total_to_pay( $order ), $order->get_id(), $plain_text );
 		}
 
 		/**

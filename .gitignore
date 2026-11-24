@@ -11,3 +11,6 @@ specs/.auth/
 
 # Playwright - test output/artifacts
 test-results/
+
+# PHPUnit
+.phpunit.cache/

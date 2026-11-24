@@ -31,6 +31,9 @@ specs
 specs/*
 test-results
 test-results/*
+/tests
+/phpunit.xml.dist
+/.phpunit.cache
 
 # Local ZIP creation tool
 createzip.command

@@ -551,6 +551,34 @@ add_filter( 'mbway_ifthen_email_instructions_pending_send', 'my_mbway_ifthen_ema
 
 
 /**
+ * Credit card - Do not add the payment link to the emails of unpaid orders
+ *
+ * @param bool          $add_instructions If the payment link should be added.
+ * @param integer       $order_id         The order ID.
+ * @param WC_Email|null $email            The email being sent.
+ * @return bool
+ */
+function my_creditcard_ifthen_email_instructions_pending_send( $add_instructions, $order_id, $email ) {
+	return false;
+}
+add_filter( 'creditcard_ifthen_email_instructions_pending_send', 'my_creditcard_ifthen_email_instructions_pending_send', 10, 3 );
+
+
+/**
+ * ifthenpay Gateway - Do not add the payment link to the emails of unpaid orders
+ *
+ * @param bool          $add_instructions If the payment link should be added.
+ * @param integer       $order_id         The order ID.
+ * @param WC_Email|null $email            The email being sent.
+ * @return bool
+ */
+function my_gateway_ifthen_email_instructions_pending_send( $add_instructions, $order_id, $email ) {
+	return false;
+}
+add_filter( 'gateway_ifthen_email_instructions_pending_send', 'my_gateway_ifthen_email_instructions_pending_send', 10, 3 );
+
+
+/**
  * Multibanco - Do not add the payment received message on the processing email
  *
  * @param bool    $add_instructions If the stock should be restored.

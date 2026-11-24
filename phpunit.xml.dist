@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Run with the Naked Cat Plugins test library -->
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	failOnWarning="true"
+	failOnNotice="true"
+	cacheDirectory=".phpunit.cache"
+	>
+	<testsuites>
+		<testsuite name="multibanco-ifthen">
+			<directory suffix="Test.php">tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
