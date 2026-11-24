@@ -1008,11 +1008,13 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 				<strong>
 					<?php
 						$order_details = WC_IfthenPay_Webdados()->get_gatewayifthenpay_order_details( $order_id );
+						// Orders set as paid by the shop may not have payment details or the method used
+						$payment_method = $order_details && trim( $order_details['payment_method'] ) !== '' ? WC_IfthenPay_Webdados()->helper_format_method( $order_details['payment_method'] ) : 'Gateway';
 						echo esc_html(
 							sprintf(
 								/* translators: %s: payment method */
 								__( 'ifthenpay %s payment received.', 'multibanco-ifthen-software-gateway-for-woocommerce' ),
-								WC_IfthenPay_Webdados()->helper_format_method( $order_details['payment_method'] )
+								$payment_method
 							)
 						);
 					?>
@@ -1599,6 +1601,8 @@ if ( ! class_exists( 'WC_Gateway_IfThen_Webdados' ) ) {
 			if ( $order && $this->supports( 'refunds' ) ) {
 				$order_details = WC_IfthenPay_Webdados()->get_gatewayifthenpay_order_details( $order->get_id() );
 				if (
+					$order_details
+					&&
 					// Apple, Google and PIX (And eventually MBWAY and CCARD if the gateway_ifthen_unavailable_methods filter was used)
 					in_array( $order_details['payment_method'], array( 'APPLE', 'GOOGLE', 'PIX', 'MBWAY', 'CCARD' ), true )
 					&&

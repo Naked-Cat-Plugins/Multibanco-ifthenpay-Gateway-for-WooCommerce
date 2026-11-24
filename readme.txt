@@ -266,6 +266,7 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 = TBA =
 * [FIX] Credit card and ifthenpay Gateway (Apple Pay, Google Pay and PIX): the emails sent to the customer about an unpaid order, like “Order on-hold” and “Order failed”, now have a link to pay the order
 * [FIX] MB WAY: the names of Curaçao and São Tomé and Príncipe were shown with codes instead of accented letters in the country code list on the block checkout
+* [FIX] ifthenpay Gateway: the “payment received” message had no payment method name on orders set as paid by the shop, and PHP warnings were logged
 * [DEV] New `creditcard_ifthen_email_instructions_pending_send`, `gateway_ifthen_email_instructions_pending_send`, `creditcard_ifthen_email_instructions_table_html`, and `gateway_ifthen_email_instructions_table_html` filters
 
 = 12.2.0 - 2026-10-22 =
