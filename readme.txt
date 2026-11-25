@@ -263,6 +263,9 @@ Sure. Go to [GlotPress](https://translate.wordpress.org/projects/wp-plugins/mult
 
 == Changelog ==
 
+= TBA =
+* [FIX] The settings page opens by itself only when you activate the plugin alone in the WordPress admin. Activating it with WP-CLI no longer cancels the next WP-CLI plugin command
+
 = 12.2.1 - 2026-11-24 =
 * [FIX] Credit card and ifthenpay Gateway (Apple Pay, Google Pay and PIX): the emails sent to the customer about an unpaid order, like “Order on-hold” and “Order failed”, now have a link to pay the order
 * [FIX] MB WAY: the names of Curaçao and São Tomé and Príncipe were shown with codes instead of accented letters in the country code list on the block checkout
